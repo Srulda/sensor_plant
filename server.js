@@ -4,6 +4,8 @@ const bodyParser = require('body-parser')
 const path = require('path')
 const api = require('./server/routes/api')
 const mongoose = require('mongoose')
+const Plants = require('./server/model/Plants')
+
 
 mongoose.connect(process.env.MONGODB_URI||'mongodb://localhost/sensor_plant',{ useNewUrlParser: true, useFindAndModify: false })
 
@@ -26,6 +28,19 @@ app.use('/', api)
 // app.get('*', function (req, res) {
 //     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 // })
+
+
+
+
+//data insert
+let data = require('./data.json')
+
+for(let d of data){
+    let t1 = new Plants(d)
+    console.log(d)
+    t1.save()
+}
+
 
 const PORT = 2805
 app.listen(process.env.PORT || PORT, function () {
