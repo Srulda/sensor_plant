@@ -5,6 +5,7 @@ const path = require('path')
 const api = require('./server/routes/api')
 const mongoose = require('mongoose')
 const Plants = require('./server/model/Plants')
+const MyPlants = require('./server/model/MyPlants')
 
 
 mongoose.connect(process.env.MONGODB_URI||'mongodb://localhost/sensor_plant',{ useNewUrlParser: true, useFindAndModify: false })
@@ -40,6 +41,21 @@ app.use('/', api)
 //     console.log(d)
 //     t1.save()
 // }
+
+
+function myFunction() {
+    setInterval(
+        function(){ 
+            let t1 = new MyPlants({c: (Math.random() * 20 ),h:  (Math.random() * 16),}
+            )
+                 t1.save()
+                 console.log(t1)
+        }, 3000);
+  }
+
+  myFunction()
+
+
 
 
 const PORT = 2805
