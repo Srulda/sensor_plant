@@ -11,6 +11,7 @@ router.get('/plants', function(req,res){
 
 router.get('/myPlants', function(req,res){
     MyPlants.find({}, function(err, result){
+        console.log(result)
         res.send(result)
     })
 })
