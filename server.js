@@ -36,28 +36,32 @@ app.use("/", api);
 // })
 
 //data insert
-let data = require('./data.json')
+// let data = require('./data.json')
 
-for(let d of data){
-    let t1 = new Plants(d)
-    console.log(d)
-    t1.save()
-}
-
-
+// for(let d of data){
+//     let t1 = new Plants(d)
+//     console.log(d)
+//     t1.save()
+// }
 
 
+// function myFunction() {
+//     setInterval(
+//         function(){ 
+//             let t1 = new MyPlants({c: (Math.random() * 20 ),h:  (Math.random() * 16),m : (Math.random() * 50 )}
+//             )
+//                  t1.save()
+//                  console.log(t1)
+//         }, 3000);
+//   }
+
+//   myFunction()
 
 
-function myFunction() {
-  setInterval(function() {
-    let t1 = new MyPlants({ c: Math.random() * 20, h: Math.random() * 16 });
-    t1.save();
-    console.log(t1);
-  }, 3000);
-}
 
-myFunction();
+
+
+
 
 const PORT = 2805;
 app.listen(process.env.PORT || PORT, function() {
