@@ -30,7 +30,8 @@ class TempOverTime extends Component {
     }
     makeTempChart = () =>{
         
-        let tempData =this.props.itemStore.plants.map(d=> ({parameter: d[this.makeParameter()], time: d.timestamp.split("T")[1]}))
+        let tempData =this.props.itemStore.plants.map(d=> ({parameter: d[this.makeParameter()],
+             time: d.timestamp.split("T")[1]}))
         return tempData
     }
 
@@ -50,8 +51,8 @@ class TempOverTime extends Component {
                     
                 </select>
 <LineChart
-     width={500}
-     height={300}
+     width={300}
+     height={150}
      data={this.makeTempChart()}
               margin={{
        top: 5, right: 30, left: 20, bottom: 5,

@@ -24,10 +24,15 @@ router.get('/myPlants', function(req,res){
 
 router.get('/myPlantsBasil', function (req, res) {
     request(`http://192.168.170.58`, function (err, response) {
-        // let data = JSON.parse(response.body) 
-        let data = (response.body)   
+        let data = (response.body) 
+        let dataObj = {}  
         // res.sendFile(data)
-        console.log(data)
+        dataObj.c = (Number(data.split("<p>")[1].split("</p>")[0]))
+        dataObj.h = (Number(data.split("<p>")[2].split("</p>")[0]))
+        dataObj.m = (Number(data.split("<p>")[3].split("</p>")[0]))
+        let c= new MyPlants(dataObj)
+        c.save()
+    res.send(dataObj)
 })
 })
 
