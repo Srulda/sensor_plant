@@ -8,10 +8,17 @@ login = () => console.log("logged in")
     render() {
         return (
             <div>
-                <Link to="/plants" id="plants">Plants</Link>
-                <Link to="/plant" id="plant">Plant</Link>
-                <Link to="/information" id="information">Information</Link>
-                <div id = "login" onClick = {this.login}>Log-in</div>
+               <div className="navbar">
+        <Link to="/">
+          <span>Home</span>
+        </Link>
+        <Link to="/plants">
+          <span>My Plants</span>
+        </Link>
+        <Link to="/analytics">
+          <span>Analytics</span>
+        </Link>
+      </div>
             </div>
         );
     }
