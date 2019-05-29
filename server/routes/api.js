@@ -30,6 +30,7 @@ router.get('/myPlantsBasil', function (req, res) {
         console.log(data)
         dataObj.temp = (Number(data.split("<p>")[1].split("</p>")[0]))
         dataObj.humid = (Number(data.split("<p>")[2].split("</p>")[0]))
+        dataObj.soil_moisture = (Number(data.split("<p>")[3].split("</p>")[0]))
         console.log(dataObj)
     res.send(dataObj)
 })
