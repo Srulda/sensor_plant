@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-class Home extends Component {
 
-
+class Analytics extends Component {
     render() {
         return (
             <div>
-            This is the home page
+                here we have some Analytics
             </div>
         );
     }
 }
 
-export default Home;
-
+export default Analytics;

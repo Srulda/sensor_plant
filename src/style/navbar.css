@@ -1,6 +1,10 @@
 .navbar {
   height: 5vh;
-  background-color: #45832d;
+  background-color: #71c550;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  align-items: center;
+  justify-items: center;
 }
 
 .navbar span {

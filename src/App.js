@@ -6,8 +6,10 @@ import "./style/App.css";
 import Plants from "./components/Plants";
 import Home from "./components/Home";
 import Navbar from "./components/Layout/navbar";
+import Home from "./components/Home";
 import Backgrund from "./components/Layout/Background";
 import PersonalDash from "./components/PersonalDash";
+
 @observer
 class App extends Component {
   render() {
@@ -16,11 +18,11 @@ class App extends Component {
         <DevTools />
 
         <Router>
-          <Route path="/" component={Navbar} />
-          <Route path="/" component={Backgrund} />
-          <Route exact path="/dashboard" component={PersonalDash}/>
-          <Route exact path="/Home" component={Home} />
-          <Route exact path="/Plants" component={Plants} />
+        < Navbar />
+          <Route exact path="/" component={Home} />
+          <Route exact path="/plants" component={Plants} />
+          <Route exact path="/dashboard" component={PersonalDash} />
+
         </Router>
       </div>
     );

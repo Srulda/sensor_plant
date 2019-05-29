@@ -5,7 +5,8 @@ import "../../style/navbar.css";
 class Navbar extends Component {
   render() {
     return (
-      <div className="navbar">
+      <div>
+         <div className="navbar">
         <Link to="/">
           <span>Home</span>
         </Link>
@@ -16,6 +17,7 @@ class Navbar extends Component {
           <span>Analytics</span>
         </Link>
         
+      </div>
       </div>
     );
   }
