@@ -1,0 +1,23 @@
+.home {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  background-image: url("../assets/scott-webb-214087-unsplash.jpg");
+  background-size: cover;
+  background-position: center;
+  background: cover;
+  background-repeat: no-repeat;
+  background-blend-mode: screen;
+  opacity: 0.25;
+  height: 90vh;
+  z-index: -995;
+}
+
+.search {
+  grid-column: 1 / span 2;
+  opacity: initial;
+  z-index: 1;
+}
