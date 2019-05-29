@@ -4,10 +4,13 @@ import TempOverTime from './TempOverTime';
 import CurrentPlantData from './CurrentPlantData';
 import ComparisonData from './ComparisonData'
 
-@inject("itemStore")
+@inject("itemStore", "plantsStore")
 @observer
 class PersonalDash extends Component {
-   
+  componentDidMount = async () =>{
+    await this.props.plantsStore.getDataFromDB()
+    await this.props.itemStore.getDataFromDB()
+ }
         
 
 

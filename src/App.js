@@ -8,8 +8,16 @@ import Home from "./components/Home";
 import Navbar from "./components/Layout/navbar";
 import PersonalDash from "./components/PersonalDash";
 
+@inject("itemStore", "plantsStore")
+
 @observer
 class App extends Component {
+  
+  componentDidMount = async () =>{
+    await this.props.plantsStore.getDataFromDB()
+    await this.props.itemStore.getDataFromDB()
+ }
+
   render() {
     return (
       <div className="App">
