@@ -4,10 +4,11 @@ import { observer, inject } from "mobx-react";
 import DevTools from "mobx-react-devtools";
 import "./style/App.css";
 import Plants from "./components/Plants";
-import Plant from "./components/Plant";
+import Home from "./components/Home";
 import Navbar from "./components/Layout/navbar";
 import Home from "./components/Home";
-import Analytics from "./components/Analytics";
+import Backgrund from "./components/Layout/Background";
+import PersonalDash from "./components/PersonalDash";
 
 @observer
 class App extends Component {
@@ -15,12 +16,13 @@ class App extends Component {
     return (
       <div className="App">
         <DevTools />
+
         <Router>
         < Navbar />
           <Route exact path="/" component={Home} />
           <Route exact path="/plants" component={Plants} />
-          <Route exact path="/analytics" component={Analytics} />
-          <Route exact path="/plant" component={Plant} />
+          <Route exact path="/dashboard" component={PersonalDash} />
+
         </Router>
       </div>
     );

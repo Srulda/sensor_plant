@@ -1,8 +1,10 @@
-import { observable, action } from  'mobx'
+import { observable, action } from "mobx";
 
 export class GeneralStore {
-    @observable name
-    @action handleInput = (name, value) => {
-        this[name] = value
-    } 
+  @observable name;
+  @observable loading = true;
+
+  @action handleInput = (name, value) => {
+    this[name] = value;
+  };
 }

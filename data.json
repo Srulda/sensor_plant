@@ -1,9 +1,8 @@
 [
   {
-    "_id": "1",
     "name": "Basil",
-    "temperature_min": 75,
-    "temperature_max": 85,
+    "temperature_min": 23.8,
+    "temperature_max": 29.5,
     "temp_For_growth": "Hot",
     "pH": "5.5-7.0",
     "water": "below average",
@@ -14,10 +13,9 @@
     "harvest": "Pick continuously before flower buds open, up to 6 inch below the flower buds or ends to encourage continuous growth. Cut in the morning after the dew has dried. Do not wash the leaves or aromatic oils will be lost"
   },
   {
-    "_id": "2",
     "name": "Mint",
-    "temperature_min": 60,
-    "temperature_max": 80,
+    "temperature_min": 15.5,
+    "temperature_max": 26.7,
     "temp_For_growth": "cool",
     "pH": "5.6-7.5",
     "water": "above average",
@@ -28,10 +26,9 @@
     "harvest": "Basically cut the leaves when needed. A pair of scissors or nipping with fingers both work well. It pays to cut the top leaves first, to encourage the plant to shoot out again further down the stem. Never strip the plant of all it's leaves. Just prior to flowering, cut stems 1 inch above the soil. you can harvest mint 2-3 times in one growing season."
   },
   {
-    "_id": "3",
     "name": "Oregano",
-    "temperature_min": 60,
-    "temperature_max": 70,
+    "temperature_min": 15.5,
+    "temperature_max": 21.1,
     "temp_For_growth": "cool",
     "pH": "6-8",
     "water": "below average",
@@ -42,10 +39,9 @@
     "harvest": "The leaves can be cut once the plant reaches a total height of about 6 inch. Cut the stems down to a few inches above the soil. To prolong the harvest, cut the flower buds off as they appear."
   },
   {
-    "_id": "4",
     "name": "Garlic",
-    "temperature_min": 60,
-    "temperature_max": 80,
+    "temperature_min": 15.5,
+    "temperature_max": 26.7,
     "temp_For_growth": "cool",
     "pH": "4.5-8.3",
     "water": "above average",
@@ -56,9 +52,8 @@
     "harvest": "Green garlic shoots, a gourmet treat in many locales, can be cut from the bulbs going to flower and used like scallions. Garlic bulbs are ready to harvest when the tops turn brown and die back. Do not knock the tops down to hasten the harvest; some research indicates this practice will shorten storage life. Withhold water and in a few days, carefully dig to lift the plants up. Be careful not to bruise the bulbs so they won't get moldy or attract insects in storage."
   },
   {
-    "_id": "5",
     "name": "Sage  ",
-    "temperature_min": 60,
+    "temperature_min": 15.5,
     "temperature_max": 70,
     "temp_For_growth": "warm",
     "pH": "4.2-8.3",
