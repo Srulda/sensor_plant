@@ -4,7 +4,7 @@ import { observer, inject } from "mobx-react";
 @observer
 class Plants extends Component {
   render() {
-    let data = this.props.plantsStore.getDataFromDB().then(() => {
+    let data = this.props.plantsStore.getDataFromDB().then(data => {
       console.log(data);
     });
 
