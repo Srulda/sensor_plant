@@ -7,5 +7,5 @@ let myPlantsSchema = new Schema({
 })
 
 
-const MyPlants = mongoose.model("MyPlant", myPlantsSchema)
+const MyPlants = mongoose.model("MyPlants", myPlantsSchema)
 module.exports = MyPlants

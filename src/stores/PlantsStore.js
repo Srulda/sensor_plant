@@ -6,7 +6,7 @@ export class PlantsStore {
 
   getDataFromDB = async () => {
     let data = await Axios.get(`http://localhost:2805/plants`);
-    return data;
+    return data.data;
   };
 
   // @action addPlant = plantName => {
