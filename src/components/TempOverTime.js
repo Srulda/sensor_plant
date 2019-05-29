@@ -30,7 +30,8 @@ class TempOverTime extends Component {
     }
     makeTempChart = () =>{
         
-        let tempData =this.props.itemStore.plants.map(d=> ({parameter: d[this.makeParameter()], time: d.timestamp.split("T")[1]}))
+        let tempData =this.props.itemStore.plants.map(d=> ({parameter: d[this.makeParameter()],
+             time: d.timestamp.split("T")[1]}))
         return tempData
     }
 

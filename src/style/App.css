@@ -23,3 +23,20 @@ body{
 .temp-is-fine{
   color:#8ad7b5;
 }
+
+.humid-high{
+  color:rgb(223, 94, 94);
+}
+
+.humid-low{
+  color:rgb(130, 130, 240);
+}
+
+.moist-high{
+  color:rgb(223, 94, 94);
+}
+
+.moist-low{
+  color:rgb(130, 130, 240);
+
+}

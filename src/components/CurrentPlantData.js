@@ -37,13 +37,13 @@ class CurrentPlantData extends Component {
               <div>{Math.round(this.makeCurrentTemp())}&deg;</div>
               </div>
 
-              <div>
+              <div className={this.makeCurrentTemp() > this.props.plantsStore.getBasilMaxHumid? "humid-high": "humid-low"}>
               <i class="fas fa-water"></i>
               <div>HUMIDITY</div>
                 <div>{Math.round(this.makeCurrentHumadity())}%</div>
               </div>
 
-            <div>
+            <div className={this.makeCurrentTemp() > this.props.plantsStore.getBasilMaxMoist? "moist-high": "moist-low"}>
             <i class="fas fa-leaf"></i>
               <div>MOIST</div>      
                 <div>{Math.round(this.makeCurrentMoist())}%</div>

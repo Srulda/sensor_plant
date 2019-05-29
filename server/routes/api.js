@@ -24,10 +24,14 @@ router.get('/myPlants', function(req,res){
 
 router.get('/myPlantsBasil', function (req, res) {
     request(`http://192.168.170.58`, function (err, response) {
-        // let data = JSON.parse(response.body) 
-        let data = (response.body)   
+        let data = (response.body) 
+        let dataObj = {}  
         // res.sendFile(data)
         console.log(data)
+        dataObj.temp = (Number(data.split("<p>")[1].split("</p>")[0]))
+        dataObj.humid = (Number(data.split("<p>")[2].split("</p>")[0]))
+        console.log(dataObj)
+    res.send(dataObj)
 })
 })
 

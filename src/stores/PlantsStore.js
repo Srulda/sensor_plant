@@ -4,7 +4,7 @@ import Axios from "axios";
 export class PlantsStore {
   @observable plants = [];
 
-  getDataFromDB = async () => {
+  @action getDataFromDB = async () => {
     let data = await Axios.get(`http://localhost:2805/plants`);
     this.plants = data.data
     return data.data;
@@ -20,8 +20,24 @@ export class PlantsStore {
     return basilObj.temperature_max
   }
   @computed get getBasilMinTemp (){
-    let basilArr = this.plants.find(p=> p.name === "Basil")
-      return basilArr.temperature_min
+    let basilObj = this.plants.find(p=> p.name === "Basil")
+      return basilObj.temperature_min
+  }
+  @computed get getBasilMaxHumid (){
+    let basilObj = this.plants.find(p=> p.name === "Basil")
+      return basilObj.humid_max
+  }
+  @computed get getBasilMinHumid (){
+    let basilObj = this.plants.find(p=> p.name === "Basil")
+      return basilObj.humid_min
+  }
+  @computed get getBasilMaxMoist (){
+    let basilObj = this.plants.find(p=> p.name === "Basil")
+      return basilObj.moist_max
+  }
+  @computed get getBasilMinMoist (){
+    let basilObj = this.plants.find(p=> p.name === "Basil")
+      return basilObj.moist_min
   }
   
 

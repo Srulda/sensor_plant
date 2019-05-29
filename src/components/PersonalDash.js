@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import { observer, inject } from "mobx-react";
 import TempOverTime from './TempOverTime';
 import CurrentPlantData from './CurrentPlantData';
-import ComparisonData from './ComparisonData'
 import TempPopUp from './TempPopUp'
+import HumidPopUp from './TempPopUp'
+import MoistPopUp from './TempPopUp'
 
 @inject("itemStore", "plantsStore")
 @observer
 class PersonalDash extends Component {
+
+
   componentDidMount = async () =>{
     await this.props.plantsStore.getDataFromDB()
     await this.props.itemStore.getDataFromDB()
@@ -22,8 +25,9 @@ class PersonalDash extends Component {
       <div>
           <CurrentPlantData />
         <TempOverTime />  
-        <ComparisonData />
         <TempPopUp />
+        <HumidPopUp />
+        <MoistPopUp />
       </div>
             
         )
