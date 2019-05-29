@@ -2,8 +2,8 @@
   {
     "_id": "1",
     "name": "Basil",
-    "temperature_min": 75,
-    "temperature_max": 85,
+    "temperature_min": 23.8,
+    "temperature_max": 29.5,
     "temp_For_growth": "Hot",
     "pH": "5.5-7.0",
     "water": "below average",
