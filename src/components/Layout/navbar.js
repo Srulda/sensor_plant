@@ -12,9 +12,10 @@ class Navbar extends Component {
         <Link to="/plants">
           <span>Plants</span>
         </Link>
-        <Link to="/analytics">
+        <Link to="/dashboard">
           <span>Analytics</span>
         </Link>
+        
       </div>
     );
   }
