@@ -8,5 +8,10 @@
 } */
 
 .App {
- 
+}
+
+.plants-section {
+  z-index: 2;
+  position: relative;
+  top: 0;
 }

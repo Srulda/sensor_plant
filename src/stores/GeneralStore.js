@@ -7,4 +7,6 @@ export class GeneralStore {
   @action handleInput = (name, value) => {
     this[name] = value;
   };
+
+  
 }

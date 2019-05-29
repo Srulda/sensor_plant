@@ -1,11 +1,11 @@
 .navbar {
   height: 5vh;
-  background-color: #45832d;
+  background-color: #59CD96;
 }
 
 .navbar span {
   color: white;
-  margin: 1em 2em 2em;
+  margin: 1em 2em 2em 1em;
 }
 
 .navbar a {
