@@ -36,13 +36,13 @@ app.use("/", api);
 // })
 
 //data insert
-// let data = require('./data.json')
+let data = require('./data.json')
 
-// for(let d of data){
-//     let t1 = new Plants(d)
-//     console.log(d)
-//     t1.save()
-// }
+for(let d of data){
+    let t1 = new Plants(d)
+    console.log(d)
+    t1.save()
+}
 
 
 
