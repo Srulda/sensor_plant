@@ -4,7 +4,7 @@ import { observer, inject } from "mobx-react";
 import DevTools from "mobx-react-devtools";
 import "./style/App.css";
 import Plants from "./components/Plants";
-import Plant from "./components/Plant";
+import Home from "./components/Home";
 import Navbar from "./components/Layout/navbar";
 
 @observer
@@ -15,8 +15,8 @@ class App extends Component {
         <DevTools />
         <Router>
           <Route path="/" component={Navbar} />
+          <Route exact path="/Home" component={Home} />
           <Route exact path="/Plants" component={Plants} />
-          <Route exact path="/Plant" component={Plant} />
         </Router>
       </div>
     );
