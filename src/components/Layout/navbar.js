@@ -14,7 +14,7 @@ class Navbar extends Component {
           <span>Plants</span>
         </Link>
         <Link to="/dashboard">
-          <span>Analytics</span>
+          <span>My DUshBoard</span>
         </Link>
         
       </div>
