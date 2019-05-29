@@ -26,9 +26,8 @@ class ComparisonData extends Component {
         let planet = this.props.plantsStore
         return (
             <div>
-            <h3>Your Temp - {this.makeCurrentTemp()}</h3>
-            <h3>Max - {planet.getBasilMaxTemp}</h3>
-            <h3>Min - {planet.getBasilMinTemp}</h3>
+            <h3>Max - {Math.round(planet.getBasilMaxTemp)}&deg;</h3>
+            <h3>Min - {Math.round(planet.getBasilMinTemp)}&deg;</h3>
             { this.makeCurrentTemp() > planet.getBasilMaxTemp?<div className="higher">to hot</div>:
                <div className="lower">to cold</div>
         }

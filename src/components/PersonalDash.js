@@ -3,6 +3,7 @@ import { observer, inject } from "mobx-react";
 import TempOverTime from './TempOverTime';
 import CurrentPlantData from './CurrentPlantData';
 import ComparisonData from './ComparisonData'
+import TempPopUp from './TempPopUp'
 
 @inject("itemStore", "plantsStore")
 @observer
@@ -22,7 +23,7 @@ class PersonalDash extends Component {
           <CurrentPlantData />
         <TempOverTime />  
         <ComparisonData />
-        
+        <TempPopUp />
       </div>
             
         )

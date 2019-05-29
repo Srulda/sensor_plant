@@ -6,3 +6,20 @@ body{
 .App {
  
 }
+
+
+#badges-container{
+  margin-top:7%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  text-align: center;
+}
+.hot{
+  color:rgb(223, 94, 94);
+}
+.cold{
+  color:rgb(130, 130, 240);
+}
+.temp-is-fine{
+  color:#8ad7b5;
+}

@@ -50,8 +50,8 @@ class TempOverTime extends Component {
                     
                 </select>
 <LineChart
-     width={500}
-     height={300}
+     width={300}
+     height={150}
      data={this.makeTempChart()}
               margin={{
        top: 5, right: 30, left: 20, bottom: 5,

@@ -16,17 +16,13 @@ export class PlantsStore {
   // };
 
   @computed get getBasilMaxTemp (){
-
     let basilObj = this.plants.find(p=> p.name === "Basil")
-    
     return basilObj.temperature_max
-    
   }
-
   @computed get getBasilMinTemp (){
     let basilArr = this.plants.find(p=> p.name === "Basil")
       return basilArr.temperature_min
-    
   }
+  
 
 }

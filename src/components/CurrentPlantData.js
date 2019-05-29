@@ -3,7 +3,7 @@ import { observer, inject } from "mobx-react";
 
 
 
-@inject("itemStore")
+@inject("itemStore", "plantsStore")
 @observer
 class CurrentPlantData extends Component {
 
@@ -30,13 +30,25 @@ class CurrentPlantData extends Component {
 
     render() { 
         return (
-            <div>
-              <div>  CURRENT TEMP == {this.makeCurrentTemp()}</div>
-              <div>CURRENT HUMADITY == {this.makeCurrentHumadity()}</div>
-              <div>CURRENT HUMADITY == {this.makeCurrentMoist()}</div>      
-              <div>CURRENT Time== {this. makeCurrentTime()}</div>      
+            <div id="badges-container">
+                <div className={this.makeCurrentTemp() > this.props.plantsStore.getBasilMaxTemp? "hot": "cold"} >
+                    <i class="fas fa-thermometer-three-quarters"></i>
+              <div >TEMP</div>
+              <div>{Math.round(this.makeCurrentTemp())}&deg;</div>
+              </div>
 
-                        </div> 
+              <div>
+              <i class="fas fa-water"></i>
+              <div>HUMIDITY</div>
+                <div>{Math.round(this.makeCurrentHumadity())}%</div>
+              </div>
+
+            <div>
+            <i class="fas fa-leaf"></i>
+              <div>MOIST</div>      
+                <div>{Math.round(this.makeCurrentMoist())}%</div>
+              </div>
+            </div> 
          );
     }
 }
