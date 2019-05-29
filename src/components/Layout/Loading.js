@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-
+import { observer, inject } from "mobx-react";
+@inject("generalStore")
+@obeserver
 class Loading extends Component {
   render() {
     return (
