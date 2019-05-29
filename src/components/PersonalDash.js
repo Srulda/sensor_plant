@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Information extends Component {
+class PersonalDash extends Component {
     render() {
         return (
             <div>

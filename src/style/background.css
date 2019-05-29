@@ -1,0 +1,10 @@
+.background {
+  background-image: url("../assets/scott-webb-214087-unsplash.jpg");
+  background-size: cover;
+  background-position: center;
+  background: cover;
+  background-repeat: no-repeat;
+  opacity: 0.25;
+  height: 90vh;
+  z-index: -995;
+}
