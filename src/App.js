@@ -6,8 +6,6 @@ import "./style/App.css";
 import Plants from "./components/Plants";
 import Home from "./components/Home";
 import Navbar from "./components/Layout/navbar";
-import Home from "./components/Home";
-import Backgrund from "./components/Layout/Background";
 import PersonalDash from "./components/PersonalDash";
 
 @observer
