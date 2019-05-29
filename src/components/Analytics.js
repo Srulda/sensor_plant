@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-class Information extends Component {
+class Analytics extends Component {
     render() {
         return (
             <div>
-                here we have some Information
+                here we have some Analytics
             </div>
         );
     }
 }
 
-export default Information;
+export default Analytics;

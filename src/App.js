@@ -7,6 +7,7 @@ import Plants from "./components/Plants";
 import Plant from "./components/Plant";
 import Navbar from "./components/Layout/navbar";
 import Home from "./components/Home";
+import Analytics from "./components/Analytics";
 
 @observer
 class App extends Component {
@@ -16,9 +17,10 @@ class App extends Component {
         <DevTools />
         <Router>
         < Navbar />
-          <Route path="/" component={Home} />
-          <Route exact path="/Plants" component={Plants} />
-          <Route exact path="/Plant" component={Plant} />
+          <Route exact path="/" component={Home} />
+          <Route exact path="/plants" component={Plants} />
+          <Route exact path="/analytics" component={Analytics} />
+          <Route exact path="/plant" component={Plant} />
         </Router>
       </div>
     );

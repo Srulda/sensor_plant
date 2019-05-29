@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import Plant from './Plant';
 
 class Plants extends Component {
     render() {
         return (
             <div>
-                many rows of Plants
+                My Plants:
+                <Plant />
             </div>
         );
     }
