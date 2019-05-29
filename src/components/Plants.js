@@ -11,7 +11,6 @@ class Plants extends Component {
     });
 
     return <div>
-      {this.props.plantsStore.plants.map(p=> <Plant plantData={p}/>)}
     </div>;
   }
 }

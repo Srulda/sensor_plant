@@ -31,7 +31,7 @@ class CurrentPlantData extends Component {
     render() { 
         return (
             <div id="badges-container">
-                <div className={this.makeCurrentTemp() > this.props.plantsStore.getBasilMaxTemp? "hot": "cold"} >
+                <div className={this.makeCurrentTemp() > this.props.plantsStore.getBasilMinTemp? "hot": "cold"} >
                     <i class="fas fa-thermometer-three-quarters"></i>
               <div >TEMP</div>
               <div>{Math.round(this.makeCurrentTemp())}&deg;</div>
