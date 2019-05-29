@@ -43,17 +43,17 @@ app.use('/', api)
 // }
 
 
-function myFunction() {
-    setInterval(
-        function(){ 
-            let t1 = new MyPlants({c: (Math.random() * 20 ),h:  (Math.random() * 16),}
-            )
-                 t1.save()
-                 console.log(t1)
-        }, 3000);
-  }
+// function myFunction() {
+//     setInterval(
+//         function(){ 
+//             let t1 = new MyPlants({c: (Math.random() * 20 ),h:  (Math.random() * 16),}
+//             )
+//                  t1.save()
+//                  console.log(t1)
+//         }, 3000);
+//   }
 
-  myFunction()
+//   myFunction()
 
 
 

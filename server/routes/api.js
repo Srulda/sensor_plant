@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Plants = require('../model/Plants')
-const MyPlants = require('../model/Myplants')
+const MyPlants = require('../model/MyPlants')
 
 router.get('/plants', function(req,res){
     Plants.find({}, function(err, result){
@@ -11,6 +11,7 @@ router.get('/plants', function(req,res){
 
 router.get('/myPlants', function(req,res){
     MyPlants.find({}, function(err, result){
+        console.log(result)
         res.send(result)
     })
 })
