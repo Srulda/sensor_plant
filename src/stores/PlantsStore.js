@@ -1,11 +1,16 @@
-import { observer, inject } from "mobx-react";
+import { observable, computed, action } from "mobx";
 import Axios from "axios";
 
-export class Plants {
-  @observable plants = [];
+export class PlantsStore {
+  @observable Plants = [];
 
   getDataFromDB = async () => {
-    let plants = await Axios.get(`http://localhost:2000/plants`);
-    return plants.data;
+    let data = await Axios.get(`http://localhost:2805/plants`);
+    return data;
   };
+
+  // @action addPlant = plantName => {
+  //   let newPlant = new Plant(plantName);
+  //   this.plants.push(plantName);
+  // };
 }
