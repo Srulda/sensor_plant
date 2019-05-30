@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { observer, inject } from "mobx-react";
 import "../style/home.css";
 @inject("generalStore")
@@ -18,7 +19,21 @@ class Home extends Component {
       <div className="home">
         <div className="search">
           <input type="text" name="name" onInput={this.inputHandler} />
-          <button onClick={this.addPlant}>Add</button>
+          <i class="far fa-plus-square" onClick={this.addPlant} />
+        </div>
+
+        <Link to="/plants">
+          <div className="plants-link">
+            <i className="fab fa-pagelines" />
+          </div>
+        </Link>
+        <Link to="/dashboard">
+          <div className="dash-link">
+            <i className="fas fa-tachometer-alt" />
+          </div>
+        </Link>
+        <div className="msg">
+          <div>Your Plant Needs You</div>
         </div>
       </div>
     );
