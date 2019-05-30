@@ -4,20 +4,64 @@
   justify-items: center;
   justify-content: center;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  background-image: url("../assets/scott-webb-214087-unsplash.jpg");
+  grid-template-rows: auto 1fr 1fr;
+  background-color: #fafafa;
   background-size: cover;
   background-position: center;
   background: cover;
   background-repeat: no-repeat;
-  background-blend-mode: screen;
-  opacity: 0.25;
   height: 90vh;
   z-index: -995;
 }
 
+.home a {
+  display: grid;
+  color: white;
+  width: 80%;
+  height: 40%;
+  background-color: #8ad7b5;
+  border-radius: 3%;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+}
+
+.home i {
+  width: 100%;
+  height: 0;
+  font-size: 4em;
+}
+
 .search {
+  display: grid;
   grid-column: 1 / span 2;
   opacity: initial;
   z-index: 1;
+  margin: 10%;
+  grid-template-columns: 1fr auto;
+  grid-gap: 5%;
+}
+
+.search i {
+  font-size: 1.5em;
+  color: #8ad7b5;
+  padding: 2%;
+}
+
+.search input {
+  font-size: 1em;
+  margin: 0;
+}
+
+.msg {
+  grid-column: 1 / span 2;
+  display: grid;
+  background-color: #ef5350;
+  width: 80%;
+  height: 20%;
+  border-radius: 2%;
+  align-content: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5em;
 }
