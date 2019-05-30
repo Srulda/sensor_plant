@@ -18,10 +18,6 @@ router.get('/myPlants', function(req,res){
 })
 
 
-
-
-
-
 router.get('/myPlantsBasil', function (req, res) {
     request(`http://192.168.170.58`, function (err, response) {
         let data = (response.body) 

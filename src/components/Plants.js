@@ -1,17 +1,28 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
-import Plant from './Plant';
-@inject("generalStore", "plantsStore")
+import Plant from "./Plant";
+import Loading from "./Layout/Loading";
+@inject("itemStore", "plantsStore")
 @observer
-
 class Plants extends Component {
-  render() {
-    let data = this.props.plantsStore.getDataFromDB().then(data => {
-      console.log(data);
-    });
+  constructor() {
+    super();
+    this.state = {
+      loading: true
+    };
+  }
 
-    return <div>
-    </div>;
+  componentDidMount = async () => {
+    await this.props.plantsStore.getDataFromDB();
+    await this.props.itemStore.getDataFromDB();
+    this.setState({
+      loading: false
+    });
+  };
+
+  render() {
+    const loading = this.state.loading;
+    return <div>{loading ? <Loading /> : <div>hi !!!</div>}</div>;
   }
 }
 

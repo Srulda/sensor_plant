@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 
 class MoistPopUp extends Component {
-    render() { 
-        return ( <div id="moist">H POP</div> );
+    render() {
+        return (
+            <div>
+                
+            </div>
+        );
     }
 }
- 
+
 export default MoistPopUp;
