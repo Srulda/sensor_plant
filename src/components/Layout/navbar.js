@@ -6,18 +6,23 @@ class Navbar extends Component {
   render() {
     return (
       <div>
-         <div className="navbar">
-        <Link to="/">
-          <span>Home</span>
-        </Link>
-        <Link to="/plants">
-          <span>Plants</span>
-        </Link>
-        <Link to="/dashboard">
-          <span>Dashboard</span>
-        </Link>
-        
-      </div>
+        <div className="navbar">
+          <Link to="/">
+            <span>
+              <i className="fas fa-home" />
+            </span>
+          </Link>
+          <Link to="/plants">
+            <span>
+              <i className="fab fa-pagelines" />
+            </span>
+          </Link>
+          <Link to="/dashboard">
+            <span>
+              <i className="fas fa-tachometer-alt" />
+            </span>
+          </Link>
+        </div>
       </div>
     );
   }

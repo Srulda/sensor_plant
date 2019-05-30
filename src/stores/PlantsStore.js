@@ -32,6 +32,7 @@ export class PlantsStore {
   }
   @computed get getBasilMinMoist (){
     let basilObj = this.plants.find(p=> p.name === "Basil")
+    console.log(basilObj.moist_min)
       return basilObj.moist_min
   }
   
