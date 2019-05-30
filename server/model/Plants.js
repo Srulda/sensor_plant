@@ -12,7 +12,12 @@ let plantsSchema = new Schema({
     height: String,
     planting_depth: String,
     fertilizer: String,
-    harvest: String
+    harvest: String,
+    humid_max: Number,
+    humid_min: Number,
+    moist_max: Number,
+    moist_min: Number
+
 })
 
 
