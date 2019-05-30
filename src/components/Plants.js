@@ -4,18 +4,28 @@ import Plant from './Plant';
 
 
 @inject("generalStore", "plantsStore")
+import Loading from "./Layout/Loading";
 @observer
 class Plants extends Component {
-  render() {
-    let data = this.props.plantsStore.getDataFromDB().then(data => {
-      console.log(data);
-    });
+  constructor() {
+    super();
+    this.state = {
+      loading: true
+    };
+  }
 
-    return (
-    <div>
-      sfsd
-  </div>
-)
+  componentDidMount = async () => {
+    await this.props.plantsStore.getDataFromDB();
+    await this.props.itemStore.getDataFromDB();
+    this.setState({
+      loading: false
+    });
+  };
+
+
+  render() {
+    const loading = this.state.loading;
+    return <div>{loading ? <Loading /> : <div>hi !!!</div>}</div>;
   }
 }
 
