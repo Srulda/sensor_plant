@@ -9,7 +9,6 @@ import Navbar from "./components/Layout/navbar";
 import PersonalDash from "./components/PersonalDash";
 
 @inject("itemStore", "plantsStore")
-
 @observer
 class App extends Component {
   

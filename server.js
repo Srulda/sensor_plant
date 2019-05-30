@@ -35,7 +35,7 @@ app.use("/", api);
 //     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 // })
 
-//data insert
+// data insert
 // let data = require("./data.json");
 
 // for (let d of data) {
