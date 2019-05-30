@@ -12,6 +12,7 @@ class TempOverTime extends Component {
         this.state ={
             parameter: "tempeture"
         }
+        
     }
 
     makeParameter = () =>{
