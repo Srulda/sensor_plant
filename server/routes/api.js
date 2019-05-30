@@ -26,7 +26,7 @@ router.get('/myPlantsBasil', function (req, res) {
         dataObj.c = (Number(data.split("<p>")[1].split("</p>")[0]))
         dataObj.h = (Number(data.split("<p>")[2].split("</p>")[0]))
         dataObj.m = (Number(data.split("<p>")[3].split("</p>")[0]))
-        let c= new MyPlants(dataObj)
+        let c = new MyPlants(dataObj)
         c.save()
     res.send(dataObj)
 })
