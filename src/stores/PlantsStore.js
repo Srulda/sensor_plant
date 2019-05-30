@@ -5,15 +5,10 @@ export class PlantsStore {
   @observable plants = [];
 
   @action getDataFromDB = async () => {
-    let data = await Axios.get(`http://localhost:2805/plants`);
+    let data = await Axios.get(`http://localhost:2805/plants`)
     this.plants = data.data
-    return data.data;
+    return this.plants;
   };
-
-  // @action addPlant = plantName => {
-  //   let newPlant = new Plant(plantName);
-  //   this.plants.push(plantName);
-  // };
 
   @computed get getBasilMaxTemp (){
     let basilObj = this.plants.find(p=> p.name === "Basil")
