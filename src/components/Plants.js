@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
-import Plant from './Plant';
-
-
-@inject("generalStore", "plantsStore")
 import Loading from "./Layout/Loading";
+
+
+@inject("itemStore", "plantsStore")
 @observer
 class Plants extends Component {
   constructor() {

@@ -6,9 +6,9 @@ import "../../style/loading.css"
 class Loading extends Component {
   render() {
     return (
-      <div class="spinner">
-        <div class="dot1" />
-        <div class="dot2" />
+      <div className="spinner">
+        <div className="dot1" />
+        <div className="dot2" />
       </div>
     );
   }

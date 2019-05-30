@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer, inject } from "mobx-react";
-import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,} from 'recharts';
+import {LineChart, Line, XAxis, YAxis, Tooltip} from 'recharts';
 
 
 @inject("itemStore")
@@ -16,11 +16,11 @@ class TempOverTime extends Component {
 
     makeParameter = () =>{
         let param = ""
-        if(this.state.parameter == "tempeture"){
+        if(this.state.parameter === "tempeture"){
                 param = "c"
-        }else if(this.state.parameter == "humadity"){
+        }else if(this.state.parameter === "humadity"){
             param = "h"
-        }else if(this.state.parameter == "moiste"){
+        }else if(this.state.parameter === "moiste"){
             param = "m"
         }
         return param
