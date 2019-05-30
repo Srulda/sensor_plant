@@ -14,7 +14,8 @@
     "humid_max":90,
     "humid_min":60,
     "moist_max": 85,
-    "moist_min": 55
+    "moist_min": 55,
+    "img" : "https://www.thespruce.com/thmb/9QE3JBv7x0aw2D-rqY4qek4c00k=/960x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/close-up-of-basil-733527021-5b25995a3418c600377c04a4.jpg"
   },
   {
     "name": "Mint",
@@ -31,7 +32,8 @@
     "humid_max":95,
     "humid_min":70,
     "moist_max": 77,
-    "moist_min": 60
+    "moist_min": 60,
+    "img": "https://cdn.shopify.com/s/files/1/1419/7120/files/Mint-PlantingGuide_58d01b0d-dc94-422d-8139-3f4af282e673.jpg?509773395990307717"
   },
   {
     "name": "Oregano",
@@ -48,7 +50,8 @@
     "humid_max":92,
     "humid_min":64,
     "moist_max": 81,
-    "moist_min": 59
+    "moist_min": 59,
+    "img": "https://www.deckerrdseeds.com/wp-content/uploads/2018/01/oregano-2662890_1920-1116x744.jpg"
   },
   {
     "name": "Garlic",
@@ -65,7 +68,8 @@
     "humid_max":86,
     "humid_min":70,
     "moist_max": 70,
-    "moist_min": 56
+    "moist_min": 56,
+    "img": "https://www.almanac.com/sites/default/files/styles/primary_image_in_article/public/image_nodes/garlic-growing-guide.jpg?itok=GbZVjjmg"
   },
   {
     "name": "Sage  ",
@@ -82,6 +86,7 @@
     "humid_max":90,
     "humid_min":80,
     "moist_max": 90,
-    "moist_min": 80
+    "moist_min": 80,
+    "img": "https://thevegboxcompany.co.za/wp-content/uploads/2018/03/sageleaves.jpg"
   }
 ]

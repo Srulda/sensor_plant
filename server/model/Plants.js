@@ -16,7 +16,8 @@ let plantsSchema = new Schema({
     humid_max: Number,
     humid_min: Number,
     moist_max: Number,
-    moist_min: Number
+    moist_min: Number,
+    img: String
 
 })
 
