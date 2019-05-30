@@ -11,9 +11,4 @@ export class ItemStore {
     return data.data;
   };
 
-  // @action addPlant = plantName => {
-  //   let newPlant = new Plant(plantName);
-  //   this.plants.push(plantName);
-  // };
-  
 }
