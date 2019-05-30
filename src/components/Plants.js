@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import Loading from "./Layout/Loading";
-
+import Plant from './Plant'
 
 @inject("itemStore", "plantsStore")
 @observer
@@ -24,7 +24,10 @@ class Plants extends Component {
 
   render() {
     const loading = this.state.loading;
-    return <div>{loading ? <Loading /> : <div>hi !!!</div>}</div>;
+    return <div>{loading ? <Loading /> : <div>
+
+      {this.props.plantsStore.plants.map(d=> <Plant data={d}/>)} 
+    </div>}</div>;
   }
 }
 
