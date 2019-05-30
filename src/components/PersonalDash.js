@@ -10,6 +10,7 @@ import Loading from "./Layout/Loading";
 @inject("itemStore", "plantsStore")
 @observer
 class PersonalDash extends Component {
+
   constructor() {
     super();
     this.state = {
@@ -24,10 +25,12 @@ class PersonalDash extends Component {
       loading: false
     });
   };
+
   render() {
     const loading = this.state.loading;
     return (
       <div>
+
         {loading ? (
           <Loading />
         ) : (
@@ -39,6 +42,7 @@ class PersonalDash extends Component {
             <MoistPopUp />
           </div>
         )}
+
       </div>
     );
   }
