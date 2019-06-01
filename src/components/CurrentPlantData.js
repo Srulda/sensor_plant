@@ -1,25 +1,23 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
-import { async } from "q";
 
 @inject("itemStore", "plantsStore")
 @observer
 class CurrentPlantData extends Component {
-
   componentDidMount = () => {
-    this.props.itemStore.getDataFromDB();
+    this.props.itemStore.getLiveStats();
   };
   plantCurrentTemp = () => {
-    let currentTemp = this.props.itemStore.plants.map(d => d.c);
-    return currentTemp[currentTemp.length - 1];
+    let currentTemp = this.props.itemStore.stats.c;
+    return currentTemp;
   };
   plantCurrentHumadity = () => {
-    let currentH = this.props.itemStore.plants.map(d => d.h);
-    return currentH[currentH.length - 1];
+    let currentH = this.props.itemStore.stats.h;
+    return currentH;
   };
   plantCurrentMoist = () => {
-    let currentM = this.props.itemStore.plants.map(d => d.m);
-    return currentM[currentM.length - 1];
+    let currentM = this.props.itemStore.stats.m;
+    return currentM;
   };
 
   classTemp = () => {

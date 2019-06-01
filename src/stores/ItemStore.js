@@ -6,21 +6,33 @@ export class ItemStore {
   constructor() {
     this.socket = io("http://localhost:2805");
     this.socket.on(`plant_stats`, data => {
-      this.plants = [data];
+      this.stats = data;
+    });
+    this.socket.on(`plant_history`, data => {
+      this.plants = data;
     });
 
     setInterval(() => {
-      this.getDataFromDB();
+      this.getLiveStats();
     }, 1000);
+
+    setInterval(() => {
+      this.getPlantHistory();
+    }, 10000);
   }
   @observable plants = [];
+  @observable stats = {};
 
-  @action getDataFromDB = () => {
+  @action getLiveStats = () => {
     // Axios.get(`http://localhost:2805/myPlantsBasil`).then(data => {
     //   console.log(data);
     //   this.plants = [data.data];
     //   console.log(this.plants);
     // });
     this.socket.emit(`plant_stats`);
+  };
+
+  @action getPlantHistory = () => {
+    this.socket.emit(`plant_history`);
   };
 }

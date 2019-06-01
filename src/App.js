@@ -14,7 +14,7 @@ class App extends Component {
   
   componentDidMount = async () =>{
     await this.props.plantsStore.getDataFromDB()
-    await this.props.itemStore.getDataFromDB()
+    // await this.props.itemStore.getDataFromDB()
  }
 
   render() {
