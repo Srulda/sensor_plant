@@ -19,7 +19,7 @@ class Home extends Component {
       <div className="home">
         <div className="search">
           <input type="text" name="name" onInput={this.inputHandler} />
-          <i class="far fa-plus-square" onClick={this.addPlant} />
+          <i className="far fa-plus-square" onClick={this.addPlant} />
         </div>
 
         <Link to="/plants">
