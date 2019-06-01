@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import { LineChart, Line, XAxis, YAxis, Tooltip } from "recharts";
-
+import moment from "moment";
 @inject("itemStore")
 @observer
 class TempOverTime extends Component {
@@ -29,9 +29,9 @@ class TempOverTime extends Component {
   };
 
   makeTempChart = () => {
-    let tempData = this.props.itemStore.plants.map(d => ({
+    let tempData = this.props.itemStore.plantHistory.map(d => ({
       parameter: d[this.makeParameter()],
-      time: d.timestamp.split("T")[1]
+      time: moment(d.timestamp).format("LTS")
     }));
     return tempData;
   };

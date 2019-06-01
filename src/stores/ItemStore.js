@@ -9,7 +9,7 @@ export class ItemStore {
       this.stats = data;
     });
     this.socket.on(`plant_history`, data => {
-      this.plants = data;
+      this.plantHistory = data;
     });
 
     setInterval(() => {
@@ -20,7 +20,7 @@ export class ItemStore {
       this.getPlantHistory();
     }, 10000);
   }
-  @observable plants = [];
+  @observable plantHistory = [];
   @observable stats = {};
 
   @action getLiveStats = () => {
