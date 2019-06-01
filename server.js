@@ -7,6 +7,9 @@ const mongoose = require("mongoose");
 const Plants = require("./server/model/Plants");
 const MyPlants = require("./server/model/MyPlants");
 const moment = require("moment");
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
 
 mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/sensor_plant",
@@ -59,6 +62,10 @@ app.use("/", api);
 //   myFunction()
 
 const PORT = 2805;
-app.listen(process.env.PORT || PORT, function() {
+http.listen(process.env.PORT || PORT, function() {
   console.log(`server running on ${PORT}`);
+});
+
+io.on('connection', function(socket){
+  console.log('a user connected');
 });
