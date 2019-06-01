@@ -10,11 +10,14 @@ router.get("/plants", function(req, res) {
   });
 });
 
-// router.get("/myPlants", function(req, res) {
-//   MyPlants.find({}, function(err, result) {
-//     res.send(result);
-//   });
-// });
+router.get("/myPlants", function(req, res) {
+  MyPlants.find({})
+    .sort({ timestamp: -1 })
+    .limit(120)
+    .exec(function(err, result) {
+      res.send(result);
+    });
+});
 
 router.get("/myPlantsBasil", function(req, res) {
   request(
@@ -29,7 +32,7 @@ router.get("/myPlantsBasil", function(req, res) {
       dataObj.m = Number(data.split("<p>")[3].split("</p>")[0]);
       let c = new MyPlants(dataObj);
       c.save();
-    
+
       res.send(c);
     }
   );

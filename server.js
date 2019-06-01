@@ -64,12 +64,17 @@ io.on("connection", function(socket) {
   console.log("a user connected");
   socket.on(`plant_stats`, () => {
     request(`http://localhost:2805/myPlantsBasil`, (err, response) => {
-      let data = JSON.parse(response.body)
+      let data = JSON.parse(response.body);
       socket.emit(`plant_stats`, data);
-      console.log(data);
-      
     });
   });
+  socket.on(`plant_history`, ()=> {
+    request(`http://localhost:2805/myPlants`, (err, response) => {
+      let data = JSON.parse(response.body)
+      socket.emit(`plant_history`, data)
+    })
+  })
+
 });
 
 http.listen(process.env.PORT || PORT, function() {
