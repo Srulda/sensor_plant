@@ -3,6 +3,7 @@ const router = express.Router();
 const Plants = require("../model/Plants");
 const MyPlants = require("../model/MyPlants");
 const request = require("request");
+const moment = require("moment");
 
 router.get("/plants", function(req, res) {
   Plants.find({}, function(err, result) {
@@ -11,9 +12,8 @@ router.get("/plants", function(req, res) {
 });
 
 router.get("/myPlants", function(req, res) {
-  MyPlants.find({})
+  MyPlants.find({ timestamp: { $gte: moment().subtract(2, "minutes") } })
     .sort({ timestamp: -1 })
-    .limit(120)
     .exec(function(err, result) {
       res.send(result);
     });
