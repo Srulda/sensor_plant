@@ -7,9 +7,9 @@ const mongoose = require("mongoose");
 const Plants = require("./server/model/Plants");
 const MyPlants = require("./server/model/MyPlants");
 const moment = require("moment");
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
-
+const http = require("http").Server(app);
+const io = require("socket.io")(http);
+const request = require("request");
 
 mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/sensor_plant",
@@ -38,7 +38,6 @@ app.use("/", api);
 //     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 // })
 
-
 // let data = require("./data.json");
 
 // for (let d of data) {
@@ -46,8 +45,6 @@ app.use("/", api);
 //   console.log(d);
 //   t1.save();
 // }
-
-
 
 // function myFunction() {
 //     setInterval(
@@ -62,10 +59,19 @@ app.use("/", api);
 //   myFunction()
 
 const PORT = 2805;
-http.listen(process.env.PORT || PORT, function() {
-  console.log(`server running on ${PORT}`);
+
+io.on("connection", function(socket) {
+  console.log("a user connected");
+  socket.on(`plant_stats`, () => {
+    request(`http://localhost:2805/myPlantsBasil`, (err, response) => {
+      let data = JSON.parse(response.body)
+      socket.emit(`plant_stats`, data);
+      console.log(data);
+      
+    });
+  });
 });
 
-io.on('connection', function(socket){
-  console.log('a user connected');
+http.listen(process.env.PORT || PORT, function() {
+  console.log(`server running on ${PORT}`);
 });
