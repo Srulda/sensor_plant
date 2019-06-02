@@ -7,6 +7,9 @@ import Plants from "./components/Plants";
 import Home from "./components/Home";
 import Navbar from "./components/Layout/navbar";
 import PersonalDash from "./components/PersonalDash";
+import Landing from "./components/Landing";
+import Login from "./components/Login";
+import SignUp from "./components/SignUp";
 
 @inject("itemStore", "plantsStore")
 @observer
@@ -24,7 +27,10 @@ class App extends Component {
 
         <Router>
         < Navbar />
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/home" component={Home} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/signUp" component={SignUp} />
           <Route exact path="/plants" component={Plants} />
           <Route exact path="/dashboard" component={PersonalDash} />
 
