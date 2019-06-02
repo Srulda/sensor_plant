@@ -5,7 +5,7 @@ const path = require("path");
 const api = require("./server/routes/api");
 const mongoose = require("mongoose");
 const Plants = require("./server/model/Plants");
-const MyPlants = require("./server/model/MyPlants");
+const MyPlants = require("./server/model/Sensor");
 const moment = require("moment");
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
@@ -63,18 +63,17 @@ const PORT = 2805;
 io.on("connection", function(socket) {
   console.log("a user connected");
   socket.on(`plant_stats`, () => {
-    request(`http://localhost:2805/myPlantsBasil`, (err, response) => {
+    request(`http://localhost:2805/sensorStats`, (err, response) => {
       let data = JSON.parse(response.body);
       socket.emit(`plant_stats`, data);
     });
   });
-  socket.on(`plant_history`, ()=> {
-    request(`http://localhost:2805/myPlants`, (err, response) => {
-      let data = JSON.parse(response.body)
-      socket.emit(`plant_history`, data)
-    })
-  })
-
+  socket.on(`plant_history`, () => {
+    request(`http://localhost:2805/sensorHistory`, (err, response) => {
+      let data = JSON.parse(response.body);
+      socket.emit(`plant_history`, data);
+    });
+  });
 });
 
 http.listen(process.env.PORT || PORT, function() {
