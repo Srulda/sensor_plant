@@ -19,11 +19,11 @@ class TempOverTime extends Component {
   makeParameter = () => {
     let param = "";
     if (this.state.parameter === "tempeture") {
-      param = "c";
+      param = "avgTemp";
     } else if (this.state.parameter === "humadity") {
-      param = "h";
+      param = "avgHum";
     } else if (this.state.parameter === "moiste") {
-      param = "m";
+      param = "avgMos";
     }
     return param;
   };
@@ -31,7 +31,11 @@ class TempOverTime extends Component {
   makeTempChart = () => {
     let tempData = this.props.itemStore.plantHistory.map(d => ({
       parameter: d[this.makeParameter()],
-      time: moment(d.timestamp).format("LTS")
+      time: moment(
+        `${d._id.year}/${d._id.month}/${d._id.day} ${d._id.hour}:${
+          d._id.minute
+        }`
+      ).format("LT")
     }));
     return tempData;
   };

@@ -12,24 +12,21 @@ export class ItemStore {
       this.plantHistory = data;
     });
 
-    setInterval(() => {
-      this.getLiveStats();
-    }, 1000);
+    setInterval(this.getLiveStats, 1000);
 
-    setInterval(() => {
-      this.getPlantHistory();
-    }, 10000);
+    setInterval(this.getPlantHistory, 10000);
   }
+
   @observable plantHistory = [];
   @observable stats = {};
 
   @action getLiveStats = () => {
+    this.socket.emit(`plant_stats`);
     // Axios.get(`http://localhost:2805/myPlantsBasil`).then(data => {
     //   console.log(data);
     //   this.plants = [data.data];
     //   console.log(this.plants);
     // });
-    this.socket.emit(`plant_stats`);
   };
 
   @action getPlantHistory = () => {
