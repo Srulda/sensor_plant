@@ -9,7 +9,12 @@ const moment = require("moment");
 router.get(`/userLogin/:userName`, function(req, res){
   let user = req.params.userName
   Users.findOne({'userName' : `${user}`}, function(err, result){
-  res.send(result)
+    if(!result){
+      console.log("not found");
+      return
+      }else{
+        res.send(result)
+    }
   })
 
 })

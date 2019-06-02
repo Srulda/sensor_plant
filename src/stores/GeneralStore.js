@@ -1,6 +1,5 @@
 import { observable, action } from "mobx";
 import Axios from "axios";
-import { async } from "q";
 
 export class GeneralStore {
   @observable name;
@@ -13,6 +12,7 @@ export class GeneralStore {
   @action isLoggedIn = async userName => {
     let data = await Axios.get(`http://localhost:2805/userLogin/${userName}`)
     console.log(data)
+    
     return data
   }
 

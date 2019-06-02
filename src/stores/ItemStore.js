@@ -1,5 +1,4 @@
 import { observable, action } from "mobx";
-import Axios from "axios";
 import io from "socket.io-client";
 
 export class ItemStore {
@@ -12,7 +11,7 @@ export class ItemStore {
       this.plantHistory = data;
     });
 
-    setInterval(this.getLiveStats, 1000);
+    setInterval(this.getLiveStats, 3000);
 
     setInterval(this.getPlantHistory, 10000);
   }
