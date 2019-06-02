@@ -5,6 +5,7 @@ const path = require("path");
 const api = require("./server/routes/api");
 const mongoose = require("mongoose");
 const Plants = require("./server/model/Plants");
+const Users = require("./server/model/Users");
 const MyPlants = require("./server/model/Sensor");
 const moment = require("moment");
 const http = require("http").Server(app);
@@ -38,8 +39,15 @@ app.use("/", api);
 //     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 // })
 
-// let data = require("./data.json");
+// let users = require("./users.json");
+// for (let u of users) {
+//   let u1 = new Users(u);
+//   console.log(u);
+//   u1.save();
+// }
 
+
+// let data = require("./data.json");
 // for (let d of data) {
 //   let t1 = new Plants(d);
 //   console.log(d);
