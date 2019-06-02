@@ -7,7 +7,7 @@ class Navbar extends Component {
     return (
       <div>
         <div className="navbar">
-          <Link to="/">
+          <Link to="/home">
             <span>
               <i className="fas fa-home" />
             </span>

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-let myPlantsSchema = new Schema({
+let sensorSchema = new Schema({
     timestamp: { type: Date, default: Date.now},
     c: Number,
     h: Number,
@@ -9,5 +9,5 @@ let myPlantsSchema = new Schema({
 })
 
 
-const MyPlants = mongoose.model("MyPlants", myPlantsSchema)
-module.exports = MyPlants
+const sensor = mongoose.model("sensor", sensorSchema)
+module.exports = sensor
