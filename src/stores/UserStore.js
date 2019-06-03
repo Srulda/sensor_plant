@@ -5,6 +5,7 @@ import Axios from "axios";
 export class UserStore {
   @observable myPlants = [];
   @observable userName;
+  @observable loggedIn = false
 
   @action handleInput = (name, value) => {
     this[name] = value;
@@ -21,7 +22,7 @@ export class UserStore {
     this.userName = userName;
     console.log(this.userName);
     console.log(data);
-
+    this.loggedIn = true
     return data;
   };
 

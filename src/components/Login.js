@@ -9,7 +9,6 @@ class Login extends Component {
     this.props.user.handleInput(e.target.name, e.target.value);
   };
 
-
   userLogIn = () => {
     this.props.user.isLoggedIn(this.props.user.userName);
   };
@@ -18,7 +17,12 @@ class Login extends Component {
     return (
       <div>
         <div id="login">
-          <input type="text" name="userName" onChange={this.inputHandler} />
+          <input
+            type="text"
+            name="userName"
+            onChange={this.inputHandler}
+            value={this.props.user.userName}
+          />
           <button onClick={this.userLogIn}>Log In</button>
         </div>
       </div>
