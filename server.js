@@ -1,26 +1,38 @@
-const express = require("express");
-const app = express();
-const bodyParser = require("body-parser");
-const path = require("path");
-const api = require("./server/routes/api");
-const mongoose = require("mongoose");
-const Plants = require("./server/model/Plants");
-const Users = require("./server/model/Users");
-const MyPlants = require("./server/model/Sensor");
-const moment = require("moment");
-const http = require("http").Server(app);
-const io = require("socket.io")(http);
-const request = require("request");
+const express      = require("express"),
+      app          = express(),
+      bodyParser   = require("body-parser"),
+      path         = require("path"),
+      api          = require("./server/routes/api"),
+      mongoose     = require("mongoose"),
+      Plants       = require("./server/model/Plants"),
+      Users        = require("./server/model/Users"),
+      Sensor     = require("./server/model/Sensor"),
+      MyPlants     = require("./server/model/myPlants"),
+      moment       = require("moment"),
+      passport     = require("passport"),
+      http         = require("http").Server(app),
+      io           = require("socket.io")(http),
+      request      = require("request")
 
 mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/sensor_plant",
   { useNewUrlParser: true, useFindAndModify: false }
 );
+//authentication
+// app.use(require("express-session")({
+//   secret : "just nod if you can hear me is there anyone at home",
+//   resave : false,
+//   saveUninitialized : false
+// }))
+// app.use(passport.initialize())
+// app.use(passport.session())
+// passport.serializeUser(Users.serializeUser())
+// passport.deserializeUser(Users.deserializeUser())
 
-//for production only
 // app.use(express.static(path.join(__dirname, 'build')))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -53,6 +65,7 @@ app.use("/", api);
 //   console.log(d);
 //   t1.save();
 // }
+
 
 // function myFunction() {
 //     setInterval(

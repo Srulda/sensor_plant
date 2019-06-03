@@ -8,7 +8,9 @@ class Login extends Component {
 constructor(){
     super()
     this.state = {
-        userName :  ""
+        userName :  "",
+        isLoggedIn : false
+
     }
 }
 

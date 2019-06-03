@@ -11,7 +11,7 @@ export class ItemStore {
       this.plantHistory = data;
     });
 
-    setInterval(this.getLiveStats, 3000);
+    setInterval(this.getLiveStats, 10000);
 
     setInterval(this.getPlantHistory, 10000);
   }
@@ -26,7 +26,7 @@ export class ItemStore {
     //   this.plants = [data.data];
     //   console.log(this.plants);
     // });
-  };
+  }
 
   @action getPlantHistory = () => {
     this.socket.emit(`plant_history`);
