@@ -18,7 +18,6 @@ router.get(`/userLogin/:userName`, function(req, res){
 
 })
 
-
 router.post("/signUp/", function(req, res) {
   const user = req.body;
   console.log(user);
@@ -37,6 +36,18 @@ router.get("/plants", function(req, res) {
     res.send(result);
   });
 });
+
+router.post("/sensorData", function(req, res){
+  let sensorData = new Sensor(req.body);
+  sensorData.save();
+  res.send(sensorData);
+})
+
+router.get("/sensorLive", function(req,res){
+Sensor.find({}).sort({"timestamp" : -1}).limit(1).exec(function(err, result){
+res.send(result)
+})
+ })
 
 router.get("/sensorHistory", function(req, res) {
   Sensor.aggregate([

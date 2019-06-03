@@ -8,15 +8,15 @@ class CurrentPlantData extends Component {
     this.props.itemStore.getLiveStats();
   };
   plantCurrentTemp = () => {
-    let currentTemp = this.props.itemStore.stats.c;
+    let currentTemp = this.props.itemStore.liveStats.c;
     return currentTemp;
   };
   plantCurrentHumadity = () => {
-    let currentH = this.props.itemStore.stats.h;
+    let currentH = this.props.itemStore.liveStats.h;
     return currentH;
   };
   plantCurrentMoist = () => {
-    let currentM = this.props.itemStore.stats.m;
+    let currentM = this.props.itemStore.liveStats.m;
     return currentM;
   };
 

@@ -7,7 +7,6 @@ import { observer, inject } from "mobx-react";
 class Login extends Component {
   inputHandler = e => {
     this.props.user.handleInput(e.target.name, e.target.value);
-    console.log(e);
   };
 
 
@@ -20,7 +19,6 @@ class Login extends Component {
       <div>
         <div id="login">
           <input type="text" name="userName" onChange={this.inputHandler} />
-
           <button onClick={this.userLogIn}>Log In</button>
         </div>
       </div>
