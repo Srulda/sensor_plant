@@ -15,7 +15,7 @@ class Plant extends Component {
     return (
       <div className="plant-container" onClick={this.addPlant}>
         <div className="plant-img">
-          <img className="img" src={`${flower.img}`} />
+          <img className="img" alt="plant" src={`${flower.img}`} />
         </div>
         <div className="plant-name">{flower.name}</div>
         <div className="plant-temp">

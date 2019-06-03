@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import "../style/landing.css";
-import { Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Login from './Login';
+import SignUp from './SignUp';
 
 class Landing extends Component {
     
@@ -16,4 +18,6 @@ render() {
 }
 
 export default Landing;
+
+
 

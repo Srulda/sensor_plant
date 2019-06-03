@@ -4,9 +4,10 @@ import Axios from "axios";
 
 export class UserStore {
   @observable myPlants = [];
-  @observable userName;
-  @observable loggedIn = false
 
+  @observable userName = "";
+  @observable loggedIn = false
+  
   @action handleInput = (name, value) => {
     this[name] = value;
   };
@@ -18,13 +19,22 @@ export class UserStore {
   };
 
   @action isLoggedIn = async userName => {
-    let data = await Axios.get(`http://localhost:2805/userLogin/${userName}`);
-    this.userName = userName;
-    console.log(this.userName);
-    console.log(data);
-    this.loggedIn = true
-    return data;
-  };
+
+    if(userName === ""){
+        alert("Please Insert User Name")
+    }else{
+      let data = await Axios.get(`http://localhost:2805/userLogin/${userName}`);
+    // this.userName = userName;
+    if(data.data === ""){
+      alert("user not found")
+    }else{
+      console.log(data);
+      sessionStorage.setItem('currentLoginId',data.data)
+      this.loggedIn = true
+      return data.data
+    }
+  }
+};
 
   @action addPlant = plantName => {
     let newPlant = new Plant(plantName);

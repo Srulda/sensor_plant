@@ -1,17 +1,18 @@
-const express = require("express"),
-  app = express(),
-  bodyParser = require("body-parser"),
-  path = require("path"),
-  api = require("./server/routes/api"),
-  mongoose = require("mongoose"),
-  Plants = require("./server/model/Plants"),
-  Users = require("./server/model/Users"),
-  Sensor = require("./server/model/Sensor"),
-  MyPlants = require("./server/model/myPlants"),
-  moment = require("moment"),
-  http = require("http").Server(app),
-  io = require("socket.io")(http),
-  request = require("request");
+
+const express      = require("express"),
+      app          = express(),
+      bodyParser   = require("body-parser"),
+      path         = require("path"),
+      api          = require("./server/routes/api"),
+      mongoose     = require("mongoose"),
+      Plants       = require("./server/model/Plants"),
+      Users        = require("./server/model/Users"),
+      Sensor     = require("./server/model/Sensor"),
+      MyPlants     = require("./server/model/myPlants"),
+      moment       = require("moment"),
+      http         = require("http").Server(app),
+      io           = require("socket.io")(http),
+      request      = require("request")
 
 mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/sensor_plant",
