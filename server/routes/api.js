@@ -76,4 +76,14 @@ router.get("/sensorStats", function(req, res) {
   });
 });
 
+router.post("/users/:userId/myPlants/:plantName", async (req, res) => {
+  let plant = req.body;
+  let newPlant = await new myPlant({
+    name: plant.name,
+  });
+
+  newPlant.save();
+  res.send(console.log(`saved new client ${client.name} to DB`));
+});
+
 module.exports = router;
