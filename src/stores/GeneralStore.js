@@ -1,5 +1,7 @@
 import { observable, action } from "mobx";
 import Axios from "axios";
+import Home from "../components/Home";
+
 
 export class GeneralStore {
   @observable name;
@@ -10,9 +12,21 @@ export class GeneralStore {
   };
 
   @action isLoggedIn = async userName => {
-    let data = await Axios.get(`http://localhost:2805/userLogin/${userName}`);
-    return data;
-  };
+    if(userName){
+      let data = await Axios.get(`http://localhost:2805/userLogin/${userName}`)
+      if(data.data === ""){
+        console.log("OMG")
+        } else{
+        console.log(data)
+        return data 
+    }
+    }else{
+      console.log("please insert username");
+      
+    }
+  
+}
+
 
   @action signUp = async userName => {
     let user = { userName: userName, plants: [] };

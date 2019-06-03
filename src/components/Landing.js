@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import "../style/landing.css";
 import { Link } from "react-router-dom";
-import { observer, inject } from "mobx-react";
 
 class Landing extends Component {
     

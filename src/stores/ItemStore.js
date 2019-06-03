@@ -1,5 +1,4 @@
 import { observable, action } from "mobx";
-import Axios from "axios";
 import io from "socket.io-client";
 
 export class ItemStore {
@@ -27,7 +26,7 @@ export class ItemStore {
     //   this.plants = [data.data];
     //   console.log(this.plants);
     // });
-  };
+  }
 
   @action getPlantHistory = () => {
     this.socket.emit(`plant_history`);

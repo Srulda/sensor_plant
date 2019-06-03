@@ -1,18 +1,23 @@
-const express = require("express");
-const router = express.Router();
-const Plants = require("../model/Plants");
-const Sensor = require("../model/Sensor");
-const Users = require("../model/Users");
-const request = require("request");
-const moment = require("moment");
+const express     = require("express"),
+      router      = express.Router(),
+      Plants      = require("../model/Plants"),
+      Sensor      = require("../model/Sensor"),
+      Users       = require("../model/Users"),
+      request     = require("request"),
+      moment      = require("moment")
 
-router.get(`/userLogin/:userName`, function(req, res) {
-  let user = req.params.userName;
-  Users.findOne({ userName: `${user}` }, function(err, result) {
-    console.log(result);
-    res.send(result);
-  });
-});
+router.get(`/userLogin/:userName`, function(req, res){
+  let user = req.params.userName
+  Users.findOne({'userName' : `${user}`}, function(err, result){
+  if(result){
+      res.send(result)
+    }else{
+      res.end() 
+    }
+  })
+
+})
+
 
 router.post("/signUp/", function(req, res) {
   const user = req.body;
