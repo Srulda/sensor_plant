@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import "../style/signUp.css";
 import { observer, inject } from "mobx-react";
 
-@inject("generalStore")
+@inject("generalStore", "user")
 @observer
 class SignUp extends Component {
     constructor(){
@@ -20,7 +20,7 @@ class SignUp extends Component {
           };
     
       SignUp = () => {
-         this.props.generalStore.signUp(this.state.newUser) 
+         this.props.user.signUp(this.state.newUser) 
       };
     
     render() {

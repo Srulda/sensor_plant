@@ -9,7 +9,6 @@ const express      = require("express"),
       Sensor     = require("./server/model/Sensor"),
       MyPlants     = require("./server/model/myPlants"),
       moment       = require("moment"),
-      passport     = require("passport"),
       http         = require("http").Server(app),
       io           = require("socket.io")(http),
       request      = require("request")
