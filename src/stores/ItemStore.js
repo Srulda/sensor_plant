@@ -3,6 +3,8 @@ import Axios from "axios";
 import io from "socket.io-client";
 
 export class ItemStore {
+  @observable plantHistory = [];
+  @observable stats = {};
   constructor() {
     this.socket = io("http://localhost:2805");
     this.socket.on(`plant_stats`, data => {
@@ -17,16 +19,10 @@ export class ItemStore {
     setInterval(this.getPlantHistory, 10000);
   }
 
-  @observable plantHistory = [];
-  @observable stats = {};
+ 
 
   @action getLiveStats = () => {
     this.socket.emit(`plant_stats`);
-    // Axios.get(`http://localhost:2805/myPlantsBasil`).then(data => {
-    //   console.log(data);
-    //   this.plants = [data.data];
-    //   console.log(this.plants);
-    // });
   };
 
   @action getPlantHistory = () => {
