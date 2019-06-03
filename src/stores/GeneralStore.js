@@ -1,5 +1,7 @@
 import { observable, action } from "mobx";
 import Axios from "axios";
+import Home from "../components/Home";
+
 
 export class GeneralStore {
   @observable name;
@@ -14,6 +16,7 @@ export class GeneralStore {
     this.name = userName;
     return data;
   };
+
 
   @action signUp = async userName => {
     let user = { userName: userName, plants: [] };
