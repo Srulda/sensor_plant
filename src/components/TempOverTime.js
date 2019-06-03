@@ -68,7 +68,6 @@ class TempOverTime extends Component {
           <XAxis dataKey="time" />
           <YAxis />
           <Tooltip />
-
           <Line type="monotone" dataKey="parameter" stroke="#82ca9d" />
         </LineChart>
       </div>

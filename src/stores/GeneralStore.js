@@ -2,6 +2,7 @@ import { observable, action } from "mobx";
 import Axios from "axios";
 import Home from "../components/Home";
 
+
 export class GeneralStore {
   @observable name;
   @observable loading = true;
@@ -26,11 +27,10 @@ export class GeneralStore {
   
 }
 
+
   @action signUp = async userName => {
-    let user = {userName : userName, plants : []}
-    console.log(user)
-    await Axios.post(`http://localhost:2805/signUp/`, user)
-  }
+    let user = { userName: userName, plants: [] };
+    console.log(user);
+    await Axios.post(`http://localhost:2805/signUp/`, user);
+  };
 }
-
-

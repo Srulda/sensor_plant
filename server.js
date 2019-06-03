@@ -58,7 +58,6 @@ app.use("/", api);
 //   u1.save();
 // }
 
-
 // let data = require("./data.json");
 // for (let d of data) {
 //   let t1 = new Plants(d);

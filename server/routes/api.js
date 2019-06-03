@@ -18,18 +18,19 @@ router.get(`/userLogin/:userName`, function(req, res){
 
 })
 
-router.post("/signUp/", function(req, res){
-  const user = req.body
+
+router.post("/signUp/", function(req, res) {
+  const user = req.body;
   console.log(user);
-  
-    let u1 = new Users({
-    userName : user.userName,
-    plants : user.plants
-  })
-  u1.save().then(function(u){
-    res.send(u)
-  })
-})
+
+  let u1 = new Users({
+    userName: user.userName,
+    plants: user.plants
+  });
+  u1.save().then(function(u) {
+    res.send(u);
+  });
+});
 
 router.get("/plants", function(req, res) {
   Plants.find({}, function(err, result) {
@@ -70,10 +71,9 @@ router.get("/sensorStats", function(req, res) {
     dataObj.m = Number(data.split("<p>")[3].split("</p>")[0]);
     let c = new Sensor(dataObj);
     c.save();
-    
+
     res.send(c);
   });
-
 });
 
 module.exports = router;
