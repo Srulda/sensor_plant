@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { observer, inject } from "mobx-react";
 
 class Landing extends Component {
+    
 
 render() {
         return (
