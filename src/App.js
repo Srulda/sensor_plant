@@ -11,7 +11,7 @@ import Landing from "./components/Landing";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 
-@inject("itemStore", "plantsStore")
+@inject("itemStore", "plantsStore", "user")
 @observer
 class App extends Component {
   
@@ -21,23 +21,30 @@ class App extends Component {
  }
 
   render() {
+    const loggedIn = this.props.user.loggedIn
     return (
       <div className="App">
         <DevTools />
-
-        <Router>
-        < Navbar />
-          <Route exact path="/" component={Landing} />
-          <Route exact path="/home" component={Home} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/signUp" component={SignUp} />
-          <Route exact path="/plants" component={Plants} />
-          <Route exact path="/dashboard" component={PersonalDash} />
-
-        </Router>
+      {loggedIn 
+                  ? 
+    (<Router>
+   < Navbar />
+        <Route exact path="/" component={Landing} />
+        <Route exact path="/home" component={Home} />
+        <Route exact path="/plants" component={Plants} />
+        <Route exact path="/dashboard" component={PersonalDash} />
+        </Router>)
+                   :
+                (   <Router>
+        <Route exact path="/" component={Landing} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/signUp" component={SignUp} />  
+             </Router>)
+    }
       </div>
     );
   }
 }
 
 export default App;
+

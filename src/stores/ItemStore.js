@@ -16,7 +16,7 @@ export class ItemStore {
       this.plantHistory = data;
     });
 
-    setInterval(this.getLiveStats, 5000);
+    setInterval(this.getLiveStats, 2500);
 
     setInterval(this.getPlantHistory, 10000);
   }
