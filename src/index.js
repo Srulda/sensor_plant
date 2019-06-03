@@ -7,11 +7,13 @@ import { Provider } from "mobx-react";
 import { GeneralStore } from "./stores/GeneralStore";
 import { PlantsStore } from "./stores/PlantsStore";
 import { ItemStore } from "./stores/ItemStore";
+import { UserStore } from "./stores/UserStore";
 
 const generalStore = new GeneralStore();
 const plantsStore = new PlantsStore();
 const itemStore = new ItemStore();
-const stores = { generalStore, plantsStore, itemStore };
+const user = new UserStore()
+const stores = { generalStore, plantsStore, itemStore, user };
 
 ReactDOM.render(
   <Provider {...stores}>
