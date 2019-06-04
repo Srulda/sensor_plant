@@ -1,8 +1,16 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { inject } from "mobx-react";
 import "../../style/navbar.css";
 
+@inject("user")
 class Navbar extends Component {
+
+logOut = () =>{
+  sessionStorage.removeItem('currentLogin')
+  window.location = `http://localhost:3000/`;
+}
+
   render() {
     return (
       <div>
@@ -22,6 +30,13 @@ class Navbar extends Component {
               <i className="fas fa-tachometer-alt" />
             </span>
           </Link>
+          <div>
+            <span>Hello</span>
+           <span onClick = {this.logOut}>
+            <i className="fas fa-sign-out-alt" />
+            </span>
+          </div>
+           
         </div>
       </div>
     );
