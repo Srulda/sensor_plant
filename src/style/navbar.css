@@ -1,5 +1,5 @@
 .navbar {
-  height: 5vh;
+  height: 7vh;
   background-color: #8ad7b5;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 3fr;
@@ -14,4 +14,11 @@
 
 .navbar a {
   text-decoration: none;
+}
+
+.helloAndLogout{
+  display: grid;
+  grid-template-columns: 2fr 0.5fr; 
+  align-items: center;
+  justify-items: center;
 }

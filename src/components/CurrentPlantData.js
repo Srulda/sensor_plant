@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
+import "../style/currentPlantData.css";
 
 @inject("itemStore", "plantsStore")
 @observer
@@ -44,11 +45,11 @@ class CurrentPlantData extends Component {
 
   classMoisture = () => {
     if (this.plantCurrentMoist() < this.props.plantsStore.getBasilMinMoist) {
-      return "hot";
+      return "cold";
     } else if (
       this.plantCurrentMoist() > this.props.plantsStore.getBasilMaxMoist
     ) {
-      return "cold";
+      return "hot";
     } else {
       return "is-fine";
     }
@@ -56,27 +57,28 @@ class CurrentPlantData extends Component {
 
   render() {
     return (
-      <div id="badges-container">
-        <div className={this.classTemp()}>
-          <i className="fas fa-thermometer-three-quarters" />
+      <div>
+        <div id="badges-container">
+          <div className = "moistureBadge" id={this.classMoisture()}>
+            <i className="fas fa-leaf" />
+            <div>MOIST</div>
+            <div>{Math.round(this.plantCurrentMoist())}%</div>
+          </div>
 
-          <div>TEMP</div>
-          <div>{Math.round(this.plantCurrentTemp())}&deg;</div>
-        </div>
+          <div id = "tempAndHumid">
+            <div className = "tempBadge" id={this.classTemp()}>
+              <i className="fas fa-thermometer-three-quarters" />
+              <div>TEMP</div>
+              <div>{Math.round(this.plantCurrentTemp())}&deg;</div>
+            </div>
 
-        <div className={this.classHumidity()}>
-          <i className="fas fa-water" />
-          <div>HUMIDITY</div>
-          <div>{Math.round(this.plantCurrentHumadity())}%</div>
+            <div className = "humidBadge" id={this.classHumidity()}>
+              <i className="fas fa-water" />
+              <div>HUMIDITY</div>
+              <div>{Math.round(this.plantCurrentHumadity())}%</div>
+            </div>
+          </div>
         </div>
-
-        <div className={this.classMoisture()}>
-          <i className="fas fa-leaf" />
-          <div>MOIST</div>
-          <div>{Math.round(this.plantCurrentMoist())}%</div>
-        </div>
-        {/* <div id="lojWGPHNK">{this.props.plantsStore.getBasilMaxMoist}</div>
-        <div id="loNK">{this.props.plantsStore.getBasilMinMoist}</div> */}
       </div>
     );
   }

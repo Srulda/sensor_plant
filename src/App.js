@@ -10,6 +10,7 @@ import PersonalDash from "./components/PersonalDash";
 import Landing from "./components/Landing";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
+import HistoricalChart from "./components/HistoricalChart";
 
 @inject("itemStore", "plantsStore", "user")
 @observer
@@ -17,11 +18,9 @@ class App extends Component {
   
   componentDidMount = async () =>{
     await this.props.plantsStore.getDataFromDB()
-    // await this.props.itemStore.getDataFromDB()
  }
 
   render() {
-    const loggedIn = this.props.user.loggedIn
     return (
       <div className="App">
         <DevTools />
@@ -33,6 +32,7 @@ class App extends Component {
         <Route exact path="/home" component={Home} />
         <Route exact path="/plants" component={Plants} />
         <Route exact path="/dashboard" component={PersonalDash} />
+        <Route exact path="/chart" component={HistoricalChart} />
         </Router>)
                    :
                 (   <Router>

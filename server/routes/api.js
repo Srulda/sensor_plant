@@ -15,7 +15,6 @@ router.get(`/userLogin/:userName`, function(req, res){
       res.end() 
     }
   })
-
 })
 
 router.post("/signUp/", function(req, res) {

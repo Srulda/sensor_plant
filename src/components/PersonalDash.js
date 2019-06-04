@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
-import TempOverTime from "./TempOverTime";
 import CurrentPlantData from "./CurrentPlantData";
-import TempPopUp from "./TempPopUp";
-import HumidPopUp from "./HumidPopUp";
-import MoistPopUp from "./MoistPopUp";
 import Loading from "./Layout/Loading";
+import "../style/personalDash.css"
+
 
 @inject("itemStore", "plantsStore")
 @observer
@@ -36,10 +34,6 @@ class PersonalDash extends Component {
         ) : (
           <div>
             <CurrentPlantData />
-            <TempOverTime />
-            <TempPopUp />
-            <HumidPopUp />
-            <MoistPopUp />
           </div>
         )}
 
