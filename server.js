@@ -10,8 +10,8 @@ const express      = require("express"),
       Sensor     = require("./server/model/Sensor"),
       MyPlants     = require("./server/model/myPlants"),
       moment       = require("moment"),
-      http         = require("http").Server(app),
-      io           = require("socket.io")(http),
+      // http         = require("http").Server(app),
+      // io           = require("socket.io")(http),
       request      = require("request")
 
 mongoose.connect(
@@ -76,23 +76,25 @@ app.use("/", api);
 
 //   myFunction()
 
-io.on("connection", function(socket) {
-  socket.on(`plant_stats`, () => {
-    // request(`http://localhost:2805/sensorLive`, (err, response) => {
-    //   let data = JSON.parse(response.body);
-    //   socket.emit(`plant_stats`, data);
-    // });
-  });
 
-  socket.on(`plant_history`, () => {
-    request(`http://localhost:2805/sensorHistory`, (err, response) => {
-      let data = JSON.parse(response.body);
-      socket.emit(`plant_history`, data);
-    });
-  });
-});
+// io.on("connection", function(socket) {
+//   socket.on(`plant_stats`, () => {
+//     // request(`http://localhost:2805/sensorLive`, (err, response) => {
+//     //   let data = JSON.parse(response.body);
+//     //   socket.emit(`plant_stats`, data);
+//     // });
+//   });
+
+//   socket.on(`plant_history`, () => {
+//     request(`http://localhost:2805/sensorHistory`, (err, response) => {
+//       let data = JSON.parse(response.body);
+//       socket.emit(`plant_history`, data);
+//     });
+//   });
+// });
+
 
 const PORT = 2805;
-http.listen(process.env.PORT || PORT, function() {
+app.listen(process.env.PORT || PORT, function() {
   console.log(`server running on ${PORT}`);
 });
