@@ -1,3 +1,4 @@
+
 const express     = require("express"),
       router      = express.Router(),
       Plants      = require("../model/Plants"),
@@ -14,10 +15,10 @@ router.get(`/userLogin/:userName`, function(req, res){
       res.send(result)
     }else{
       res.end() 
-    }
-  })
-})
 
+    }
+  });
+});
 
 router.post("/signUp/", function(req, res) {
   const user = req.body;
@@ -41,6 +42,7 @@ router.get("/plants", function(req, res) {
 router.post("/sensorData", function(req, res) {
   //req.body.id =  arduino's ID
   let sensorData = new Sensor(req.body);
+
   Users.findOne({ sensors: req.body.id }, (err, user) => {
     if(user){
       user.sensors.push(sensorData)
@@ -52,30 +54,25 @@ router.post("/sensorData", function(req, res) {
 
   })
   console.log(Users)
-    
-  // sensorData.save();
   res.send(sensorData);
 });
 
 router.get("/sensorLive/:plantId", function(req, res) {
-  let plantId = req.params.plantId
+  let plantId = req.params.plantId;
   Sensor.find({})
     .sort({ timestamp: -1 })
     .limit(1)
     .exec(function(err, result) {
-      myPlants.findById(plantId,function(error,plant){
-        plant.stats.push(result._id)
-        .populate("sensors")
-        .exec(function(err,data){
-            res.send(data)
-      
-        }
-      
-      )
-})
-    })
-  });
-
+      myPlants.findById(plantId, function(error, plant) {
+        plant.stats
+          .push(result._id)
+          .populate("sensors")
+          .exec(function(err, data) {
+            res.send(data);
+          });
+      });
+    });
+});
 
 router.get("/sensorHistory", function(req, res) {
   Sensor.aggregate([
@@ -124,42 +121,39 @@ let UserIDfromDB = async userName => {
 
 router.post("/user/myPlants", async (req, res) => {
   let data = req.body;
-  console.log(req.body)
+  console.log(req.body);
   let newPlant = await new myPlants({
     name: data.plantName
   });
 
   newPlant.save();
-  console.log("this is new plant",newPlant._id)
-console.log(`saved new plant ${newPlant.name} to DB`)
-Users.findById(data.userId,function(error,user){
-  user.plants.push(newPlant._id)
-  user.save(function(err){
-if(err){
-  console.log(err)
-}else{
-  res.send("YEESSSHHH")
-}
-  })
-  console.log("User",user)
-})
+  console.log("this is new plant", newPlant._id);
+  console.log(`saved new plant ${newPlant.name} to DB`);
+  Users.findById(data.userId, function(error, user) {
+    user.plants.push(newPlant._id);
+    user.save(function(err) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send("YEESSSHHH");
+      }
+    });
+    console.log("User", user);
+  });
 });
 
-router.get("/user/myplants/:userId", function(req,res){
+router.get("/user/myplants/:userId", function(req, res) {
   let userId = req.params.userId;
   Users.findOne({ _id: `${userId}` })
-  .populate("plants")
-  .exec(function(err,data){
-    if(err){
-      console.log(err)
-    } else{
-      console.log("Data", data)
-      res.send(data)
-    }
-  })
-
-})
-
-
+    .populate("plants")
+    .exec(function(err, data) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Data", data);
+        res.send(data);
+      }
+    });
+});
 
 module.exports = router;
