@@ -2,8 +2,11 @@ import { observable } from "mobx";
 
 export class Plant {
   @observable name;
-
-  constructor(name) {
+  @observable isActive = false;
+  constructor(name, id) {
     this.name = name;
+    this.id = id;
   }
+  
+
 }

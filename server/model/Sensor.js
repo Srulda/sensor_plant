@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 
 let SensorSchema = new Schema({
   timestamp: { type: Date, default: Date.now },
+  id: String,
   c: Number,
   h: Number,
   m: Number
