@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import "../style/landing.css";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Login from './Login';
-import SignUp from './SignUp';
+import {Link} from "react-router-dom";
+
 
 class Landing extends Component {
     
