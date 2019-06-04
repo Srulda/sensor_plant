@@ -40,18 +40,29 @@ router.get("/plants", function(req, res) {
 router.post("/sensorData", function(req, res) {
   let sensorData = new Sensor(req.body);
   sensorData.save();
-  myPlants
+  
   res.send(sensorData);
 });
 
-router.get("/sensorLive", function(req, res) {
+router.get("/sensorLive/:plantId", function(req, res) {
+  let plantId = req.params.plantId
   Sensor.find({})
     .sort({ timestamp: -1 })
     .limit(1)
     .exec(function(err, result) {
-      res.send(result);
-    });
-});
+      myPlants.findById(plantId,function(error,plant){
+        plant.stats.push(result._id)
+        .populate("sensors")
+        .exec(function(err,data){
+            res.send(data)
+      
+        }
+      
+      )
+})
+    })
+  });
+
 
 router.get("/sensorHistory", function(req, res) {
   Sensor.aggregate([
