@@ -14,7 +14,9 @@ export class UserStore {
   @action signUp = async userName => {
     if (userName === "") {
       alert("Please Insert User Name");
-    } else {
+    }if(userName.length >12){
+      alert("User name must have between 1-12 letters")
+    }else {
       let dataNameCheck = await Axios.get(`http://localhost:2805/userLogin/${userName}`);
       if (dataNameCheck.data !== "") {
         alert("This User Name Already In Use")
@@ -52,6 +54,7 @@ export class UserStore {
   @action addPlant = async  plantName => {
     // let newPlant = new Plant(plantName);
     console.log(`created new plant ${plantName}`);
+
     // this.myPlants.push(newPlant);
 
     console.log(sessionStorage.getItem('currentLogin', 'userName'));

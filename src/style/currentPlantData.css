@@ -1,0 +1,44 @@
+#badges-container {
+  margin-top: 50%;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  text-align: center;
+  align-items: center;
+}
+
+#tempAndHumid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+}
+
+.moistureBadge {
+  background-color: #dd5151;
+  height: 14vh;
+  width: 83vw;
+  color: white;
+  justify-self: center;
+}
+
+.tempBadge {
+  background-color: #8ad7b5;
+  height: 14vh;
+  width: 35vw;
+  color: white;
+}
+.humidBadge {
+  background-color: rgb(178, 178, 247);
+  height: 14vh;
+  width: 35vw;
+  color: white;
+}
+
+#hot {
+  color: red;
+}
+#cold {
+  color: rgb(130, 130, 240);
+}
+#is-fine {
+    color: white;
+}

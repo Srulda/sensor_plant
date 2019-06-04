@@ -12,7 +12,8 @@ logOut = () =>{
 }
 
   render() {
-    return (
+    let user =JSON.parse(sessionStorage.getItem('currentLogin'))
+     return (
       <div>
         <div className="navbar">
           <Link to="/home">
@@ -30,11 +31,14 @@ logOut = () =>{
               <i className="fas fa-tachometer-alt" />
             </span>
           </Link>
-          <div>
-            <span>Hello</span>
-           <span onClick = {this.logOut}>
+          <div className = "helloAndLogout">
+          <div><span id = "hello">Hello {user.userName} !</span>
+            </div>
+            <div> <span id = "logOut" onClick = {this.logOut}>
             <i className="fas fa-sign-out-alt" />
             </span>
+              </div>  
+          
           </div>
            
         </div>

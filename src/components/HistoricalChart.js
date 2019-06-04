@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import { LineChart, Line, XAxis, YAxis, Tooltip } from "recharts";
+import "../style/chart.css";
 import moment from "moment";
 @inject("itemStore")
 @observer
-class TempOverTime extends Component {
+class HistoricalChart extends Component {
   constructor() {
     super();
     this.state = {
@@ -75,4 +76,4 @@ class TempOverTime extends Component {
   }
 }
 
-export default TempOverTime;
+export default HistoricalChart;
