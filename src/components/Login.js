@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "../style/login.css";
 import { observer, inject } from "mobx-react";
-import { Route, Redirect } from 'react-router'
+import {Redirect } from 'react-router'
 
 
 @inject("generalStore", "user")
@@ -27,7 +27,8 @@ class Login extends Component {
         <button onClick={this.userLogIn}>Log In</button>
       </div>)
         :
-         (<Redirect to = "/home"/>)
+         (<Redirect to = "/home"/>) 
+        
         }
         </div>
     )

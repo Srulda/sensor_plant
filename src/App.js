@@ -25,10 +25,10 @@ class App extends Component {
     return (
       <div className="App">
         <DevTools />
-      {loggedIn 
+      {sessionStorage.getItem("currentLogin") 
                   ? 
     (<Router>
-   < Navbar />
+        < Navbar />
         <Route exact path="/" component={Landing} />
         <Route exact path="/home" component={Home} />
         <Route exact path="/plants" component={Plants} />

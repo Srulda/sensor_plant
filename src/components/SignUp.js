@@ -5,36 +5,19 @@ import { observer, inject } from "mobx-react";
 @inject("generalStore", "user")
 @observer
 class SignUp extends Component {
-    constructor(){
-        super()
-        this.state = {
-            newUser :  ""
-        }
-    }
-    
-        handleInput = e => {
-            let inputValue = e.target.value;
-            this.setState({
-              [e.target.id]: inputValue
-            });
-          };
-    
-      SignUp = () => {
-         this.props.user.signUp(this.state.newUser) 
+    inputHandler = e => {
+        this.props.user.handleInput(e.target.name, e.target.value);
+      };
+    SignUp = () => {
+         this.props.user.signUp(this.props.user.userName) 
       };
     
     render() {
         return (
             <div>
-                <div id="signUp">
-          <input
-            type="text"
-            id="newUser"
-            value = {this.state.newUser}
-            onChange={this.handleInput}
-          />
-
-          <button onClick={this.SignUp}>Sign Up</button>
+       <div id="signUp">
+            <input type="text" value = {this.props.user.userName} name="userName" onChange={this.inputHandler} />
+            <button onClick={this.SignUp}>Sign Up</button>
         </div>
             </div>
         );
