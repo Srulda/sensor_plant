@@ -1,18 +1,18 @@
-
-const express      = require("express"),
-      app          = express(),
-      bodyParser   = require("body-parser"),
-      path         = require("path"),
-      api          = require("./server/routes/api"),
-      mongoose     = require("mongoose"),
-      Plants       = require("./server/model/Plants"),
-      Users        = require("./server/model/Users"),
-      Sensor     = require("./server/model/Sensor"),
-      MyPlants     = require("./server/model/myPlants"),
-      moment       = require("moment"),
-      // http         = require("http").Server(app),
-      // io           = require("socket.io")(http),
-      request      = require("request")
+const express = require("express"),
+  app = express(),
+  bodyParser = require("body-parser"),
+  path = require("path"),
+  api = require("./server/routes/api"),
+  mongoose = require("mongoose"),
+  Plants = require("./server/model/Plants"),
+  Users = require("./server/model/Users"),
+  Sensor = require("./server/model/Sensor"),
+  MyPlants = require("./server/model/myPlants"),
+  moment = require("moment"),
+  server = require("http").createServer(app),
+  request = require("request"),
+  socketManager = require("./server/SocketManager"),
+  socket = require("socket.io");
 
 mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/sensor_plant",
@@ -76,25 +76,10 @@ app.use("/", api);
 
 //   myFunction()
 
-
-// io.on("connection", function(socket) {
-//   socket.on(`plant_stats`, () => {
-//     // request(`http://localhost:2805/sensorLive`, (err, response) => {
-//     //   let data = JSON.parse(response.body);
-//     //   socket.emit(`plant_stats`, data);
-//     // });
-//   });
-
-//   socket.on(`plant_history`, () => {
-//     request(`http://localhost:2805/sensorHistory`, (err, response) => {
-//       let data = JSON.parse(response.body);
-//       socket.emit(`plant_history`, data);
-//     });
-//   });
-// });
-
+const io = socket(server);
+socketManager.load(io);
 
 const PORT = 2805;
-app.listen(process.env.PORT || PORT, function() {
+server.listen(process.env.PORT || PORT, function() {
   console.log(`server running on ${PORT}`);
 });
