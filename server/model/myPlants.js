@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 let MyPlantsSchema = new Schema({
 
     name : String,
-    stats : [{type: Schema.Types.ObjectId, ref: 'Sensors'}]
+    stats : [{type: Schema.Types.ObjectId, ref: 'Sensor'}],
 
 })
 

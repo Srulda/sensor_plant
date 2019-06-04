@@ -4,6 +4,7 @@ import Axios from "axios";
 
 export class UserStore {
   @observable myPlants = [];
+
   @observable userName = "";
 
   @action handleInput = (name, value) => {
@@ -36,10 +37,12 @@ export class UserStore {
       alert("Please Insert User Name");
     } else {
       let data = await Axios.get(`http://localhost:2805/userLogin/${userName}`);
+
       if (data.data === "") {
         alert("user not found");
       } else {
         console.log(data);
+
         let savedData = JSON.stringify(data.data)
         sessionStorage.setItem("currentLogin", savedData);
         window.location = `http://localhost:3000/home`;
@@ -48,10 +51,21 @@ export class UserStore {
     }
   }
 
-  @action addPlant = plantName => {
-    let newPlant = new Plant(plantName);
+  @action addPlant = async  plantName => {
+    // let newPlant = new Plant(plantName);
     console.log(`created new plant ${plantName}`);
-    this.myPlants.push(newPlant);
-    console.log(sessionStorage.getItem('currentLogin'));
-     };
+
+    // this.myPlants.push(newPlant);
+
+    console.log(sessionStorage.getItem('currentLogin', 'userName'));
+    let user =JSON.parse(sessionStorage.getItem('currentLogin'))
+    console.log(user._id)
+    let sendData = {
+      plantName : plantName,
+      userId : user._id
+    }
+    await Axios.post(`http://localhost:2805/user/myPlants`,sendData );
+    
+
+  };
 }
