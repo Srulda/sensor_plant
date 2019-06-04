@@ -78,10 +78,10 @@ app.use("/", api);
 
 io.on("connection", function(socket) {
   socket.on(`plant_stats`, () => {
-    request(`http://localhost:2805/sensorLive`, (err, response) => {
-      let data = JSON.parse(response.body);
-      socket.emit(`plant_stats`, data);
-    });
+    // request(`http://localhost:2805/sensorLive`, (err, response) => {
+    //   let data = JSON.parse(response.body);
+    //   socket.emit(`plant_stats`, data);
+    // });
   });
 
   socket.on(`plant_history`, () => {
