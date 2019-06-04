@@ -1,3 +1,4 @@
+
 const express      = require("express"),
       app          = express(),
       bodyParser   = require("body-parser"),
@@ -32,7 +33,6 @@ mongoose.connect(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
@@ -64,7 +64,6 @@ app.use("/", api);
 //   t1.save();
 // }
 
-
 // function myFunction() {
 //     setInterval(
 //         function(){
@@ -78,23 +77,20 @@ app.use("/", api);
 //   myFunction()
 
 io.on("connection", function(socket) {
-
-  socket.on(`plant_stats` , () =>{
-    request(`http://localhost:2805/sensorLive`, (err, response) => {
-      let data = JSON.parse(response.body)
-      socket.emit(`plant_stats` , data)
-    })
-  })
-
+  socket.on(`plant_stats`, () => {
+    // request(`http://localhost:2805/sensorLive`, (err, response) => {
+    //   let data = JSON.parse(response.body);
+    //   socket.emit(`plant_stats`, data);
+    // });
+  });
 
   socket.on(`plant_history`, () => {
     request(`http://localhost:2805/sensorHistory`, (err, response) => {
-      let data = JSON.parse(response.body)
-      socket.emit(`plant_history`, data)
+      let data = JSON.parse(response.body);
+      socket.emit(`plant_history`, data);
     });
   });
 });
-
 
 const PORT = 2805;
 http.listen(process.env.PORT || PORT, function() {

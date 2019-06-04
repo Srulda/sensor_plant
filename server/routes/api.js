@@ -1,22 +1,21 @@
-const express     = require("express"),
-      router      = express.Router(),
-      Plants      = require("../model/Plants"),
-      Sensor      = require("../model/Sensor"),
-      Users       = require("../model/Users"),
-      request     = require("request"),
-      moment      = require("moment")
+const express = require("express"),
+  router = express.Router(),
+  Plants = require("../model/Plants"),
+  Sensor = require("../model/Sensor"),
+  Users = require("../model/Users"),
+  request = require("request"),
+  moment = require("moment");
 
-router.get(`/userLogin/:userName`, function(req, res){
-  let user = req.params.userName
-  Users.findOne({'userName' : `${user}`}, function(err, result){
-  if(result){
-      res.send(result)
-    }else{
-      res.end() 
+router.get(`/userLogin/:userName`, function(req, res) {
+  let user = req.params.userName;
+  Users.findOne({ userName: `${user}` }, function(err, result) {
+    if (result) {
+      res.send(result);
+    } else {
+      res.end();
     }
-  })
-
-})
+  });
+});
 
 router.post("/signUp/", function(req, res) {
   const user = req.body;
@@ -37,17 +36,20 @@ router.get("/plants", function(req, res) {
   });
 });
 
-router.post("/sensorData", function(req, res){
+router.post("/sensorData", function(req, res) {
   let sensorData = new Sensor(req.body);
   sensorData.save();
   res.send(sensorData);
-})
+});
 
-router.get("/sensorLive", function(req,res){
-Sensor.find({}).sort({"timestamp" : -1}).limit(1).exec(function(err, result){
-res.send(result)
-})
- })
+router.get("/sensorLive", function(req, res) {
+  Sensor.find({})
+    .sort({ timestamp: -1 })
+    .limit(1)
+    .exec(function(err, result) {
+      res.send(result);
+    });
+});
 
 router.get("/sensorHistory", function(req, res) {
   Sensor.aggregate([
@@ -72,29 +74,36 @@ router.get("/sensorHistory", function(req, res) {
   });
 });
 
-router.get("/sensorStats", function(req, res) {
-  request(`http://192.168.130.186`, function(err, response) {
-    let data = response.body;
-    let dataObj = {};
-    // res.sendFile(data)
-    dataObj.c = Number(data.split("<p>")[1].split("</p>")[0]);
-    dataObj.h = Number(data.split("<p>")[2].split("</p>")[0]);
-    dataObj.m = Number(data.split("<p>")[3].split("</p>")[0]);
-    let c = new Sensor(dataObj);
-    c.save();
+// router.get("/sensorStats", function(req, res) {
+//   request(`http://192.168.130.186`, function(err, response) {
+//     let data = response.body;
+//     let dataObj = {};
+//     // res.sendFile(data)
+//     dataObj.c = Number(data.split("<p>")[1].split("</p>")[0]);
+//     dataObj.h = Number(data.split("<p>")[2].split("</p>")[0]);
+//     dataObj.m = Number(data.split("<p>")[3].split("</p>")[0]);
+//     let c = new Sensor(dataObj);
+//     c.save();
 
-    res.send(c);
+//     res.send(c);
+//   });
+// });
+
+getUserIDfromDB = async userName => {
+  await Users.findOne({ name: `${userName}` }, "_id", (err, user) => {
+    console.log(user);
+    return user;
   });
-});
+};
 
-router.post("/users/:userId/myPlants/:plantName", async (req, res) => {
+router.post("/users/myPlants", async (req, res) => {
   let plant = req.body;
   let newPlant = await new myPlant({
-    name: plant.name,
+    name: plant.name
   });
 
   newPlant.save();
-  res.send(console.log(`saved new client ${client.name} to DB`));
+  res.send(console.log(`saved new plant ${newPlant.name} to DB`));
 });
 
 module.exports = router;

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "../style/login.css";
 import { observer, inject } from "mobx-react";
+
 import {Redirect } from 'react-router'
 
 
@@ -11,15 +12,15 @@ class Login extends Component {
     this.props.user.handleInput(e.target.name, e.target.value);
   };
 
-
   userLogIn = () => {
     this.props.user.isLoggedIn(this.props.user.userName);
   };
 
   render() {
-    const loggedIn = this.props.user.loggedIn
-  return (
+    const loggedIn = this.props.user.loggedIn;
+    return (
       <div>
+
         {!loggedIn
          ?
        ( <div id="login">

@@ -4,6 +4,7 @@ import Axios from "axios";
 
 export class UserStore {
   @observable myPlants = [];
+
   @observable userName = "";
 
   @action handleInput = (name, value) => {
@@ -34,10 +35,12 @@ export class UserStore {
       alert("Please Insert User Name");
     } else {
       let data = await Axios.get(`http://localhost:2805/userLogin/${userName}`);
+
       if (data.data === "") {
         alert("user not found");
       } else {
         console.log(data);
+
         let savedData = JSON.stringify(data.data)
         sessionStorage.setItem("currentLogin", savedData);
         window.location = `http://localhost:3000/home`;
@@ -52,5 +55,6 @@ export class UserStore {
     this.myPlants.push(newPlant);
     console.log(sessionStorage.getItem('currentLogin', 'userName'));
     
+
   };
 }
