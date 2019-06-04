@@ -3,6 +3,7 @@ const express     = require("express"),
       Plants      = require("../model/Plants"),
       Sensor      = require("../model/Sensor"),
       Users       = require("../model/Users"),
+      myPlants    = require("../model/myPlants"),
       request     = require("request"),
       moment      = require("moment")
 
@@ -38,9 +39,21 @@ router.get("/plants", function(req, res) {
 });
 
 router.post("/sensorData", function(req, res) {
+  //req.body.id =  arduino's ID
   let sensorData = new Sensor(req.body);
-  sensorData.save();
-  
+  Users.findOne({ sensors: req.body.id }, (err, user) => {
+    if(user){
+      user.sensors.push(sensorData)
+    }else{
+      console.log(err)
+      return
+    }
+    user.save()
+
+  })
+  console.log(Users)
+    
+  // sensorData.save();
   res.send(sensorData);
 });
 
