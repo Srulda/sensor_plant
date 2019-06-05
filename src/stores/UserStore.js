@@ -6,7 +6,7 @@ import Axios from "axios";
 export class UserStore {
   @observable myPlants = [];
   @observable userName = "";
-
+  @observable sensorName = ""
   @action handleInput = (name, value) => {
     this[name] = value;
   };
@@ -22,19 +22,16 @@ export class UserStore {
         `http://localhost:2805/userLogin/${userName}`
       );
       if (dataNameCheck.data !== "") {
-        alert("This User Name Already In Use");
-      } else {
-        let user = { userName: userName, plants: [], sensors: [{ 1: "007" }] };
-        this.userName = userName;
-        console.log("----------", user);
-        await Axios.post(`http://localhost:2805/signUp/`, user);
-        let data = await Axios.get(
-          `http://localhost:2805/userLogin/${userName}`
-        );
-        let savedData = JSON.stringify(data.data);
-        sessionStorage.setItem("currentLogin", savedData);
-        window.location = `http://localhost:3000/home`;
-      }
+        alert("This User Name Already In Use")
+    }else{
+      let user = { userName: userName, plants: [] , sensors: [{1:`${this.sensorName}`}]};
+      this.userName = userName;
+      console.log("----------",user)
+      await Axios.post(`http://localhost:2805/signUp/`, user);
+      let data = await Axios.get(`http://localhost:2805/userLogin/${userName}`)
+      let savedData = JSON.stringify(data.data)
+      sessionStorage.setItem("currentLogin", savedData);
+      window.location = `http://localhost:3000/home`;
     }
   };
 
@@ -85,4 +82,5 @@ export class UserStore {
     }
     await Axios.put(`http://localhost:2805/stats/addPlantId`, update)
   }
+
 }

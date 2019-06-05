@@ -3,8 +3,7 @@ import { observable } from "mobx";
 export class Plant {
   @observable name;
   @observable isActive = false;
-  constructor(name, img) {
+  constructor(name) {
     this.name = name;
-    this.img = img
   }
 }
