@@ -1,21 +1,19 @@
+const express = require("express"),
+  router = express.Router(),
+  Plants = require("../model/Plants"),
+  Sensor = require("../model/Sensor"),
+  Users = require("../model/Users"),
+  myPlants = require("../model/myPlants"),
+  request = require("request"),
+  moment = require("moment");
 
-const express     = require("express"),
-      router      = express.Router(),
-      Plants      = require("../model/Plants"),
-      Sensor      = require("../model/Sensor"),
-      Users       = require("../model/Users"),
-      myPlants    = require("../model/myPlants"),
-      request     = require("request"),
-      moment      = require("moment")
-
-router.get(`/userLogin/:userName`, function(req, res){
-  let user = req.params.userName
-  Users.findOne({'userName' : `${user}`}, function(err, result){
-  if(result){
-      res.send(result)
-    }else{
-      res.end() 
-
+router.get(`/userLogin/:userName`, function(req, res) {
+  let user = req.params.userName;
+  Users.findOne({ userName: `${user}` }, function(err, result) {
+    if (result) {
+      res.send(result);
+    } else {
+      res.end();
     }
   });
 });
@@ -43,6 +41,7 @@ router.get("/plants", function(req, res) {
 
 router.post("/sensorData", function(req, res) {
   //req.body.id =  arduino's ID
+
   let sensorData = req.body
   Users.findOne({ sensors: `${req.body.id}` }, (err, user) => {
     if(user){
@@ -153,7 +152,7 @@ router.get("/user/myplants/:userId", function(req, res) {
         console.log(err);
       } else {
         console.log("Data", data);
-        res.send(data);
+        res.send(data.plants);
       }
     });
 });
