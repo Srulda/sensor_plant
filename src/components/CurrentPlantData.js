@@ -5,8 +5,11 @@ import "../style/currentPlantData.css";
 @inject("itemStore", "plantsStore")
 @observer
 class CurrentPlantData extends Component {
+
   componentDidMount = () => {
-    this.props.itemStore.getLiveStats();
+    this.props.itemStore.renderLiveStats();
+
+
   };
   plantCurrentTemp = () => {
     let currentTemp = this.props.itemStore.liveStats.c;
@@ -59,6 +62,7 @@ class CurrentPlantData extends Component {
   };
 
   render() {
+
     return (
       <div>
         <div id="badges-container">

@@ -1,11 +1,12 @@
 import { observable, action } from "mobx";
 import Axios from "axios";
+const moment = require("moment") 
 export class UserStore {
- 
 
-  @observable myPlants = [];
-  @observable userName = "";
+  @observable myPlants = []
+  @observable userName = ""
   @observable sensorName = ""
+
   @action handleInput = (name, value) => {
     this[name] = value;
   };
@@ -71,15 +72,23 @@ export class UserStore {
   };
 
 
+  
 
   @action conncetPlantToSensor =  (userID, plantID) => {
-    let update = {
-      user_Id: userID,
-      plant_Id: plantID
-    }
- setInterval( async () => {
-      await Axios.put(`http://localhost:2805/user/stats`, update)
-}, 1500);
+        let update = {
+        user_Id: userID,
+        plant_Id: plantID
+      }
+      
+    setInterval( async () => {
+        await Axios.put(`http://localhost:2805/user/stats`, update)
+     
+  }, 1500);
 
   }
+
+
+  
+
+
 }
