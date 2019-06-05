@@ -6,7 +6,8 @@ class socketManager {
 
   load(io) {
     this.io = io;
-    this.run()
+    this.run();
+
   }
 
   run() {

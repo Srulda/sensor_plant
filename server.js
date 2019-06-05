@@ -6,12 +6,12 @@ const express = require("express"),
   mongoose = require("mongoose"),
   Plants = require("./server/model/Plants"),
   Users = require("./server/model/Users"),
-  Sensor = require("./server/model/Sensor"),
   MyPlants = require("./server/model/myPlants"),
   moment = require("moment"),
   server = require("http").createServer(app),
   request = require("request"),
   socketManager = require("./server/SocketManager"),
+
   socket = require("socket.io");
 
 mongoose.connect(
@@ -54,20 +54,9 @@ app.use("/", api);
 //   t1.save();
 // }
 
-// function myFunction() {
-//     setInterval(
-//         function(){
-//             let t1 = new MyPlants({c: (Math.random() * 20 ),h:  (Math.random() * 16),m : (Math.random() * 50 )}
-//             )
-//                  t1.save()
-//                  console.log(t1)
-//         }, 3000);
-//   }
+const io = socket(server);
+socketManager.load(io);
 
-//   myFunction()
-
-// const io = socket(server);
-// socketManager.load(io);
 
 const PORT = 2805;
 app.listen(process.env.PORT || PORT, function() {

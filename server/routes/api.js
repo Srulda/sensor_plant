@@ -1,21 +1,18 @@
+const express = require("express"),
+  router = express.Router(),
+  Plants = require("../model/Plants"),
+  Users = require("../model/Users"),
+  myPlants = require("../model/myPlants"),
+  request = require("request"),
+  moment = require("moment");
 
-const express     = require("express"),
-      router      = express.Router(),
-      Plants      = require("../model/Plants"),
-      Sensor      = require("../model/Sensor"),
-      Users       = require("../model/Users"),
-      myPlants    = require("../model/myPlants"),
-      request     = require("request"),
-      moment      = require("moment")
-
-router.get(`/userLogin/:userName`, function(req, res){
-  let user = req.params.userName
-  Users.findOne({'userName' : `${user}`}, function(err, result){
-  if(result){
-      res.send(result)
-    }else{
-      res.end() 
-
+router.get(`/userLogin/:userName`, function(req, res) {
+  let user = req.params.userName;
+  Users.findOne({ userName: `${user}` }, function(err, result) {
+    if (result) {
+      res.send(result);
+    } else {
+      res.end();
     }
   });
 });
@@ -27,7 +24,7 @@ router.post("/signUp/", function(req, res) {
   let u1 = new Users({
     userName: user.userName,
     plants: user.plants,
-    sensors : user.sensors
+    sensors: user.sensors
   });
   u1.save().then(function(u) {
     res.send(u);
@@ -40,20 +37,17 @@ router.get("/plants", function(req, res) {
   });
 });
 
-
 router.post("/sensorData", function(req, res) {
   //req.body.id =  arduino's ID
-  let sensorData = req.body
+
+  let sensorData = req.body;
   Users.findOne({ sensors: `${req.body.id}` }, (err, user) => {
-    if(user){
-      console.log(user);
-      user.stats.push(sensorData)
-      user.save()
-      console.log(user);
-      
-}
-  })
-  
+    if (user) {
+      user.stats.push(sensorData);
+      user.save();
+    }
+  });
+
   res.send(sensorData);
 });
 
@@ -100,7 +94,6 @@ router.get("/sensorHistory", function(req, res) {
 
 let UserIDfromDB = async userName => {
   await Users.findOne({ name: `${userName}` }, "_id", (err, user) => {
-    console.log(user);
     return user;
   });
 };
@@ -128,21 +121,22 @@ router.post("/user/myPlants", async (req, res) => {
   });
 });
 
+router.put("/user/stats", function(req, res) {
+  let data = req.body;
+  console.log(data);
 
-router.put("/stats/addPlantId", function(req,res){
-  let data = req.body
-  Users.findByIdAndUpdate(data.userId, function (err, user){
-    for(let s of user.stats){
-      if(s.plantId){
+  Users.findById(data.user_id, function(err, user) {
+    for (let s of user.stats) {
+      if (s.plant_id) {
         return
-      }else{
-        s.plantId = data.plantId
+      } else {
+        s.plant_id = data.plant_id;
+        console.log(user.stats);
       }
     }
-  })
-  res.send("yeah!!")
-})
-
+  });
+  res.send("yeah");
+});
 
 router.get("/user/myplants/:userId", function(req, res) {
   let userId = req.params.userId;
@@ -153,7 +147,7 @@ router.get("/user/myplants/:userId", function(req, res) {
         console.log(err);
       } else {
         console.log("Data", data);
-        res.send(data);
+        res.send(data.plants);
       }
     });
 });
