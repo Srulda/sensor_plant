@@ -28,7 +28,6 @@ class App extends Component {
                   ? 
     (<Router>
         < Navbar />
-        <Route exact path="/" component={Landing} />
         <Route exact path="/home" component={Home} />
         <Route exact path="/plants" component={Plants} />
         <Route exact path="/dashboard" component={PersonalDash} />

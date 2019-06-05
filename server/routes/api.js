@@ -121,21 +121,21 @@ router.post("/user/myPlants", async (req, res) => {
   });
 });
 
-router.put("/user/stats", function(req, res) {
+router.put("/user/stats", async (req, res) => {
   let data = req.body;
-  console.log(data);
-
-  Users.findById(data.user_id, function(err, user) {
-    for (let s of user.stats) {
-      if (s.plant_id) {
-        return
-      } else {
-        s.plant_id = data.plant_id;
-        console.log(user.stats);
-      }
+  let userId = data.user_Id;
+  let plantId = data.plant_Id;
+  let user = await Users.findById(userId);
+  let userStats = [...user.stats];
+  for (let s of userStats) {
+    if (!s["plantID"]) {
+      s["plantID"] = plantId;
     }
-  });
-  res.send("yeah");
+  }
+  user = await Users.update({ _id: [userId] }, { $set: { stats: userStats } }, {new: true});
+  console.log(user);
+  
+  res.send(user);
 });
 
 router.get("/user/myplants/:userId", function(req, res) {
