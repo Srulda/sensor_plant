@@ -10,7 +10,8 @@ const express = require("express"),
   moment = require("moment"),
   server = require("http").createServer(app),
   request = require("request"),
-  socketManager = require("./server/SocketManager");
+  socketManager = require("./server/SocketManager"),
+
   socket = require("socket.io");
 
 mongoose.connect(

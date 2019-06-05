@@ -26,7 +26,15 @@ class PersonalDash extends Component {
     let userId = JSON.parse(sessionStorage.getItem("currentLogin"))
     console.log(userId._id)
     console.log(e.target.id)
+    console.log(e.target.textContent)
+
     this.props.user.conncetPlantToSensor(userId._id, e.target.id)
+    this.props.plantsStore.getPlantMaxTemp(e.target.textContent)
+    this.props.plantsStore.getPlantMinTemp(e.target.textContent)
+    this.props.plantsStore.getPlantMaxHumid(e.target.textContent)
+    this.props.plantsStore.getPlantMinHumid(e.target.textContent)
+    this.props.plantsStore.getPlantMaxMoist(e.target.textContent)
+    this.props.plantsStore.getPlantMinMoist(e.target.textContent)
   }
 
   render() {
