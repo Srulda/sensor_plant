@@ -1,9 +1,8 @@
 import { observable, action } from "mobx";
-import Plant from "../components/Plant";
 import Axios from "axios";
-
-
 export class UserStore {
+ 
+
   @observable myPlants = [];
   @observable userName = "";
   @observable sensorName = ""
@@ -26,7 +25,6 @@ export class UserStore {
     }else{
       let user = { userName: userName, plants: [] , sensors: [this.sensorName]};
       this.userName = userName;
-      console.log("----------",user)
       await Axios.post(`http://localhost:2805/signUp/`, user);
       let data = await Axios.get(`http://localhost:2805/userLogin/${userName}`)
       let savedData = JSON.stringify(data.data)
@@ -41,12 +39,10 @@ export class UserStore {
       alert("Please Insert User Name");
     } else {
       let data = await Axios.get(`http://localhost:2805/userLogin/${userName}`);
-
+      
       if (data.data === "") {
         alert("user not found");
       } else {
-        console.log(data);
-
         let savedData = JSON.stringify(data.data);
         sessionStorage.setItem("currentLogin", savedData);
         window.location = `http://localhost:3000/home`;
@@ -58,9 +54,7 @@ export class UserStore {
   @action addPlant = async plantName => {
     // let newPlant = new Plant(plantName, img);
     console.log(`created new plant ${plantName}`);
-    console.log(sessionStorage.getItem("currentLogin", "userName"));
     let user = JSON.parse(sessionStorage.getItem("currentLogin"));
-    console.log(user._id);
     let sendData = {
       plantName: plantName,
       userId: user._id
@@ -76,12 +70,16 @@ export class UserStore {
     return (this.myPlants = savedPlants.data);
   };
 
-  @action conncetPlantToSensor = async (userID, plantID) => {
-    let update = {
-      user_id: userID,
-      plant_id: plantID
-    }
-    await Axios.put(`http://localhost:2805/user/stats`, update)
-  }
 
+
+  @action conncetPlantToSensor =  (userID, plantID) => {
+    let update = {
+      user_Id: userID,
+      plant_Id: plantID
+    }
+ setInterval( async () => {
+      await Axios.put(`http://localhost:2805/user/stats`, update)
+}, 1500);
+
+  }
 }
