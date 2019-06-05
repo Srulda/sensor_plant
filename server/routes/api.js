@@ -1,7 +1,6 @@
 const express = require("express"),
   router = express.Router(),
   Plants = require("../model/Plants"),
-  Sensor = require("../model/Sensor"),
   Users = require("../model/Users"),
   myPlants = require("../model/myPlants"),
   request = require("request"),
@@ -25,7 +24,7 @@ router.post("/signUp/", function(req, res) {
   let u1 = new Users({
     userName: user.userName,
     plants: user.plants,
-    sensors : user.sensors
+    sensors: user.sensors
   });
   u1.save().then(function(u) {
     res.send(u);
@@ -38,19 +37,17 @@ router.get("/plants", function(req, res) {
   });
 });
 
-
 router.post("/sensorData", function(req, res) {
   //req.body.id =  arduino's ID
 
-  let sensorData = req.body
+  let sensorData = req.body;
   Users.findOne({ sensors: `${req.body.id}` }, (err, user) => {
-    if(user){
-      user.stats.push(sensorData)
-      user.save()
-      
-}
-  })
-  
+    if (user) {
+      user.stats.push(sensorData);
+      user.save();
+    }
+  });
+
   res.send(sensorData);
 });
 
@@ -124,26 +121,22 @@ router.post("/user/myPlants", async (req, res) => {
   });
 });
 
-
-router.put("/stats/addPlantId", function(req,res){
-  let data = req.body
+router.put("/user/stats", function(req, res) {
+  let data = req.body;
   console.log(data);
-  
-  Users.findById(data.userId, function (err, user){
-    for(let s of user.stats){
-      if(s.plantId){
-        return
-      }else{
-        s.plantId = data.plantId
-        console.log(user.stats)
-      }
-     
-    }
-    user.save()
-  })
-  res.send("yeah")
-})
 
+  Users.findById(data.user_id, function(err, user) {
+    for (let s of user.stats) {
+      if (s.plant_id) {
+        return
+      } else {
+        s.plant_id = data.plant_id;
+        console.log(user.stats);
+      }
+    }
+  });
+  res.send("yeah");
+});
 
 router.get("/user/myplants/:userId", function(req, res) {
   let userId = req.params.userId;

@@ -22,6 +22,13 @@ class PersonalDash extends Component {
     });
   };
 
+  connect = (e) => {
+    let userId = JSON.parse(sessionStorage.getItem("currentLogin"))
+    console.log(userId._id)
+    console.log(e.target.id)
+    this.props.user.conncetPlantToSensor(userId._id, e.target.id)
+  }
+
   render() {
     const loading = this.state.loading;
     let userPlants = this.props.user.myPlants;
@@ -36,8 +43,7 @@ class PersonalDash extends Component {
             <div className="myPlants-container">
               {userPlants.map(p => (
                 <div>
-                  <div>{p.name}</div>
-                  <button>connect</button>
+                  <div id = {p._id} onClick = {this.connect}>{p.name}</div>
                 </div>
               ))}
             </div>
