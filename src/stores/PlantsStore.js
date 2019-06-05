@@ -10,29 +10,55 @@ export class PlantsStore {
     return this.plants;
   };
 
-  @action getPlantMaxTemp =(plant) =>{
-    let plantObj = this.plants.find(p=> p.name === plant)
-    return plantObj.temperature_max
+  @action getPlantMaxTemp = async (plant) =>{
+    if(!plant){
+      return "no plant"
+    }else{
+      console.log("this is " + plant)
+      let plantObj = await this.plants.find(p=> p.name === plant)
+      console.log(plantObj.temperature_max)
+      return plantObj.temperature_max
+    }
   }
-  @action getPlantMinTemp =(plant) =>{
-    let plantObj = this.plants.find(p=> p.name === plant)
+  @action getPlantMinTemp = async (plant) =>{
+    if(!plant){
+      return
+    }else{
+    let plantObj = await this.plants.find(p=> p.name === plant)
       return plantObj.temperature_min
+    }
   }
-  @action getPlantMaxHumid= (plant) =>{
-    let plantObj = this.plants.find(p=> p.name === plant)
-      return plantObj.humid_max
+  @action getPlantMaxHumid= async (plant) =>{
+    if(!plant){
+      return
+    }else{
+    let plantObj = await this.plants.find(p=> p.name === plant)
+     return plantObj.humid_max
+    }
   }
-  @action getPlantMinHumid= (plant) =>{
-    let plantObj = this.plants.find(p=> p.name === plant)
-      return plantObj.humid_min
+  @action getPlantMinHumid= async (plant) =>{
+    if(!plant){
+      return
+    }else{
+    let plantObj = await this.plants.find(p=> p.name === plant)
+       return plantObj.humid_min
+    }
   }
-  @action getPlantMaxMoist= (plant) =>{
-    let plantObj = this.plants.find(p=> p.name === plant)
-      return plantObj.moist_max
+  @action getPlantMaxMoist= async (plant) =>{
+    if(!plant){
+      return
+    }else{
+    let plantObj = await this.plants.find(p=> p.name === plant)
+       return plantObj.moist_max
+    }
   }
-  @action getPlantMinMoist= (plant) =>{
-    let plantObj = this.plants.find(p=> p.name === plant)
-      return plantObj.moist_min
+  @action getPlantMinMoist= async (plant) =>{
+    if(!plant){
+      return
+    }else{
+    let plantObj = await this.plants.find(p=> p.name === plant)
+       return plantObj.moist_min
+    }
   }
   
 

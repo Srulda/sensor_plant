@@ -24,21 +24,26 @@ class CurrentPlantData extends Component {
 
 
 
-  classTemp = () => {
-    if (this.plantCurrentTemp() < this.props.plantsStore.getBasilMinTemp) {
-      return "cold";
-    } else if (this.plantCurrentTemp() > this.props.plantsStore.getBasilMaxTemp) {
-      return "hot";
-    } else {
-      return "is-fine";
+  classTemp =  async () => {
+      if (this.plantCurrentTemp() < await this.props.plantsStore.getPlantMinTemp()) {
+        console.log("cold")
+      } else if (this.plantCurrentTemp() >await  this.props.plantsStore.getPlantMaxTemp()) {
+        console.log("hot")
+        return "hot";
+      } else {
+        console.log("isFine")
+        console.log(this.plantCurrentTemp());
+        console.log( await this.props.plantsStore.getPlantMaxTemp()); 
+        return "is-fine";
     }
   };
 
   classHumidity = () => {
-    if (this.plantCurrentHumadity() < this.props.plantsStore.getBasilMinHumid) {
+
+    if (this.plantCurrentHumadity() < this.props.plantsStore.getPlantMinHumid()) {
       return "cold";
     } else if (
-      this.plantCurrentHumadity() > this.props.plantsStore.getBasilMaxHumid
+      this.plantCurrentHumadity() > this.props.plantsStore.getPlantMaxHumid()
     ) {
       return "hot";
     } else {
@@ -47,10 +52,11 @@ class CurrentPlantData extends Component {
   };
 
   classMoisture = () => {
-    if (this.plantCurrentMoist() < this.props.plantsStore.getBasilMinMoist) {
+
+    if (this.plantCurrentMoist() < this.props.plantsStore.getPlantMinMoist()) {
       return "cold";
     } else if (
-      this.plantCurrentMoist() > this.props.plantsStore.getBasilMaxMoist
+      this.plantCurrentMoist() > this.props.plantsStore.getPlantMaxMoist()
     ) {
       return "hot";
     } else {
