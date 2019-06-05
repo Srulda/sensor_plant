@@ -5,7 +5,7 @@ export class Plant {
   @observable isActive = false;
   constructor(name, id) {
     this.name = name;
-    this.id = id;
+    this.img = img;
   }
   
 

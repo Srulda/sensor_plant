@@ -6,7 +6,7 @@ import "../style/plant.css";
 @observer
 class Plant extends Component {
   addPlant = () => {
-    this.props.user.addPlant(this.props.data.name);
+    this.props.user.addPlant(this.props.data.name, this.props.data.img);
     console.log(this.props.data.name);
   };
 
