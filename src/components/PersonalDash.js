@@ -15,7 +15,10 @@ class PersonalDash extends Component {
     };
   }
 
+  
+
   componentDidMount = async () => {
+
     // await this.props.plantsStore.getDataFromDB();
     // await this.props.itemStore.getDataFromDB();
     this.setState({
