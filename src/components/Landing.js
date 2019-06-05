@@ -8,9 +8,13 @@ class Landing extends Component {
 
 render() {
         return (
+
             <div>
-        <Link to = "/login"><button>Login</button></Link>                 
-        <Link to = "/signUp"><button>Sign Up</button></Link>                 
+                <h1>Plan-T &deg; </h1>
+            <div id="log-container">
+        <div className="log-btn"><Link to = "/login">Login</Link></div>               
+        <div className="log-btn"><Link to = "/signUp">Sign Up</Link></div>             
+</div>
 </div>
         )
     }
