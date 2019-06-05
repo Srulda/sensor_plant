@@ -6,7 +6,7 @@ export class UserStore {
   @observable myPlants = [];
 
   @observable userName = "";
-
+  @observable sensorName = ""
   @action handleInput = (name, value) => {
     this[name] = value;
   };
@@ -21,7 +21,7 @@ export class UserStore {
       if (dataNameCheck.data !== "") {
         alert("This User Name Already In Use")
     }else{
-      let user = { userName: userName, plants: [] , sensors: [{1:"007"}]};
+      let user = { userName: userName, plants: [] , sensors: [{1:`${this.sensorName}`}]};
       this.userName = userName;
       console.log("----------",user)
       await Axios.post(`http://localhost:2805/signUp/`, user);

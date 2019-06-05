@@ -21,10 +21,13 @@ class CurrentPlantData extends Component {
     return currentM;
   };
 
+
+
+
   classTemp = () => {
     if (this.plantCurrentTemp() < this.props.plantsStore.getBasilMinTemp) {
       return "cold";
-    } else if (this.plantCurrentTemp > this.props.plantsStore.getBasilMaxTemp) {
+    } else if (this.plantCurrentTemp() > this.props.plantsStore.getBasilMaxTemp) {
       return "hot";
     } else {
       return "is-fine";

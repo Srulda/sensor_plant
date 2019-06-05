@@ -16,9 +16,10 @@ class SignUp extends Component {
         return (
             <div>
        <div id="signUp">
-            <input type="text" value = {this.props.user.userName} name="userName" onChange={this.inputHandler} />
+            <input type="text"  value = {this.props.user.userName} name="userName" onChange={this.inputHandler} />
             <button onClick={this.SignUp}>Sign Up</button>
         </div>
+        <input placeholder="Sensor Number" value = {this.props.user.sensorName} name="sensorName" onChange={this.inputHandler}/>
             </div>
         );
     }
