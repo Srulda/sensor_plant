@@ -10,29 +10,29 @@ export class PlantsStore {
     return this.plants;
   };
 
-  @computed get getBasilMaxTemp (){
-    let basilObj = this.plants.find(p=> p.name === "Basil")
-    return basilObj.temperature_max
+  @action getPlantMaxTemp =(plant) =>{
+    let plantObj = this.plants.find(p=> p.name === plant)
+    return plantObj.temperature_max
   }
-  @computed get getBasilMinTemp (){
-    let basilObj = this.plants.find(p=> p.name === "Basil")
-      return basilObj.temperature_min
+  @action getPlantMinTemp =(plant) =>{
+    let plantObj = this.plants.find(p=> p.name === plant)
+      return plantObj.temperature_min
   }
-  @computed get getBasilMaxHumid (){
-    let basilObj = this.plants.find(p=> p.name === "Basil")
-      return basilObj.humid_max
+  @action getPlantMaxHumid= (plant) =>{
+    let plantObj = this.plants.find(p=> p.name === plant)
+      return plantObj.humid_max
   }
-  @computed get getBasilMinHumid (){
-    let basilObj = this.plants.find(p=> p.name === "Basil")
-      return basilObj.humid_min
+  @action getPlantMinHumid= (plant) =>{
+    let plantObj = this.plants.find(p=> p.name === plant)
+      return plantObj.humid_min
   }
-  @computed get getBasilMaxMoist (){
-    let basilObj = this.plants.find(p=> p.name === "Basil")
-      return basilObj.moist_max
+  @action getPlantMaxMoist= (plant) =>{
+    let plantObj = this.plants.find(p=> p.name === plant)
+      return plantObj.moist_max
   }
-  @computed get getBasilMinMoist (){
-    let basilObj = this.plants.find(p=> p.name === "Basil")
-      return basilObj.moist_min
+  @action getPlantMinMoist= (plant) =>{
+    let plantObj = this.plants.find(p=> p.name === plant)
+      return plantObj.moist_min
   }
   
 
