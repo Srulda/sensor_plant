@@ -41,6 +41,7 @@ router.post("/sensorData", function(req, res) {
   //req.body.id =  arduino's ID
 
   let sensorData = req.body;
+  sensorData.timestamp = moment().format()
   Users.findOne({ sensors: `${req.body.id}` }, (err, user) => {
     if (user) {
       user.stats.push(sensorData);
@@ -51,23 +52,20 @@ router.post("/sensorData", function(req, res) {
   res.send(sensorData);
 });
 
-// not working with postman 05/06 - 08:00 am
-router.get("/sensorLive/:plantId", function(req, res) {
-  let plantId = req.params.plantId;
-  Sensor.find({})
-    .sort({ timestamp: -1 })
-    .limit(1)
-    .exec(function(err, result) {
-      myPlants.findById(plantId, function(error, plant) {
-        plant.stats
-          .push(result._id)
-          .populate("sensors")
-          .exec(function(err, data) {
-            res.send(data);
-          });
-      });
-    });
-});
+router.get("/sensorLive/:plantId", async function(req, res) {
+  let plantId =  await req.params.plantId;
+  Users.find({ plants: { _id: `${plantId}` } }, (err, result) => {
+    let plantStats = result[0].stats
+    plantStats.find(r => {
+        r.plantID === plantId;
+      })
+     let liveData =  plantStats.splice(plantStats.length -1)
+    console.log(`this is the ${liveData}`);
+    res.send(liveData);
+  });
+})
+
+
 
 router.get("/sensorHistory", function(req, res) {
   Sensor.aggregate([
@@ -122,9 +120,8 @@ router.post("/user/myPlants", async (req, res) => {
 });
 
 router.put("/user/stats", async (req, res) => {
-  let data = req.body;
-  let userId = data.user_Id;
-  let plantId = data.plant_Id;
+  let userId = req.body.user_Id;
+  let plantId = req.body.plant_Id;
   let user = await Users.findById(userId);
   let userStats = [...user.stats];
   for (let s of userStats) {
