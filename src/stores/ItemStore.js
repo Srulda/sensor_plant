@@ -22,16 +22,16 @@ export class ItemStore {
     // setInterval(this.getPlantHistory, 10000);
   }
 
-  @action renderLiveStats = async () => {
-    let currentStats = await Axios.get(
-      `http://localhost:2805/sensorLive/5cf7bd6aa515a24d1c86a6f5`
-    );
-    this.liveStats = currentStats.data; 
-    console.log(currentStats);
-    console.log(this.liveStats);
+  // @action renderLiveStats = async () => {
+  //   let currentStats = await Axios.get(
+  //     `http://localhost:2805/sensorLive/5cf7bd6aa515a24d1c86a6f5`
+  //   );
+  //   this.liveStats = currentStats.data[0]; 
+  //   console.log(currentStats);
+  //   console.log(this.liveStats);
     
-    return this.liveStats
-  };
+  //   return this.liveStats
+  // };
 
   // @action getLiveStats = () => {
   //   this.socket.emit(`plant_stats`);

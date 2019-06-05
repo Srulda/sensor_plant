@@ -1,22 +1,44 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import "../style/currentPlantData.css";
+import Axios from "axios";
 
 @inject("itemStore", "plantsStore")
 @observer
 class CurrentPlantData extends Component {
+constructor(){
+  super()
+  this.state = {
+    statsistics : {}
+  }
+}
+
 
   componentDidMount = () => {
-    this.props.itemStore.renderLiveStats();
+setInterval(async () => {
+    await this.renderLiveStats()
+}, 2000);
+     }
+
+ 
+  renderLiveStats = async () => {
+    let currentStats = await Axios.get(
+      `http://localhost:2805/sensorLive/5cf7e63635cbb321047ceff6`
+    );
+    this.setState({
+      statsistics : currentStats.data[0]
+    })
+    console.log(currentStats.data[0]);
+  }
 
 
-  };
+
   plantCurrentTemp = () => {
     let currentTemp = this.props.itemStore.liveStats.c;
     return currentTemp;
   };
   plantCurrentHumadity = () => {
-    let currentH = this.props.itemStore.liveStats.h;
+    let currentH = this.props.itemStore.liveStats;
     return currentH;
   };
   plantCurrentMoist = () => {
@@ -62,27 +84,28 @@ class CurrentPlantData extends Component {
   };
 
   render() {
-
     return (
       <div>
         <div id="badges-container">
           <div className = "moistureBadge" id={this.classMoisture()}>
             <i className="fas fa-leaf" />
             <div>MOIST</div>
-            <div>{Math.round(this.plantCurrentMoist())}%</div>
+            <div>{this.state.statsistics.m}%</div>
+            
           </div>
 
           <div id = "tempAndHumid">
             <div className = "tempBadge" id={this.classTemp()}>
               <i className="fas fa-thermometer-three-quarters" />
               <div>TEMP</div>
-              <div>{Math.round(this.plantCurrentTemp())}&deg;</div>
+              <div>{this.state.statsistics.c}&deg;</div>
+
             </div>
 
             <div className = "humidBadge" id={this.classHumidity()}>
               <i className="fas fa-water" />
               <div>HUMIDITY</div>
-              <div>{Math.round(this.plantCurrentHumadity())}%</div>
+              <div>{this.state.statsistics.h}%</div>
             </div>
           </div>
         </div>

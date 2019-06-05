@@ -41,6 +41,7 @@ router.post("/sensorData", function(req, res) {
   //req.body.id =  arduino's ID
 
   let sensorData = req.body;
+  
   sensorData.timestamp = moment().format()
   Users.findOne({ sensors: `${req.body.id}` }, (err, user) => {
     if (user) {
