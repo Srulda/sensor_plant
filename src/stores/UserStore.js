@@ -24,7 +24,7 @@ export class UserStore {
       if (dataNameCheck.data !== "") {
         alert("This User Name Already In Use")
     }else{
-      let user = { userName: userName, plants: [] , sensors: [{1:`${this.sensorName}`}]};
+      let user = { userName: userName, plants: [] , sensors: [this.sensorName]};
       this.userName = userName;
       console.log("----------",user)
       await Axios.post(`http://localhost:2805/signUp/`, user);
@@ -34,6 +34,7 @@ export class UserStore {
       window.location = `http://localhost:3000/home`;
     }
   };
+  }
 
   @action isLoggedIn = async userName => {
     if (userName === "") {
@@ -75,12 +76,12 @@ export class UserStore {
     return (this.myPlants = savedPlants.data);
   };
 
-  @action conncetPlantToSensor = (userID, plantID) => {
+  @action conncetPlantToSensor = async (userID, plantID) => {
     let update = {
       user_id: userID,
       plant_id: plantID
     }
-    await Axios.put(`http://localhost:2805/stats/addPlantId`, update)
+    await Axios.put(`http://localhost:2805/user/stats`, update)
   }
 
 }
