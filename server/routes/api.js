@@ -1,3 +1,4 @@
+
 const express     = require("express"),
       router      = express.Router(),
       Plants      = require("../model/Plants"),
@@ -14,10 +15,10 @@ router.get(`/userLogin/:userName`, function(req, res){
       res.send(result)
     }else{
       res.end() 
-    }
-  })
-})
 
+    }
+  });
+});
 
 router.post("/signUp/", function(req, res) {
   const user = req.body;
@@ -25,7 +26,8 @@ router.post("/signUp/", function(req, res) {
 
   let u1 = new Users({
     userName: user.userName,
-    plants: user.plants
+    plants: user.plants,
+    sensors : user.sensors
   });
   u1.save().then(function(u) {
     res.send(u);
@@ -38,44 +40,40 @@ router.get("/plants", function(req, res) {
   });
 });
 
+
 router.post("/sensorData", function(req, res) {
   //req.body.id =  arduino's ID
-  let sensorData = new Sensor(req.body);
-  Users.findOne({ sensors: req.body.id }, (err, user) => {
+  let sensorData = req.body
+  Users.findOne({ sensors: `${req.body.id}` }, (err, user) => {
     if(user){
-      user.sensors.push(sensorData)
-    }else{
-      console.log(err)
-      return
-    }
-    user.save()
-
+      console.log(user);
+      user.stats.push(sensorData)
+      user.save()
+      console.log(user);
+      
+}
   })
-  console.log(Users)
-    
-  // sensorData.save();
+  
   res.send(sensorData);
 });
 
+// not working with postman 05/06 - 08:00 am
 router.get("/sensorLive/:plantId", function(req, res) {
-  let plantId = req.params.plantId
+  let plantId = req.params.plantId;
   Sensor.find({})
     .sort({ timestamp: -1 })
     .limit(1)
     .exec(function(err, result) {
-      myPlants.findById(plantId,function(error,plant){
-        plant.stats.push(result._id)
-        .populate("sensors")
-        .exec(function(err,data){
-            res.send(data)
-      
-        }
-      
-      )
-})
-    })
-  });
-
+      myPlants.findById(plantId, function(error, plant) {
+        plant.stats
+          .push(result._id)
+          .populate("sensors")
+          .exec(function(err, data) {
+            res.send(data);
+          });
+      });
+    });
+});
 
 router.get("/sensorHistory", function(req, res) {
   Sensor.aggregate([
@@ -100,21 +98,6 @@ router.get("/sensorHistory", function(req, res) {
   });
 });
 
-// router.get("/sensorStats", function(req, res) {
-//   request(`http://192.168.130.186`, function(err, response) {
-//     let data = response.body;
-//     let dataObj = {};
-//     // res.sendFile(data)
-//     dataObj.c = Number(data.split("<p>")[1].split("</p>")[0]);
-//     dataObj.h = Number(data.split("<p>")[2].split("</p>")[0]);
-//     dataObj.m = Number(data.split("<p>")[3].split("</p>")[0]);
-//     let c = new Sensor(dataObj);
-//     c.save();
-
-//     res.send(c);
-//   });
-// });
-
 let UserIDfromDB = async userName => {
   await Users.findOne({ name: `${userName}` }, "_id", (err, user) => {
     console.log(user);
@@ -124,42 +107,55 @@ let UserIDfromDB = async userName => {
 
 router.post("/user/myPlants", async (req, res) => {
   let data = req.body;
-  console.log(req.body)
+  console.log(req.body);
   let newPlant = await new myPlants({
     name: data.plantName
   });
-
   newPlant.save();
-  console.log("this is new plant",newPlant._id)
-console.log(`saved new plant ${newPlant.name} to DB`)
-Users.findById(data.userId,function(error,user){
-  user.plants.push(newPlant._id)
-  user.save(function(err){
-if(err){
-  console.log(err)
-}else{
-  res.send("YEESSSHHH")
-}
-  })
-  console.log("User",user)
-})
+  console.log("this is new plant", newPlant._id);
+  console.log(`saved new plant ${newPlant.name} to DB`);
+
+  Users.findById(data.userId, function(error, user) {
+    user.plants.push(newPlant._id);
+    user.save(function(err) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send("YEESSSHHH");
+      }
+    });
+    console.log("User", user);
+  });
 });
 
-router.get("/user/myplants/:userId", function(req,res){
-  let userId = req.params.userId;
-  Users.findOne({ _id: `${userId}` })
-  .populate("plants")
-  .exec(function(err,data){
-    if(err){
-      console.log(err)
-    } else{
-      console.log("Data", data)
-      res.send(data)
+
+router.put("/stats/addPlantId", function(req,res){
+  let data = req.body
+  Users.findByIdAndUpdate(data.userId, function (err, user){
+    for(let s of user.stats){
+      if(s.plantId){
+        return
+      }else{
+        s.plantId = data.plantId
+      }
     }
   })
-
+  res.send("yeah!!")
 })
 
 
+router.get("/user/myplants/:userId", function(req, res) {
+  let userId = req.params.userId;
+  Users.findOne({ _id: `${userId}` })
+    .populate("plants")
+    .exec(function(err, data) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Data", data);
+        res.send(data);
+      }
+    });
+});
 
 module.exports = router;

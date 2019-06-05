@@ -52,13 +52,11 @@ export class UserStore {
     }
   }
 
-  @action addPlant = async  plantName => {
-    let newPlant = new Plant(plantName);
+  @action addPlant = async  (plantName , img) => {
+    let newPlant = new Plant(plantName, img);
     console.log(`created new plant ${plantName}`);
 
     // this.myPlants.push(newPlant);
-
-  
     console.log(sessionStorage.getItem('currentLogin', 'userName'));
     let user =JSON.parse(sessionStorage.getItem('currentLogin'))
     console.log(user._id)
@@ -67,7 +65,5 @@ export class UserStore {
       userId : user._id
     }
     await Axios.post(`http://localhost:2805/user/myPlants`,sendData );
-    
-
-  };
+    };
 }
