@@ -17,17 +17,7 @@ const express = require("express"),
 mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/sensor_plant",
   { useNewUrlParser: true, useFindAndModify: false }
-);
-//authentication
-// app.use(require("express-session")({
-//   secret : "just nod if you can hear me is there anyone at home",
-//   resave : false,
-//   saveUninitialized : false
-// }))
-// app.use(passport.initialize())
-// app.use(passport.session())
-// passport.serializeUser(Users.serializeUser())
-// passport.deserializeUser(Users.deserializeUser())
+)
 
 // app.use(express.static(path.join(__dirname, 'build')))
 app.use(bodyParser.json());

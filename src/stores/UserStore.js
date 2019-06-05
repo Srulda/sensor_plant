@@ -21,7 +21,7 @@ export class UserStore {
       if (dataNameCheck.data !== "") {
         alert("This User Name Already In Use")
     }else{
-      let user = { userName: userName, plants: [] , sensors: [{1:"007"}]};
+      let user = { userName: userName, plants: [] , sensors: ["7"]};
       this.userName = userName;
       console.log("----------",user)
       await Axios.post(`http://localhost:2805/signUp/`, user);
@@ -52,13 +52,11 @@ export class UserStore {
     }
   }
 
-  @action addPlant = async  plantName => {
-    let newPlant = new Plant(plantName);
+  @action addPlant = async  (plantName , img) => {
+    let newPlant = new Plant(plantName, img);
     console.log(`created new plant ${plantName}`);
 
     // this.myPlants.push(newPlant);
-
-  
     console.log(sessionStorage.getItem('currentLogin', 'userName'));
     let user =JSON.parse(sessionStorage.getItem('currentLogin'))
     console.log(user._id)
@@ -67,7 +65,5 @@ export class UserStore {
       userId : user._id
     }
     await Axios.post(`http://localhost:2805/user/myPlants`,sendData );
-    
-
-  };
+    };
 }

@@ -1,13 +1,12 @@
 const mongoose = require('mongoose')
-// const passportLocalMongoose = require('passport-local-mongoose')
 const Schema = mongoose.Schema
 
 let userSchema = new Schema({
     userName : String,
     plants : [{type: Schema.Types.ObjectId, ref: 'MyPlants'}] ,
-    sensors : [{type: Schema.Types.ObjectId, ref: 'Sensor'}] 
+    sensors : [],
+    stats : []
 })
 
-// userSchema.plugin(passportLocalMongoose)
 const Users = mongoose.model("Users", userSchema)
 module.exports = Users
