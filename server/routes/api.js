@@ -45,10 +45,8 @@ router.post("/sensorData", function(req, res) {
   let sensorData = req.body
   Users.findOne({ sensors: `${req.body.id}` }, (err, user) => {
     if(user){
-      console.log(user);
       user.stats.push(sensorData)
       user.save()
-      console.log(user);
       
 }
   })
@@ -99,7 +97,6 @@ router.get("/sensorHistory", function(req, res) {
 
 let UserIDfromDB = async userName => {
   await Users.findOne({ name: `${userName}` }, "_id", (err, user) => {
-    console.log(user);
     return user;
   });
 };
@@ -130,16 +127,21 @@ router.post("/user/myPlants", async (req, res) => {
 
 router.put("/stats/addPlantId", function(req,res){
   let data = req.body
-  Users.findByIdAndUpdate(data.userId, function (err, user){
+  console.log(data);
+  
+  Users.findById(data.userId, function (err, user){
     for(let s of user.stats){
       if(s.plantId){
         return
       }else{
         s.plantId = data.plantId
+        console.log(user.stats)
       }
+     
     }
+    user.save()
   })
-  res.send("yeah!!")
+  res.send("yeah")
 })
 
 
