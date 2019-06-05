@@ -9,10 +9,10 @@ const express = require("express"),
   Sensor = require("./server/model/Sensor"),
   MyPlants = require("./server/model/myPlants"),
   moment = require("moment"),
-  // server = require("http").createServer(app),
+  server = require("http").createServer(app),
   request = require("request"),
-  socketManager = require("./server/SocketManager");
-  // socket = require("socket.io");
+  socketManager = require("./server/SocketManager"),
+  socket = require("socket.io");
 
 mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/sensor_plant",
