@@ -53,6 +53,7 @@ router.post("/sensorData", function(req, res) {
   res.send(sensorData);
 });
 
+
 router.get("/sensorLive/:plantId", async function(req, res) {
   let plantId =  await req.params.plantId;
   Users.find({ plants: { _id: `${plantId}` } }, (err, result) => {
@@ -65,8 +66,6 @@ router.get("/sensorLive/:plantId", async function(req, res) {
     res.send(liveData);
   });
 })
-
-
 
 router.get("/sensorHistory", function(req, res) {
   Sensor.aggregate([

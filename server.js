@@ -11,7 +11,6 @@ const express = require("express"),
   server = require("http").createServer(app),
   request = require("request"),
   socketManager = require("./server/SocketManager"),
-
   socket = require("socket.io");
 
 mongoose.connect(

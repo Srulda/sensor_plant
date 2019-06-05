@@ -3,6 +3,7 @@ import { observer, inject } from "mobx-react";
 import CurrentPlantData from "./CurrentPlantData";
 import Loading from "./Layout/Loading";
 import "../style/personalDash.css";
+import UserPlant from "./UserPlant";
 
 @inject("itemStore", "plantsStore", "user")
 @observer
@@ -25,20 +26,20 @@ class PersonalDash extends Component {
     });
   };
 
-  connect = (e) => {
-    let userId = JSON.parse(sessionStorage.getItem("currentLogin"))
-    console.log(userId._id)
-    console.log(e.target.id)
-    console.log(e.target.textContent)
+  connect = e => {
+    let userId = JSON.parse(sessionStorage.getItem("currentLogin"));
+    console.log(userId._id);
+    console.log(e.target.id);
+    console.log(e.target.textContent);
 
-    this.props.user.conncetPlantToSensor(userId._id, e.target.id)
-    this.props.plantsStore.getPlantMaxTemp(e.target.textContent)
-    this.props.plantsStore.getPlantMinTemp(e.target.textContent)
-    this.props.plantsStore.getPlantMaxHumid(e.target.textContent)
-    this.props.plantsStore.getPlantMinHumid(e.target.textContent)
-    this.props.plantsStore.getPlantMaxMoist(e.target.textContent)
-    this.props.plantsStore.getPlantMinMoist(e.target.textContent)
-  }
+    this.props.user.conncetPlantToSensor(userId._id, e.target.id);
+    this.props.plantsStore.getPlantMaxTemp(e.target.textContent);
+    this.props.plantsStore.getPlantMinTemp(e.target.textContent);
+    this.props.plantsStore.getPlantMaxHumid(e.target.textContent);
+    this.props.plantsStore.getPlantMinHumid(e.target.textContent);
+    this.props.plantsStore.getPlantMaxMoist(e.target.textContent);
+    this.props.plantsStore.getPlantMinMoist(e.target.textContent);
+  };
 
   render() {
     const loading = this.state.loading;
@@ -49,13 +50,16 @@ class PersonalDash extends Component {
         {loading ? (
           <Loading />
         ) : (
-          <div>
+          <div className="user-dashboard">
             <CurrentPlantData />
             <div className="myPlants-container">
               {userPlants.map(p => (
-                <div>
-                  <div id = {p._id} onClick = {this.connect}>{p.name}</div>
-                </div>
+                <UserPlant
+                  key={p._id}
+                  name={p.name}
+                  connect={this.connect}
+                  id={p._id}
+                />
               ))}
             </div>
           </div>
