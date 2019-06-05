@@ -64,18 +64,6 @@ app.use("/", api);
 //   t1.save();
 // }
 
-// function myFunction() {
-//     setInterval(
-//         function(){
-//             let t1 = new MyPlants({c: (Math.random() * 20 ),h:  (Math.random() * 16),m : (Math.random() * 50 )}
-//             )
-//                  t1.save()
-//                  console.log(t1)
-//         }, 3000);
-//   }
-
-//   myFunction()
-
 const io = socket(server);
 socketManager.load(io);
 
