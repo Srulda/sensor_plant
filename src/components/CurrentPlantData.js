@@ -6,30 +6,37 @@ import Axios from "axios";
 @inject("itemStore", "plantsStore")
 @observer
 class CurrentPlantData extends Component {
-constructor(){
-  super()
-  this.state = {
-    statsistics : {}
+  constructor() {
+    super();
+    this.state = {
+      statsistics: {}
+    };
   }
-}
-
 
   componentDidMount = () => {
-setInterval(async () => {
-    await this.renderLiveStats()
-}, 2000);
-     }
+    setTimeout(() => {
+      this.interval();
+    }, 2000);
+  };
 
- 
   renderLiveStats = async () => {
     let currentStats = await Axios.get(`http://localhost:2805/sensorLive/5cf7e63635cbb321047ceff6`);
+    // let user = JSON.parse(sessionStorage.getItem("currentLogin"));
+    let plantId = sessionStorage.getItem("plantId")
+    let currentStats = await Axios.get(
+      `http://localhost:2805/sensorLive/${plantId}`
+    );
     this.setState({
-      statsistics : currentStats.data[0]
-    })
+      statsistics: currentStats.data[0]
+    });
     console.log(currentStats.data[0]);
-  }
+  };
 
-
+  interval = () => {
+    setInterval(async () => {
+      await this.renderLiveStats();
+    }, 1500);
+  };
 
   plantCurrentTemp = () => {
     let currentTemp = this.props.itemStore.liveStats.c;
@@ -44,26 +51,25 @@ setInterval(async () => {
     return currentM;
   };
 
-
-
-
-  classTemp =  async () => {
-      if (this.plantCurrentTemp() < await this.props.plantsStore.getPlantMinTemp()) {
-        console.log("cold")
-      } else if (this.plantCurrentTemp() >await  this.props.plantsStore.getPlantMaxTemp()) {
-        console.log("hot")
-        return "hot";
-      } else {
-        console.log("isFine")
-        console.log(this.plantCurrentTemp());
-        console.log( await this.props.plantsStore.getPlantMaxTemp()); 
-        return "is-fine";
+  classTemp = async () => {
+    if (
+      this.plantCurrentTemp() < (await this.props.plantsStore.getPlantMinTemp())
+    ) {
+      console.log("cold");
+    } else if (
+      this.plantCurrentTemp() > (await this.props.plantsStore.getPlantMaxTemp())
+    ) {
+      console.log("hot");
+      return "hot";
+    } else {
+      return "is-fine";
     }
   };
 
   classHumidity = () => {
-
-    if (this.plantCurrentHumadity() < this.props.plantsStore.getPlantMinHumid()) {
+    if (
+      this.plantCurrentHumadity() < this.props.plantsStore.getPlantMinHumid()
+    ) {
       return "cold";
     } else if (
       this.plantCurrentHumadity() > this.props.plantsStore.getPlantMaxHumid()
@@ -75,7 +81,6 @@ setInterval(async () => {
   };
 
   classMoisture = () => {
-
     if (this.plantCurrentMoist() < this.props.plantsStore.getPlantMinMoist()) {
       return "cold";
     } else if (
@@ -91,29 +96,25 @@ setInterval(async () => {
     return (
       <div>
         <div id="badges-container">
-          <div className = "moistureBadge" id={this.classMoisture()}>
+          <div className="moistureBadge" id={this.classMoisture()}>
             <i className="fas fa-leaf" />
             <div>MOIST</div>
             <div>{this.state.statsistics.m}%</div>
-            
           </div>
 
-          <div id = "tempAndHumid">
-            <div className = "tempBadge" id={this.classTemp()}>
+            <div className="tempBadge" id={this.classTemp()}>
               <i className="fas fa-thermometer-three-quarters" />
               <div>TEMP</div>
               <div>{this.state.statsistics.c}&deg;</div>
-
             </div>
 
-            <div className = "humidBadge" id={this.classHumidity()}>
+            <div className="humidBadge" id={this.classHumidity()}>
               <i className="fas fa-water" />
               <div>HUMIDITY</div>
               <div>{this.state.statsistics.h}%</div>
             </div>
           </div>
         </div>
-      </div>
     );
   }
 }

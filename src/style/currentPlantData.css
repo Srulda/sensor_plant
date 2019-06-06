@@ -1,11 +1,11 @@
 #badges-container {
   display: grid;
-  grid-template-rows: 1fr 1fr;
-  text-align: center;
+  grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
+  justify-items: center;
 }
 
-#tempAndHumid {
+/* #tempAndHumid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-items: center;
@@ -30,7 +30,7 @@
   height: 14vh;
   width: 35vw;
   color: white;
-}
+} */
 
 #hot {
   color: red;
