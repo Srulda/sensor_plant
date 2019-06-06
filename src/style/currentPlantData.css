@@ -1,43 +1,52 @@
 #badges-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   align-items: center;
   justify-items: center;
+  margin-top: 7%;
+  width: 80%;
+  color: #8ad7b5;
+  margin-left: 2.5em;
+  grid-gap: 3em;
 }
 
-/* #tempAndHumid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-items: center;
-}
 
-.moistureBadge {
-  background-color: #dd5151;
-  height: 14vh;
-  width: 83vw;
-  color: white;
-  justify-self: center;
-}
 
-.tempBadge {
-  background-color: #8ad7b5;
-  height: 14vh;
-  width: 35vw;
-  color: white;
-}
-.humidBadge {
-  background-color: rgb(178, 178, 247);
-  height: 14vh;
-  width: 35vw;
-  color: white;
-} */
-
-#hot {
+.hot {
   color: red;
 }
-#cold {
+.cold {
   color: rgb(130, 130, 240);
 }
-#is-fine {
-    color: white;
+.is-fine {
+    color: #8ad7b5 ;
+}
+
+.nums{
+  margin-left: 50%;
+}
+
+#temp{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  box-shadow: 1px 1px 0px 1px rgba(39,176,139,1);
+}
+
+#tempText{
+  justify-content: end;
+}
+
+#moist{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  box-shadow: 1px 1px 0px 1px rgb(190, 16, 16);
+  color:  rgb(190, 16, 16);
+}
+
+
+#humid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  box-shadow: 1px 1px 0px 1px rgb(42, 99, 221);
+
 }

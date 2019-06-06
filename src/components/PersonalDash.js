@@ -4,7 +4,6 @@ import CurrentPlantData from "./CurrentPlantData";
 import Loading from "./Layout/Loading";
 import "../style/personalDash.css";
 import UserPlant from "./UserPlant";
-import HistoricalChart from "./HistoricalChart";
 
 @inject("itemStore", "plantsStore", "user")
 @observer
@@ -62,7 +61,6 @@ class PersonalDash extends Component {
                 />
               ))}
             </div>
-            <HistoricalChart />
           </div>
         )}
       </div>

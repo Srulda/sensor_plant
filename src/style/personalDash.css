@@ -1,12 +1,14 @@
 .user-dashboard {
   display: grid;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 2fr 1fr;
+  margin-top: 5%;
+  margin-left: 6%;
 }
 
 .myPlants-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
 }
 
 .myPlant-card {

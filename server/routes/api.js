@@ -20,7 +20,6 @@ router.get(`/userLogin/:userName`, function(req, res) {
 
 router.post("/signUp/", function(req, res) {
   const user = req.body;
-  console.log(user);
 
   let u1 = new Users({
     userName: user.userName,
@@ -87,9 +86,7 @@ router.get("/sensorHistory/:plantId", async function(req, res) {
   // .exec(function(err, result) {
   //   res.send(result);
   // });
-  console.log(plantStats);
   
-  console.log(data)
   res.send(plantStats.splice(0,60))
 });
 } )
@@ -106,8 +103,6 @@ router.post("/user/myPlants", async (req, res) => {
     name: data.plantName
   });
   newPlant.save();
-  console.log("this is new plant", newPlant._id);
-  console.log(`saved new plant ${newPlant.name} to DB`);
 
   Users.findById(data.userId, function(error, user) {
     user.plants.push(newPlant._id);
@@ -118,7 +113,6 @@ router.post("/user/myPlants", async (req, res) => {
         res.send("YEESSSHHH");
       }
     });
-    console.log("User", user);
   });
 });
 
@@ -133,7 +127,6 @@ router.put("/user/stats", async (req, res) => {
     }
   }
   user = await Users.update({ _id: [userId] }, { $set: { stats: userStats } }, {new: true});
-  console.log(user);
   
   res.send(user);
 });
@@ -144,9 +137,7 @@ router.get("/user/myplants/:userId", function(req, res) {
     .populate("plants")
     .exec(function(err, data) {
       if (err) {
-        console.log(err);
       } else {
-        console.log("Data", data);
         res.send(data.plants);
       }
     });
