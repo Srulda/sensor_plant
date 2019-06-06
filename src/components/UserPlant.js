@@ -6,10 +6,12 @@ class UserPlant extends Component {
     super();
     this.state = {
       isActive: false
+
     };
   }
   connect = e => {
-    this.props.connect(e);
+    console.log(e);
+    this.props.connect(e, this.props.id);
     this.setState({
       isActive: true
     });
