@@ -22,9 +22,7 @@ setInterval(async () => {
 
  
   renderLiveStats = async () => {
-    let currentStats = await Axios.get(
-      `http://localhost:2805/sensorLive/5cf7e63635cbb321047ceff6`
-    );
+    let currentStats = await Axios.get(`http://localhost:2805/sensorLive/5cf7e63635cbb321047ceff6`);
     this.setState({
       statsistics : currentStats.data[0]
     })
