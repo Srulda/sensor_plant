@@ -63,33 +63,36 @@ router.get("/sensorLive/:plantId", async function(req, res) {
         r.plantID === plantId;
       })
      let liveData =  plantStats.splice(plantStats.length -1)
-    console.log(`this is the ${liveData}`);
     res.send(liveData);
   });
 })
 
-router.get("/sensorHistory", function(req, res) {
-  Sensor.aggregate([
-    { $match: {} },
-    {
-      $group: {
-        _id: {
-          year: { $year: "$timestamp" },
-          month: { $month: "$timestamp" },
-          day: { $dayOfMonth: "$timestamp" },
-          hour: { $hour: "$timestamp" },
-          minute: { $minute: "$timestamp" }
-        },
-        avgTemp: { $avg: "$c" },
-        avgHum: { $avg: "$h" },
-        avgMos: { $avg: "$m" }
-      }
-    },
-    { $sort: { _id: 1 } }
-  ]).exec(function(err, result) {
-    res.send(result);
-  });
+router.get("/sensorHistory/:plantId", async function(req, res) {
+  let plantId =  await req.params.plantId;
+  Users.find({ plants: { _id: `${plantId}` } }, (err, result) => {
+    let plantStats = result[0].stats
+    let data = plantStats.find(r => {
+      r.plantID === plantId;
+    })
+  //         hour: { $hour: "$timestamp" },
+  //         minute: { $minute: "$timestamp" }
+  //       },
+  //       avgTemp: { $avg: "$c" },
+  //       avgHum: { $avg: "$h" },
+  //       avgMos: { $avg: "$m" }
+  //     }
+  //   },
+  //   { $sort: { _id: 1 } }
+  // ])
+  // .exec(function(err, result) {
+  //   res.send(result);
+  // });
+  console.log(plantStats);
+  
+  console.log(data)
+  res.send(plantStats.splice(0,60))
 });
+} )
 
 let UserIDfromDB = async userName => {
   await Users.findOne({ name: `${userName}` }, "_id", (err, user) => {
@@ -99,7 +102,6 @@ let UserIDfromDB = async userName => {
 
 router.post("/user/myPlants", async (req, res) => {
   let data = req.body;
-  console.log(req.body);
   let newPlant = await new myPlants({
     name: data.plantName
   });
