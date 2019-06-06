@@ -20,6 +20,7 @@ class CurrentPlantData extends Component {
   };
 
   renderLiveStats = async () => {
+    let currentStats = await Axios.get(`http://localhost:2805/sensorLive/5cf7e63635cbb321047ceff6`);
     // let user = JSON.parse(sessionStorage.getItem("currentLogin"));
     let plantId = sessionStorage.getItem("plantId")
     let currentStats = await Axios.get(
