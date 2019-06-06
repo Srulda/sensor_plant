@@ -21,10 +21,11 @@ class HistoricalChart extends Component {
   };
 
   renderLiveStats = async () => {
-    let user = JSON.parse(sessionStorage.getItem("currentLogin"));
-    let plantId = user.plants[0];
+    let user = JSON.parse(sessionStorage.getItem("currentLogin"))
+    let plantId = JSON.parse(sessionStorage.getItem("plantId"))
+    // let plantId = user.plants[0];
     let currentStats = await Axios.get(
-      `http://localhost:2805/sensorHistory/5cf7f648e8a81d6108fa0ffa`
+      `http://localhost:2805/sensorHistory/${plantId}`
     );
     console.log(currentStats);
     

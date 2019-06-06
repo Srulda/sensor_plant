@@ -28,7 +28,6 @@ class CurrentPlantData extends Component {
     this.setState({
       statsistics: currentStats.data[0]
     });
-    console.log(currentStats.data[0]);
   };
 
   interval = () => {
@@ -93,27 +92,34 @@ class CurrentPlantData extends Component {
 
   render() {
     return (
-      <div>
         <div id="badges-container">
-          <div className="moistureBadge" id={this.classMoisture()}>
-            <i className="fas fa-leaf" />
-            <div>MOIST</div>
-            <div>{this.state.statsistics.m}%</div>
-          </div>
 
-            <div className="tempBadge" id={this.classTemp()}>
-              <i className="fas fa-thermometer-three-quarters" />
-              <div>TEMP</div>
-              <div>{this.state.statsistics.c}&deg;</div>
-            </div>
+              <div id = "temp" className={this.classTemp()}>
+                <div id = "tempText">Good Air Temprature</div>
+                <div className = "nums">
+                <i className="fas fa-thermometer-three-quarters" />
+               <div>{this.state.statsistics.c}&deg;</div>
+                </div>
+              
+             </div>
 
-            <div className="humidBadge" id={this.classHumidity()}>
+             <div id = "moist"  className={this.classMoisture()}>
+             <div id = "moistTextText">Your Plant Need WATER</div>
+              <div className = "nums">
               <i className="fas fa-water" />
-              <div>HUMIDITY</div>
+              <div>{this.state.statsistics.m}%</div>
+              </div>
+           </div>
+           
+
+           <div id = "humid" className={this.classHumidity()}>
+             <div id = "humidText">Comfort Zone Humidity</div>
+              <div className = "nums">
+              <i className="fas fa-leaf" />
               <div>{this.state.statsistics.h}%</div>
-            </div>
-          </div>
-        </div>
+              </div>
+           </div>    
+         </div>
     );
   }
 }
