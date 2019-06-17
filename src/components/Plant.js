@@ -7,7 +7,6 @@ import "../style/plant.css";
 class Plant extends Component {
   addPlant = () => {
     this.props.user.addPlant(this.props.data.name);
-    console.log(this.props.data.name);
   }
 
   render() {

@@ -26,8 +26,7 @@ color:white;
     }
 
 h1{
-    width:25%;
-    margin: 0 auto;
+    text-align: center;
     margin-top:3%;
     color:#8ad7b5;
     letter-spacing: 7px;
@@ -40,4 +39,3 @@ h1::first-letter{
 
 
 }
-

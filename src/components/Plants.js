@@ -14,7 +14,7 @@ class Plants extends Component {
   }
 
   componentDidMount = async () => {
-    await this.props.plantsStore.getDataFromDB();
+    // await this.props.plantsStore.getDataFromDB();
     // await this.props.itemStore.getLiveStats();
     this.setState({
       loading: false

@@ -25,7 +25,9 @@ class Login extends Component {
          ?
        ( <div id="login">
         <input type="text" value = {this.props.user.userName} name="userName" onChange={this.inputHandler} />
-        <button onClick={this.userLogIn}>Log In</button>
+        <div className="log-btn" onClick={this.userLogIn}>
+          <div id="log-in">Log In</div>
+          </div>
       </div>)
         :
          (<Redirect to = "/home"/>) 

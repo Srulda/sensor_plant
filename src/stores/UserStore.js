@@ -29,12 +29,16 @@ export class UserStore {
           sensors: [this.sensorName]
         };
         this.userName = userName;
-        console.log("----------", user);
         await Axios.post(`http://localhost:2805/signUp/`, user);
         let data = await Axios.get(
           `http://localhost:2805/userLogin/${userName}`
         );
-        let savedData = JSON.stringify(data.data);
+        let dataToStorage = {
+          userName : data.data.userName,
+          plants : data.data.plants,
+          sensors : data.data.sensors
+        }
+        let savedData = JSON.stringify(dataToStorage);
         sessionStorage.setItem("currentLogin", savedData);
         window.location = `http://localhost:3000/home`;
       }
@@ -50,28 +54,32 @@ export class UserStore {
       if (data.data === "") {
         alert("user not found");
       } else {
-        console.log(data);
-
-        let savedData = JSON.stringify(data.data);
+        let dataToStorage = {
+          userName : data.data.userName,
+          user_id : data.data._id,
+          plants : data.data.plants,
+          sensors : data.data.sensors
+        }
+        let savedData = JSON.stringify(dataToStorage);
         sessionStorage.setItem("currentLogin", savedData);
         window.location = `http://localhost:3000/home`;
-        return data.data;
+        // return data.data
       }
     }
   };
 
   @action addPlant = async plantName => {
     // let newPlant = new Plant(plantName, img);
-    console.log(`created new plant ${plantName}`);
-    console.log(sessionStorage.getItem("currentLogin", "userName"));
     let user = JSON.parse(sessionStorage.getItem("currentLogin"));
-    console.log(user._id);
+    console.log(user);
+    
     let sendData = {
       plantName: plantName,
-      userId: user._id
+      userId: user.user_id
     };
     await Axios.post(`http://localhost:2805/user/myPlants`, sendData);
-    this.getUserPlants(user._id);
+
+    this.getUserPlants(user.user_id);
   };
 
   @action getUserPlants = async userID => {
@@ -82,13 +90,19 @@ export class UserStore {
   };
 
   @action conncetPlantToSensor = (userID, plantID) => {
+    let interval = () => setInterval(sendData, 1000);
+    let clear = () => clearInterval(interval);
+    clear();
+
     let update = {
       user_Id: userID,
       plant_Id: plantID
     };
 
-    setInterval(async () => {
+    const sendData = async () => {
       await Axios.put(`http://localhost:2805/user/stats`, update);
-    }, 1500);
+    };
+
+    interval()
   };
 }

@@ -8,7 +8,7 @@ class Navbar extends Component {
 
 logOut = () =>{
   sessionStorage.removeItem('currentLogin')
-  sessionStorage.removeItem('plantId')
+  sessionStorage.removeItem('plantID')
   window.location = `http://localhost:3000/`;
 }
 

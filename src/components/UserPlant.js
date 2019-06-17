@@ -10,7 +10,6 @@ class UserPlant extends Component {
     };
   }
   connect = e => {
-    console.log(e);
     this.props.connect(e, this.props.id);
     this.setState({
       isActive: true
@@ -28,8 +27,8 @@ class UserPlant extends Component {
 
   render() {
     return (
-      <div className="myPlant-card" onClick={this.connect} id={this.props.id}>
-        <div>{this.props.name}</div>
+      <div className="myPlant-card" onClick={this.connect}>
+           <div id={this.props.id}> {this.props.name} </div>
         <div className={`status ${this.checkIfActive()}`} />
       </div>
     );

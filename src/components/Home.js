@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { observer, inject } from "mobx-react";
 import "../style/home.css";
-@inject("generalStore", "user")
+@inject("generalStore", "user", "plantsStore")
 @observer
 class Home extends Component {
   inputHandler = e => {
@@ -14,9 +14,12 @@ class Home extends Component {
     this.props.plantsStore.addPlant(this.props.generalStore.name);
   };
 
-  componentDidMount = () => {
+  componentDidMount =  async() => {
     let userID = JSON.parse(sessionStorage.getItem("currentLogin"));
     this.props.user.getUserPlants(userID._id);
+    await this.props.plantsStore.getDataFromDB()
+    
+
   };
 
   render() {
