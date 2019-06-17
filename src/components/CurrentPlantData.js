@@ -10,7 +10,7 @@ class CurrentPlantData extends Component {
     this.state = {
     };
   }
-
+  
   plantCurrentTemp = () => {
     let currentTemp = this.props.itemStore.liveStats.c;
     return currentTemp;
