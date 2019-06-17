@@ -15,17 +15,17 @@ class HistoricalChart extends Component {
 
   componentDidMount = () => {
     this.renderLiveStats();
-    // setInterval(async () => {
-    //   await this.renderLiveStats();
-    // }, 10000);
+    setInterval(async () => {
+      await this.renderLiveStats();
+    }, 10000);
   };
 
   renderLiveStats = async () => {
-    let user = JSON.parse(sessionStorage.getItem("currentLogin"))
-    let plantId = JSON.parse(sessionStorage.getItem("plantId"))
+    // let user = JSON.parse(sessionStorage.getItem("currentLogin"))
+    // let plantId = JSON.parse(sessionStorage.getItem("plantId"))
     // let plantId = user.plants[0];
     let currentStats = await Axios.get(
-      `http://localhost:2805/sensorHistory/${plantId}`
+      `http://localhost:2805/sensorHistory/5cf7efda67414c6978f709d7`
     );
     console.log(currentStats);
     
@@ -54,10 +54,10 @@ class HistoricalChart extends Component {
       parameter: d[this.makeParameter()],
       time: d.timestamp.split("T")[1]
     }));
-    console.log(tempData);
-    this.setState({
-      chartData : tempData
-    })
+    return (tempData);
+    // this.setState({
+    //   chartData : tempData
+    // })
   };
 
   handleInput = e => {
@@ -67,11 +67,12 @@ class HistoricalChart extends Component {
     this.setState({ parameter: value });
   };
   render() {
+  console.log(this.chartData);
   
     return (
       <div className="temp-by-temp-by-time">
         <h3>{this.state.parameter} over time</h3>
-        <select onChange={this.handleInput} value={this.state.parameter}>
+        <select onChange={this.handleInput} value={this.makeTempChart()}>
           <option>tempeture</option>
           <option>humadity</option>
           <option>moiste</option>

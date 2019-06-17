@@ -4,6 +4,7 @@ import CurrentPlantData from "./CurrentPlantData";
 import Loading from "./Layout/Loading";
 import "../style/personalDash.css";
 import UserPlant from "./UserPlant";
+import Axios from "axios";
 
 @inject("itemStore", "plantsStore", "user")
 @observer
@@ -11,46 +12,70 @@ class PersonalDash extends Component {
   constructor() {
     super();
     this.state = {
-      loading: true
+      loading: true,
+      statsistics: {}
     };
   }
 
   componentDidMount = async () => {
-    // await this.props.plantsStore.getDataFromDB();
-    // await this.props.itemStore.getDataFromDB();
     this.setState({
       loading: false
     });
   };
 
-  connect = (e, id) => {
-    let userId = JSON.parse(sessionStorage.getItem("currentLogin"));
-    sessionStorage.setItem("plantId", id);
-    console.log(userId._id);
-    console.log(id);
-    console.log(e.target.textContent);
+  renderLiveStats = async () => {
+    let plantId = sessionStorage.getItem("plantID")
+if(plantId === undefined){
+  return
+}else{
+  let currentStats = await Axios.get(
+    `http://localhost:2805/sensorLive/${plantId}`
+  );
+  this.setState({
+    statsistics: currentStats.data[0]
+    });
+  }
+};
 
-    this.props.user.conncetPlantToSensor(userId._id, id);
-    this.props.plantsStore.getPlantMaxTemp(e.target.textContent);
-    this.props.plantsStore.getPlantMinTemp(e.target.textContent);
-    this.props.plantsStore.getPlantMaxHumid(e.target.textContent);
-    this.props.plantsStore.getPlantMinHumid(e.target.textContent);
-    this.props.plantsStore.getPlantMaxMoist(e.target.textContent);
-    this.props.plantsStore.getPlantMinMoist(e.target.textContent);
+  interval = () => {
+    setInterval(async () => {
+      await this.renderLiveStats();
+    }, 5000);
+  };
+
+  connect = e => {
+    let user = JSON.parse(sessionStorage.getItem("currentLogin"));
+    let plantId = e.target.id
+    sessionStorage.setItem("plantID", plantId)
+    let plantStore = this.props.plantsStore;
+    let txt_target = e.target.textContent;
+
+    this.props.user.conncetPlantToSensor(user.user_id, plantId);
+        
+        
+    // plantStore.getPlantMaxTemp(txt_target);
+    // plantStore.getPlantMinTemp(txt_target);
+    // plantStore.getPlantMaxHumid(txt_target);
+    // plantStore.getPlantMinHumid(txt_target);
+    // plantStore.getPlantMaxMoist(txt_target);
+    // plantStore.getPlantMinMoist(txt_target);
+
+    setTimeout(() => {
+      this.interval();
+    }, 2000);
   };
 
   render() {
     const loading = this.state.loading;
-    let userPlants = this.props.user.myPlants;
-  
-
+    const userPlants = this.props.user.myPlants;
+    
     return (
       <div>
         {loading ? (
           <Loading />
         ) : (
           <div className="user-dashboard">
-            <CurrentPlantData />
+            <CurrentPlantData statsistics = {this.state.statsistics} />
             <div className="myPlants-container">
               {userPlants.map(p => (
                 <UserPlant
@@ -69,5 +94,3 @@ class PersonalDash extends Component {
 }
 
 export default PersonalDash;
-
-

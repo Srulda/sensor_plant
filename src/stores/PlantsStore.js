@@ -1,5 +1,6 @@
 import { observable, action } from "mobx";
 import Axios from "axios";
+import { async } from "q";
 
 export class PlantsStore {
   @observable plants = [];
@@ -14,12 +15,11 @@ export class PlantsStore {
     if(!plant){
       return "no plant"
     }else{
-      console.log("this is " + plant)
       let plantObj = await this.plants.find(p=> p.name === plant)
-      console.log(plantObj.temperature_max)
       return plantObj.temperature_max
     }
   }
+  
   @action getPlantMinTemp = async (plant) =>{
     if(!plant){
       return

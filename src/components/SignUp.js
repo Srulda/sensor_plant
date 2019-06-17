@@ -16,10 +16,10 @@ class SignUp extends Component {
         return (
             <div>
        <div id="signUp">
-            <input type="text"  value = {this.props.user.userName} name="userName" onChange={this.inputHandler} />
-            <button onClick={this.SignUp}>Sign Up</button>
+            <input className="item-sign" type="text" placeholder="Name" value = {this.props.user.userName} name="userName" onChange={this.inputHandler} />
+        <input className="item-sign" placeholder="Sensor Number" value = {this.props.user.sensorName} name="sensorName" onChange={this.inputHandler}/>
+            <div className="item-sign" id="sign-btn" onClick={this.SignUp}>Sign Up</div>
         </div>
-        <input placeholder="Sensor Number" value = {this.props.user.sensorName} name="sensorName" onChange={this.inputHandler}/>
             </div>
         );
     }
