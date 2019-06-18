@@ -6,11 +6,10 @@ class UserPlant extends Component {
     super();
     this.state = {
       isActive: false
-
     };
   }
-  connect = e => {
-    this.props.connect(e, this.props.id);
+  connect = async e => {
+    await this.props.connect(e);
     this.setState({
       isActive: true
     });
@@ -28,7 +27,7 @@ class UserPlant extends Component {
   render() {
     return (
       <div className="myPlant-card" onClick={this.connect}>
-           <div id={this.props.id}> {this.props.name} </div>
+        <div id={this.props.id}> {this.props.name} </div>
         <div className={`status ${this.checkIfActive()}`} />
       </div>
     );

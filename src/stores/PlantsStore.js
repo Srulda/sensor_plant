@@ -1,6 +1,5 @@
 import { observable, action } from "mobx";
 import Axios from "axios";
-import { async } from "q";
 
 export class PlantsStore {
   @observable plants = [];
