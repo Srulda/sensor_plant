@@ -78,7 +78,6 @@ export class UserStore {
       userId: user.user_id
     };
     await Axios.post(`http://localhost:2805/user/myPlants`, sendData);
-
     this.getUserPlants(user.user_id);
   };
 
@@ -86,21 +85,22 @@ export class UserStore {
     let savedPlants = await Axios.get(
       `http://localhost:2805/user/myplants/${userID}`
     );
-    return (this.myPlants = savedPlants.data);
+    return this.myPlants = savedPlants.data;
   };
 
-  @action conncetPlantToSensor = (userID, plantID) => {
-    let interval = () => setInterval(sendData, 1000);
-    let clear = () => clearInterval(interval);
-    clear();
+  @action conncetPlantToSensor = (userID, plantID, sensorID) => {
+    let interval = () => setInterval(sendData, 1500);
+    let clear = (interval) => clearInterval(interval);
+    clear(interval);
 
     let update = {
       user_Id: userID,
-      plant_Id: plantID
+      plant_Id: plantID,
+      sensor_Id : sensorID 
     };
-
+  
     const sendData = async () => {
-      await Axios.put(`http://localhost:2805/user/stats`, update);
+            await Axios.put(`http://localhost:2805/user/plant/activate`, update);
     };
 
     interval()

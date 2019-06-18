@@ -18,41 +18,50 @@ class PersonalDash extends Component {
   }
 
   componentDidMount = async () => {
+    let user = JSON.parse(sessionStorage.getItem("currentLogin"));
+    let userID = user.user_id;
+    this.props.user.getUserPlants(userID);
     this.setState({
       loading: false
     });
   };
 
   renderLiveStats = async () => {
-    let plantId = sessionStorage.getItem("plantID")
-if(plantId === undefined){
-  return
-}else{
-  let currentStats = await Axios.get(
-    `http://localhost:2805/sensorLive/${plantId}`
-  );
-  this.setState({
-    statsistics: currentStats.data[0]
-    });
-  }
-};
+    let plantId = sessionStorage.getItem("plantID");
+    let user = JSON.parse(sessionStorage.getItem("currentLogin"));
+    let userID = user.user_id;
+    if (plantId === undefined) {
+      return;
+    } else {
+      console.log(plantId);
+
+      let currentStats = await Axios.get(
+        `http://localhost:2805/sensorLive/${plantId}/${userID}`
+      );
+      console.log(currentStats.data)
+
+      this.setState({
+        statsistics: currentStats.length-1
+      });
+    }
+  };
 
   interval = () => {
     setInterval(async () => {
       await this.renderLiveStats();
-    }, 5000);
+    }, 1500);
   };
 
-  connect = e => {
+  connect = async e => {
     let user = JSON.parse(sessionStorage.getItem("currentLogin"));
-    let plantId = e.target.id
-    sessionStorage.setItem("plantID", plantId)
-    let plantStore = this.props.plantsStore;
-    let txt_target = e.target.textContent;
+    let plantId = await e.target.id;
+    
+    sessionStorage.setItem("plantID", plantId);
+    // let plantStore = this.props.plantsStore;
+    // let txt_target = e.target.textContent;
 
-    this.props.user.conncetPlantToSensor(user.user_id, plantId);
-        
-        
+    this.props.user.conncetPlantToSensor(user.user_id, plantId, "7");
+
     // plantStore.getPlantMaxTemp(txt_target);
     // plantStore.getPlantMinTemp(txt_target);
     // plantStore.getPlantMaxHumid(txt_target);
@@ -68,14 +77,14 @@ if(plantId === undefined){
   render() {
     const loading = this.state.loading;
     const userPlants = this.props.user.myPlants;
-    
+
     return (
       <div>
         {loading ? (
           <Loading />
         ) : (
           <div className="user-dashboard">
-            <CurrentPlantData statsistics = {this.state.statsistics} />
+            <CurrentPlantData statsistics={this.state.statsistics} />
             <div className="myPlants-container">
               {userPlants.map(p => (
                 <UserPlant
