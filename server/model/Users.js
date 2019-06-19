@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 let userSchema = new Schema({
     userName : String,
-    plants : [] ,
+    plants : [{type : Schema.Types.ObjectId, ref : "UserPlant"}] ,
     sensors : [],
 })
 

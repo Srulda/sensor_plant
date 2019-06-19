@@ -2,7 +2,7 @@ const express = require("express"),
   router = express.Router(),
   Plants = require("../model/Plants"),
   Users = require("../model/Users"),
-  myPlants = require("../model/myPlants"),
+  UserPlant = require("../model/UserPlant"),
   request = require("request"),
   moment = require("moment"),
   uuidv4 = require("uuid/v4");
@@ -37,54 +37,55 @@ router.get("/plants", function(req, res) {
   });
 });
 
-router.post("/sensorData", function(req, res) {
+router.post("/sensorData", async function(req, res) {
   let sensorData = req.body;
   sensorData.timestamp = moment().format();
-  
-  Users.findOne({ sensors: `${req.body.id}` }, (err, user) => {
-    
-    if (user.plants.length === 0) {
-      return;
-    } else {
-      user.plants.forEach(p => {
-        if (p.active && p.activeSensor === sensorData.id) {
-          p.stats.push(sensorData);
-          console.log(p.stats);
-          
-          user.save();
-        }
-      });
+  let user = await Users.findOne({ sensors: `${req.body.id}` }).populate(
+    "plants"
+  );
+
+  if (user === null || user.plants.length === 0) {
+    return;
+  } else {
+    for (let p of user.plants) {
+      if (p.active === true && Number(p.activeSensor) === sensorData.id) {
+        let newStats = [...p.stats];
+        newStats.unshift(sensorData);
+
+        UserPlant.findOneAndUpdate(
+          { _id: p._id },
+          { $set: { stats: newStats } },
+          (err, stats) => {
+            res.send(stats);
+          }
+        );
+      }
     }
-  });
-
-  res.send(sensorData);
+  }
 });
 
-router.get("/sensorLive/:plantId/:userId", async function(req, res) {
+router.get("/sensorLive/:plantId", async function(req, res) {
   let plantId = await req.params.plantId;
-  let userId = await req.params.userId;
 
-  Users.findOne({ _id: `${userId}` }, function(err, result) {
-    let plant = result.plants.find(p => {
-      p._id === plantId;
-      return p;
-    });
-    res.send(plant.stats);
+  UserPlant.findOne({ _id: `${plantId}` }, function(err, result) {
+    let liveStats = result.stats[0];
+      res.send(liveStats);
   });
 });
 
-router.post("/user/myPlants", async (req, res) => {
+router.post("/user/newPlant", async (req, res) => {
   let data = req.body;
-  let newPlant = {
-    _id: uuidv4(),
+  console.log(data);
+
+  let newPlant = await new UserPlant({
     name: data.plantName,
     active: false,
-    activeSensor: "",
-    stats: []
-  };
+    activeSensor: ""
+  });
+  newPlant.save();
 
   Users.findById(data.userId, function(error, user) {
-    user.plants.push(newPlant);
+    user.plants.push(newPlant._id);
     user.save(function(err) {
       if (err) {
         console.log(err);
@@ -99,32 +100,33 @@ router.put("/user/plant/activate", async (req, res) => {
   let userId = req.body.user_Id;
   let plantId = req.body.plant_Id;
   let sensorId = req.body.sensor_Id;
-  let user = await Users.findById(userId);
+  let user = await Users.findById(userId).populate("plants");
   let plantArr = [...user.plants];
 
   for (let p of plantArr) {
-    if (p._id === plantId) {
-      p.active = !p.active;
-      p.activeSensor = sensorId;
+    if (p._id == plantId) {
+      let activate = !p.active;
+      let activeSensor = sensorId;
+      user = await UserPlant.update(
+        { _id: [plantId] },
+        { $set: { active: activate, activeSensor } },
+        { new: true }
+      );
     }
   }
-  
-  user = await Users.update(
-    { _id: [userId] },
-    { $set: { plants: plantArr} },
-    { new: true }
-  )
   res.send(user);
 });
 
-router.get("/user/myplants/:userId", function(req, res) {
+router.get("/user/plants/:userId", function(req, res) {
   let userId = req.params.userId;
-  Users.findOne({ _id: `${userId}` }).exec(function(err, data) {
-    if (err) {
-    } else {
-      res.send(data.plants);
-    }
-  });
+  Users.findOne({ _id: `${userId}` })
+    .populate("plants")
+    .exec(function(err, data) {
+      if (err) {
+      } else {
+        res.send(data.plants);
+      }
+    });
 });
 
 module.exports = router;
