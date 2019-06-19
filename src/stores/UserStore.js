@@ -34,6 +34,7 @@ export class UserStore {
           `http://localhost:2805/userLogin/${userName}`
         );
         let dataToStorage = {
+          user_id : data.data._id,
           userName : data.data.userName,
           plants : data.data.plants,
           sensors : data.data.sensors
@@ -77,13 +78,13 @@ export class UserStore {
       plantName: plantName,
       userId: user.user_id
     };
-    await Axios.post(`http://localhost:2805/user/myPlants`, sendData);
+    await Axios.post(`http://localhost:2805/user/newPlant`, sendData);
     this.getUserPlants(user.user_id);
   };
 
   @action getUserPlants = async userID => {
     let savedPlants = await Axios.get(
-      `http://localhost:2805/user/myplants/${userID}`
+      `http://localhost:2805/user/plants/${userID}`
     );
     return this.myPlants = savedPlants.data;
   };

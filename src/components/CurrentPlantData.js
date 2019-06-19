@@ -73,7 +73,7 @@ class CurrentPlantData extends Component {
                 <div id = "tempText">Good Air Temprature</div>
                 <div className = "nums">
                 <i className="fas fa-thermometer-three-quarters" />
-               <div>{this.props.statsistics.c}&deg;</div>
+               <div>{this.props.currentStats.c}&deg;</div>
                 </div>
               
              </div>
@@ -82,7 +82,7 @@ class CurrentPlantData extends Component {
              <div id = "moistTextText">Your Plant Need WATER</div>
               <div className = "nums">
               <i className="fas fa-water" />
-              <div>{this.props.statsistics.m}%</div>
+              <div>{this.props.currentStats.m}%</div>
               </div>
            </div>
            
@@ -91,7 +91,7 @@ class CurrentPlantData extends Component {
              <div id = "humidText">Comfort Zone Humidity</div>
               <div className = "nums">
               <i className="fas fa-leaf" />
-              <div>{this.props.statsistics.h}%</div>
+              <div>{this.props.currentStats.h}%</div>
               </div>
            </div>    
          </div>

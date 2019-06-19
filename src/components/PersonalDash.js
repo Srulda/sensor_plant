@@ -13,7 +13,7 @@ class PersonalDash extends Component {
     super();
     this.state = {
       loading: true,
-      statsistics: {}
+      currentStats: {}
     };
   }
 
@@ -28,20 +28,16 @@ class PersonalDash extends Component {
 
   renderLiveStats = async () => {
     let plantId = sessionStorage.getItem("plantID");
-    let user = JSON.parse(sessionStorage.getItem("currentLogin"));
-    let userID = user.user_id;
     if (plantId === undefined) {
       return;
     } else {
-      console.log(plantId);
-
-      let currentStats = await Axios.get(
-        `http://localhost:2805/sensorLive/${plantId}/${userID}`
+      let stats = await Axios.get(
+        `http://localhost:2805/sensorLive/${plantId}`
       );
-      console.log(currentStats.data)
-
+        console.log(stats.data);
+        
       this.setState({
-        statsistics: currentStats.length-1
+         currentStats : stats.data
       });
     }
   };
@@ -84,7 +80,7 @@ class PersonalDash extends Component {
           <Loading />
         ) : (
           <div className="user-dashboard">
-            <CurrentPlantData statsistics={this.state.statsistics} />
+            <CurrentPlantData currentStats={this.state.currentStats} />
             <div className="myPlants-container">
               {userPlants.map(p => (
                 <UserPlant
