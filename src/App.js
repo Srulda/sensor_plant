@@ -15,35 +15,32 @@ import HistoricalChart from "./components/HistoricalChart";
 @inject("itemStore", "plantsStore", "user")
 @observer
 class App extends Component {
-  
-  componentDidMount = async () =>{
-    await this.props.plantsStore.getDataFromDB()
- }
+  componentDidMount = async () => {
+    await this.props.plantsStore.getDataFromDB();
+  };
 
   render() {
     return (
       <div className="App">
         <DevTools />
-      {sessionStorage.getItem("currentLogin") 
-                  ? 
-    (<Router>
-        < Navbar />
-        <Route exact path="/home" component={Home} />
-        <Route exact path="/plants" component={Plants} />
-        <Route exact path="/dashboard" component={PersonalDash} />
-        <Route exact path="/chart" component={HistoricalChart} />
-        </Router>)
-                   :
-                (   <Router>
-        <Route exact path="/" component={Landing} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/signUp" component={SignUp} />  
-             </Router>)
-    }
+        {sessionStorage.getItem("currentLogin") ? (
+          <Router>
+            <Navbar />
+            <Route exact path="/home" component={Home} />
+            <Route exact path="/plants" component={Plants} />
+            <Route exact path="/dashboard" component={PersonalDash} />
+            <Route exact path="/chart" component={HistoricalChart} />
+          </Router>
+        ) : (
+          <Router>
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signUp" component={SignUp} />
+          </Router>
+        )}
       </div>
     );
   }
 }
 
 export default App;
-
