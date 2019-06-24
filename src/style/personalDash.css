@@ -5,20 +5,34 @@
   margin-left: 6%;
 }
 
-.myPlants-container {
+.user-plants-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-template-rows: repeat(3, 1fr);
 }
 
-.myPlant-card {
+.user-plant-card {
   display: grid;
-  grid-template-columns: 70% 30%;
-  justify-content: center;
-  justify-items: center;
   align-content: center;
-  margin-right: 10%;
-  margin-left: 10%;
+  margin-right: 5%;
+  margin-left: 5%;
+  grid-template-areas:
+    "n n bc"
+    "n n bd";
+}
+
+.user-plant-name {
+  grid-area: n;
+  font-size: 2em;
+
+}
+
+.connect-btn {
+  grid-area: bc;
+}
+
+.disconnect-btn {
+  grid-area: bd;
 }
 
 .status {

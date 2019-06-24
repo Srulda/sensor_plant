@@ -1,10 +1,9 @@
 import { observable, action } from "mobx";
 import Axios from "axios";
 export class UserStore {
-  @observable myPlants = [];
+  @observable userPlants = [];
   @observable userName = "";
   @observable sensorName = "";
-
 
   @action handleInput = (name, value) => {
     this[name] = value;
@@ -34,11 +33,11 @@ export class UserStore {
           `http://localhost:2805/userLogin/${userName}`
         );
         let dataToStorage = {
-          user_id : data.data._id,
-          userName : data.data.userName,
-          plants : data.data.plants,
-          sensors : data.data.sensors
-        }
+          user_id: data.data._id,
+          userName: data.data.userName,
+          plants: data.data.plants,
+          sensors: data.data.sensors
+        };
         let savedData = JSON.stringify(dataToStorage);
         sessionStorage.setItem("currentLogin", savedData);
         window.location = `http://localhost:3000/home`;
@@ -56,11 +55,11 @@ export class UserStore {
         alert("user not found");
       } else {
         let dataToStorage = {
-          userName : data.data.userName,
-          user_id : data.data._id,
-          plants : data.data.plants,
-          sensors : data.data.sensors
-        }
+          userName: data.data.userName,
+          user_id: data.data._id,
+          plants: data.data.plants,
+          sensors: data.data.sensors
+        };
         let savedData = JSON.stringify(dataToStorage);
         sessionStorage.setItem("currentLogin", savedData);
         window.location = `http://localhost:3000/home`;
@@ -69,11 +68,18 @@ export class UserStore {
     }
   };
 
+  @action getUserPlants = async userID => {
+    let savedPlants = await Axios.get(
+      `http://localhost:2805/user/plants/${userID}`
+    );
+    return (this.userPlants = savedPlants.data);
+  };
+
   @action addPlant = async plantName => {
     // let newPlant = new Plant(plantName, img);
     let user = JSON.parse(sessionStorage.getItem("currentLogin"));
     console.log(user);
-    
+
     let sendData = {
       plantName: plantName,
       userId: user.user_id
@@ -82,28 +88,40 @@ export class UserStore {
     this.getUserPlants(user.user_id);
   };
 
-  @action getUserPlants = async userID => {
-    let savedPlants = await Axios.get(
-      `http://localhost:2805/user/plants/${userID}`
-    );
-    return this.myPlants = savedPlants.data;
-  };
-
   @action conncetPlantToSensor = (userID, plantID, sensorID) => {
-    let interval = () => setInterval(sendData, 1500);
-    let clear = (interval) => clearInterval(interval);
-    clear(interval);
+    // let interval = () => setInterval(sendData, 1500);
+    // let clear = (interval) => clearInterval(interval);
+    // clear(interval);
 
     let update = {
       user_Id: userID,
       plant_Id: plantID,
-      sensor_Id : sensorID 
-    };
-  
-    const sendData = async () => {
-            await Axios.put(`http://localhost:2805/user/plant/activate`, update);
+      sensor_Id: sensorID
     };
 
-    interval()
+    const sendData = async () => {
+      await Axios.put(`http://localhost:2805/user/plant/activate`, update);
+    };
+
+    sendData();
+
+    // interval()
+  };
+
+  @action disconnectPlantFromSensor = async (userID, plantID) => {
+    let update = {
+      user_Id: userID,
+      plant_Id: plantID
+    };
+
+    console.log(plantID);
+
+    await Axios.put(`http://localhost:2805/user/plant/activate`, update)
+      .then(function(response) {
+        console.log(response.data);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   };
 }

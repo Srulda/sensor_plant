@@ -2,33 +2,26 @@ import React, { Component } from "react";
 import "../style/personalDash.css";
 
 class UserPlant extends Component {
-  constructor() {
-    super();
-    this.state = {
-      isActive: false
-    };
-  }
-  connect = async e => {
-    await this.props.connect(e);
-    this.setState({
-      isActive: true
-    });
-    this.checkIfActive();
+  connect = () => {
+    let ID = this.props.id;
+    this.props.connect(ID);
   };
 
-  checkIfActive = () => {
-    let classActive = "off";
-    if (this.state.isActive === true) {
-      classActive = "heartbeat";
-    }
-    return classActive;
+  disconnect = () => {
+    let ID = this.props.id;
+    this.props.disconnect(ID);
   };
 
   render() {
     return (
-      <div className="myPlant-card" onClick={this.connect}>
-        <div id={this.props.id}> {this.props.name} </div>
-        <div className={`status ${this.checkIfActive()}`} />
+      <div className="user-plant-card" id={this.props.id}>
+        <div className="user-plant-name">{this.props.name}</div>
+        <button className="connect-btn" onClick={this.connect}>
+          Connect
+        </button>
+        <button className="disconnect-btn" onClick={this.disconnect}>
+          Disconnect
+        </button>
       </div>
     );
   }

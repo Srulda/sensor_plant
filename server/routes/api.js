@@ -67,9 +67,9 @@ router.post("/sensorData", async function(req, res) {
 router.get("/sensorLive/:plantId", async function(req, res) {
   let plantId = await req.params.plantId;
 
-  UserPlant.findOne({ _id: `${plantId}` }, function(err, result) {
+  UserPlant.findOne({ _id: plantId }, function(err, result) {
     let liveStats = result.stats[0];
-      res.send(liveStats);
+    res.send(liveStats);
   });
 });
 
@@ -101,9 +101,8 @@ router.put("/user/plant/activate", async (req, res) => {
   let plantId = req.body.plant_Id;
   let sensorId = req.body.sensor_Id;
   let user = await Users.findById(userId).populate("plants");
-  let plantArr = [...user.plants];
 
-  for (let p of plantArr) {
+  for (let p of user.plants) {
     if (p._id == plantId) {
       let activate = !p.active;
       let activeSensor = sensorId;
@@ -114,7 +113,7 @@ router.put("/user/plant/activate", async (req, res) => {
       );
     }
   }
-  res.send(user);
+  res.send(`updated user ${userId} plant ${plantId} mark ${sensorId}`);
 });
 
 router.get("/user/plants/:userId", function(req, res) {

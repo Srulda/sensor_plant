@@ -6,7 +6,7 @@ import "../style/personalDash.css";
 import UserPlant from "./UserPlant";
 import Axios from "axios";
 
-@inject("itemStore", "plantsStore", "user")
+@inject("plantsStore", "user")
 @observer
 class PersonalDash extends Component {
   constructor() {
@@ -34,45 +34,52 @@ class PersonalDash extends Component {
       let stats = await Axios.get(
         `http://localhost:2805/sensorLive/${plantId}`
       );
-        console.log(stats.data);
-        
+      console.log(stats.data);
+
       this.setState({
-         currentStats : stats.data
+        currentStats: stats.data
       });
     }
   };
 
   interval = () => {
-    setInterval(async () => {
+    this.int = setInterval(async () => {
       await this.renderLiveStats();
     }, 1500);
   };
 
-  connect = async e => {
+  connect = ID => {
     let user = JSON.parse(sessionStorage.getItem("currentLogin"));
-    let plantId = await e.target.id;
-    
+    let plantId = ID;
+    let plant = this.props.user.userPlants.find(p => plantId === p._id);
+    let { plantsStore } = this.props;
     sessionStorage.setItem("plantID", plantId);
-    // let plantStore = this.props.plantsStore;
-    // let txt_target = e.target.textContent;
-
     this.props.user.conncetPlantToSensor(user.user_id, plantId, "7");
 
-    // plantStore.getPlantMaxTemp(txt_target);
-    // plantStore.getPlantMinTemp(txt_target);
-    // plantStore.getPlantMaxHumid(txt_target);
-    // plantStore.getPlantMinHumid(txt_target);
-    // plantStore.getPlantMaxMoist(txt_target);
-    // plantStore.getPlantMinMoist(txt_target);
+    plantsStore.getPlantMaxTemp(plant.name);
+    plantsStore.getPlantMinTemp(plant.name);
+    plantsStore.getPlantMaxHumid(plant.name);
+    plantsStore.getPlantMinHumid(plant.name);
+    plantsStore.getPlantMaxMoist(plant.name);
+    plantsStore.getPlantMinMoist(plant.name);
 
     setTimeout(() => {
       this.interval();
-    }, 2000);
+    }, 1000);
+  };
+
+  disconnect = ID => {
+    clearInterval(this.int);
+    let plantId = ID;
+    console.log(plantId);
+
+    let user = JSON.parse(sessionStorage.getItem("currentLogin"));
+    this.props.user.disconnectPlantFromSensor(user.user_id, plantId);
   };
 
   render() {
     const loading = this.state.loading;
-    const userPlants = this.props.user.myPlants;
+    const userPlants = this.props.user.userPlants;
 
     return (
       <div>
@@ -81,12 +88,13 @@ class PersonalDash extends Component {
         ) : (
           <div className="user-dashboard">
             <CurrentPlantData currentStats={this.state.currentStats} />
-            <div className="myPlants-container">
+            <div className="user-plants-container">
               {userPlants.map(p => (
                 <UserPlant
                   key={p._id}
                   name={p.name}
                   connect={this.connect}
+                  disconnect={this.disconnect}
                   id={p._id}
                 />
               ))}
