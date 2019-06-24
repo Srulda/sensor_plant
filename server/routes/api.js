@@ -18,6 +18,19 @@ router.get(`/userLogin/:userName`, function(req, res) {
   });
 });
 
+router.get("/user/sensors/:userId", function(req,res){
+  let userId = req.params.userId
+  Users.findOne({ _id: `${userId}` },function(err, result){
+    if(result){
+      let sensors = result.sensors
+      res.send(sensors)
+    }else{
+      res.end()
+    }
+  })
+})
+
+
 router.post("/signUp/", function(req, res) {
   const user = req.body;
 
@@ -39,7 +52,6 @@ router.get("/plants", function(req, res) {
 
 router.post("/sensorData", async function(req, res) {
   let sensorData = req.body;
-  console.log(sensorData);
   
   sensorData.timestamp = moment().format();
   let user = await Users.findOne({ sensors: `${req.body.id}` }).populate(
@@ -86,8 +98,6 @@ router.get("/sensorLive/:plantId", async function(req, res) {
 
 router.post("/user/newPlant", async (req, res) => {
   let data = req.body;
-  console.log(data);
-
   let newPlant = await new UserPlant({
     name: data.plantName,
     active: false,
