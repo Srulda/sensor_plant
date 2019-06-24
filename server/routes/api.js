@@ -56,20 +56,29 @@ router.post("/sensorData", async function(req, res) {
           { _id: p._id },
           { $set: { stats: newStats } },
           (err, stats) => {
-            res.send(stats);
+            if(err){
+              return
+            } else{
+              res.send(stats)
+            }
           }
-        );
+        )
       }
     }
   }
-});
+})
 
 router.get("/sensorLive/:plantId", async function(req, res) {
   let plantId = await req.params.plantId;
 
   UserPlant.findOne({ _id: plantId }, function(err, result) {
-    let liveStats = result.stats[0];
-    res.send(liveStats);
+    if (err){
+      return
+    }else{
+      let liveStats = result.stats[0];
+      res.send(liveStats);
+    }
+    
   });
 });
 
@@ -129,3 +138,8 @@ router.get("/user/plants/:userId", function(req, res) {
 });
 
 module.exports = router;
+
+
+
+
+

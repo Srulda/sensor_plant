@@ -7,13 +7,16 @@ import "../../style/navbar.css";
 class Navbar extends Component {
 
 logOut = () =>{
-  sessionStorage.removeItem('currentLogin')
+  sessionStorage.removeItem("userID")
+  sessionStorage.removeItem("userName")
+  sessionStorage.removeItem("userPlants")
+  sessionStorage.removeItem("userSensors")
   sessionStorage.removeItem('plantID')
   window.location = `http://localhost:3000/`;
 }
 
   render() {
-    let user =JSON.parse(sessionStorage.getItem('currentLogin'))
+    let userName =JSON.parse(sessionStorage.getItem('userName'))
      return (
       <div>
         <div className="navbar">
@@ -33,7 +36,7 @@ logOut = () =>{
             </span>
           </Link>
           <div className = "helloAndLogout">
-          <div><span id = "hello">Hello {user.userName} !</span>
+          <div><span id = "hello">Hello {userName} !</span>
             </div>
             <div> <span id = "logOut" onClick = {this.logOut}>
             <i className="fas fa-sign-out-alt" />

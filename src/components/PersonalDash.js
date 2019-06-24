@@ -18,8 +18,7 @@ class PersonalDash extends Component {
   }
 
   componentDidMount = async () => {
-    let user = JSON.parse(sessionStorage.getItem("currentLogin"));
-    let userID = user.user_id;
+    let userID = JSON.parse(sessionStorage.getItem("userID"));
     this.props.user.getUserPlants(userID);
     this.setState({
       loading: false
@@ -34,8 +33,6 @@ class PersonalDash extends Component {
       let stats = await Axios.get(
         `http://localhost:2805/sensorLive/${plantId}`
       );
-      console.log(stats.data);
-
       this.setState({
         currentStats: stats.data
       });
@@ -49,12 +46,12 @@ class PersonalDash extends Component {
   };
 
   connect = ID => {
-    let user = JSON.parse(sessionStorage.getItem("currentLogin"));
+    let userID = JSON.parse(sessionStorage.getItem("userID"));
     let plantId = ID;
     let plant = this.props.user.userPlants.find(p => plantId === p._id);
     let { plantsStore } = this.props;
     sessionStorage.setItem("plantID", plantId);
-    this.props.user.conncetPlantToSensor(user.user_id, plantId, "7");
+    this.props.user.conncetPlantToSensor(userID, plantId, "7");
 
     plantsStore.getPlantMaxTemp(plant.name);
     plantsStore.getPlantMinTemp(plant.name);
@@ -73,8 +70,8 @@ class PersonalDash extends Component {
     let plantId = ID;
     console.log(plantId);
 
-    let user = JSON.parse(sessionStorage.getItem("currentLogin"));
-    this.props.user.disconnectPlantFromSensor(user.user_id, plantId);
+    let userID = JSON.parse(sessionStorage.getItem("userID"));
+    this.props.user.disconnectPlantFromSensor(userID, plantId);
   };
 
   render() {

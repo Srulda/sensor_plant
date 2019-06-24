@@ -24,7 +24,7 @@ class App extends Component {
     return (
       <div className="App">
         <DevTools />
-      {sessionStorage.getItem("currentLogin") 
+      {sessionStorage.getItem("userID") 
                   ? 
     (<Router>
         < Navbar />
