@@ -6,7 +6,7 @@ import "../style/personalDash.css";
 import UserPlant from "./UserPlant";
 import Axios from "axios";
 
-@inject("plantsStore", "user")
+@inject("user")
 @observer
 class PersonalDash extends Component {
   constructor() {
@@ -15,17 +15,28 @@ class PersonalDash extends Component {
       loading: true,
       currentStats: {},
       plantName: "",
-      active: false
+      active: false,
+      userSensors : []
     };
   }
 
   componentDidMount = async () => {
     let userID = JSON.parse(sessionStorage.getItem("userID"));
-    this.props.user.getUserPlants(userID);
+    this.props.user.getUserPlants(userID)
+    this.getUserSensorsFromDB(userID)
     this.setState({
       loading: false
     });
   };
+
+  getUserSensorsFromDB = async (userID) =>{
+    let sensors = await Axios.get(`http://localhost:2805/user/sensors/${userID}`)
+    
+    this.setState({
+      userSensors : sensors.data
+    })
+    // return sensors
+  }
 
   renderLiveStats = async () => {
     let plantId = sessionStorage.getItem("plantID");
@@ -52,7 +63,9 @@ class PersonalDash extends Component {
     let plantId = ID;
     let plant = this.props.user.userPlants.find(p => plantId === p._id);
     sessionStorage.setItem("plantID", plantId);
-
+    console.log(userID)
+    console.log(plantId)
+    
     this.props.user.conncetPlantToSensor(userID, plantId, "7");
     this.setState({
       plantName: plant.name,
@@ -99,6 +112,7 @@ class PersonalDash extends Component {
                   name={p.name}
                   connect={this.connect}
                   disconnect={this.disconnect}
+                  sensors = {this.state.userSensors}
                 />
               ))}
             </div>

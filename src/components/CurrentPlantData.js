@@ -37,6 +37,7 @@ class CurrentPlantData extends Component {
     let min = plantsStore.getPlantMinTemp(plantName);
     let max = plantsStore.getPlantMaxTemp(plantName);
     return this.calculateDifference(current.c, min, max);
+
   };
 
   classHumidity = () => {
@@ -55,6 +56,7 @@ class CurrentPlantData extends Component {
     let min = plantsStore.getPlantMinMoist(plantName);
     let max = plantsStore.getPlantMaxMoist(plantName);
     return this.calculateDifference(current.m, max, min);
+
   };
 
   render() {
