@@ -29,7 +29,6 @@
 #temp{
   display: grid;
   grid-template-columns: 1fr 1fr;
-  box-shadow: 1px 1px 0px 1px rgba(39,176,139,1);
 }
 
 #tempText{
@@ -39,14 +38,10 @@
 #moist{
   display: grid;
   grid-template-columns: 1fr 1fr;
-  box-shadow: 1px 1px 0px 1px rgb(190, 16, 16);
-  color:  rgb(190, 16, 16);
 }
 
 
 #humid{
   display: grid;
   grid-template-columns: 1fr 1fr;
-  box-shadow: 1px 1px 0px 1px rgb(42, 99, 221);
-
 }
