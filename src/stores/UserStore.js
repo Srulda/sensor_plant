@@ -10,7 +10,8 @@ export class UserStore {
   };
 
   @action signUp = async userName => {
-    if (userName === "") {
+    this.userName = userName;
+        if (userName === "") {
       alert("Please Insert User Name");
     }
     if (userName.length > 12) {
@@ -19,27 +20,32 @@ export class UserStore {
       let dataNameCheck = await Axios.get(
         `http://localhost:2805/userLogin/${userName}`
       );
+  
       if (dataNameCheck.data !== "") {
+
         alert("This User Name Already In Use");
       } else {
-        let user = {
+        
+          let user = {
           userName: userName,
           plants: [],
           sensors: [this.sensorName]
         };
-        this.userName = userName;
+        
         await Axios.post(`http://localhost:2805/signUp/`, user);
         let data = await Axios.get(
           `http://localhost:2805/userLogin/${userName}`
-        );
-        let dataToStorage = {
-          user_id: data.data._id,
-          userName: data.data.userName,
-          plants: data.data.plants,
-          sensors: data.data.sensors
-        };
-        let savedData = JSON.stringify(dataToStorage);
-        sessionStorage.setItem("currentLogin", savedData);
+        )
+        
+        let userID = JSON.stringify(data.data._id)
+        let user_Name = JSON.stringify(data.data.userName)
+        let plants = JSON.stringify(data.data.plants)
+        let sensors = JSON.stringify(data.data.sensors)
+
+        sessionStorage.setItem("userID", userID)
+        sessionStorage.setItem("userName", user_Name)
+        sessionStorage.setItem("userPlants", plants)
+        sessionStorage.setItem("userSensors", sensors)
         window.location = `http://localhost:3000/home`;
       }
     }
@@ -49,21 +55,23 @@ export class UserStore {
     if (userName === "") {
       alert("Please Insert User Name");
     } else {
-      let data = await Axios.get(`http://localhost:2805/userLogin/${userName}`);
+      let data = await Axios.get(`http://localhost:2805/userLogin/${userName}`)
 
       if (data.data === "") {
         alert("user not found");
       } else {
-        let dataToStorage = {
-          userName: data.data.userName,
-          user_id: data.data._id,
-          plants: data.data.plants,
-          sensors: data.data.sensors
-        };
-        let savedData = JSON.stringify(dataToStorage);
-        sessionStorage.setItem("currentLogin", savedData);
-        window.location = `http://localhost:3000/home`;
-        // return data.data
+        let userID = JSON.stringify(data.data._id)
+        let user_Name = JSON.stringify(data.data.userName)
+        let plants = JSON.stringify(data.data.plants)
+        let sensors = JSON.stringify(data.data.sensors)
+
+        window.location = `http://localhost:3000/home`
+
+        sessionStorage.setItem("userID", userID)
+        sessionStorage.setItem("userName", user_Name)
+        sessionStorage.setItem("userPlants", plants)
+        sessionStorage.setItem("userSensors", sensors)
+
       }
     }
   };
@@ -71,19 +79,27 @@ export class UserStore {
   @action getUserPlants = async userID => {
     let savedPlants = await Axios.get(
       `http://localhost:2805/user/plants/${userID}`
-    );
-    return (this.userPlants = savedPlants.data);
+    )
+
+    let plantIds = savedPlants.data.map(i => i._id)
+    let plantsIdToStorage = JSON.stringify(plantIds)
+    sessionStorage.setItem("userPlants", plantsIdToStorage);
+    this.userPlants = savedPlants.data
+
   };
 
   @action addPlant = async plantName => {
-    let user = JSON.parse(sessionStorage.getItem("currentLogin"));
-    console.log(user);
+
+    let userID = JSON.parse(sessionStorage.getItem("userID"))
     let sendData = {
       plantName: plantName,
-      userId: user.user_id
+      userId: userID
     };
     await Axios.post(`http://localhost:2805/user/newPlant`, sendData);
-    this.getUserPlants(user.user_id);
+    await this.getUserPlants(userID)
+    
+
+   
   };
 
   @action conncetPlantToSensor = (userID, plantID, sensorID) => {

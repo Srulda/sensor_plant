@@ -2,19 +2,19 @@ import { observable } from "mobx";
 export class ItemStore {
   @observable plantHistory = [];
   @observable liveStats = {};
-   // this.socket = io("http://localhost:2805");
+  //  this.socket = io("http://localhost:2805");
 
-    // this.socket.on(`plant_stats`, data => {
-    //   this.liveStats = data[0];
-    // });
+  //   this.socket.on(`plant_stats`, data => {
+  //     this.liveStats = data[0];
+  //   });
 
-    // this.socket.on(`plant_history`, data => {
-    //   this.plantHistory = data;
-    // });
+  //   this.socket.on(`plant_history`, data => {
+  //     this.plantHistory = data;
+  //   });
 
-    // setInterval(this.getLiveStats, 1500);
+  //   setInterval(this.getLiveStats, 1500);
 
-    // setInterval(this.getPlantHistory, 10000);
+  //   setInterval(this.getPlantHistory, 10000);
   
 
   // @action renderLiveStats = async () => {
