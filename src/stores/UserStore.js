@@ -89,8 +89,8 @@ export class UserStore {
   };
 
   @action addPlant = async plantName => {
+
     let userID = JSON.parse(sessionStorage.getItem("userID"))
-   
     let sendData = {
       plantName: plantName,
       userId: userID
@@ -103,23 +103,16 @@ export class UserStore {
   };
 
   @action conncetPlantToSensor = (userID, plantID, sensorID) => {
-    // let interval = () => setInterval(sendData, 1500);
-    // let clear = (interval) => clearInterval(interval);
-    // clear(interval);
-
     let update = {
       user_Id: userID,
       plant_Id: plantID,
       sensor_Id: sensorID
     };
-
     const sendData = async () => {
       await Axios.put(`http://localhost:2805/user/plant/activate`, update);
     };
 
     sendData();
-
-    // interval()
   };
 
   @action disconnectPlantFromSensor = async (userID, plantID) => {
@@ -127,8 +120,6 @@ export class UserStore {
       user_Id: userID,
       plant_Id: plantID
     };
-
-    console.log(plantID);
 
     await Axios.put(`http://localhost:2805/user/plant/activate`, update)
       .then(function(response) {

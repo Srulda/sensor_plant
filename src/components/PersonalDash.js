@@ -13,7 +13,9 @@ class PersonalDash extends Component {
     super();
     this.state = {
       loading: true,
-      currentStats: {}
+      currentStats: {},
+      plantName: "",
+      active: false
     };
   }
 
@@ -42,41 +44,38 @@ class PersonalDash extends Component {
   interval = () => {
     this.int = setInterval(async () => {
       await this.renderLiveStats();
-    }, 1500);
+    }, 1000);
   };
 
   connect = ID => {
     let userID = JSON.parse(sessionStorage.getItem("userID"));
     let plantId = ID;
     let plant = this.props.user.userPlants.find(p => plantId === p._id);
-    let { plantsStore } = this.props;
     sessionStorage.setItem("plantID", plantId);
+
     this.props.user.conncetPlantToSensor(userID, plantId, "7");
-
-    plantsStore.getPlantMaxTemp(plant.name);
-    plantsStore.getPlantMinTemp(plant.name);
-    plantsStore.getPlantMaxHumid(plant.name);
-    plantsStore.getPlantMinHumid(plant.name);
-    plantsStore.getPlantMaxMoist(plant.name);
-    plantsStore.getPlantMinMoist(plant.name);
-
+    this.setState({
+      plantName: plant.name,
+      active: true
+    });
     setTimeout(() => {
       this.interval();
-    }, 1000);
+    }, 500);
   };
 
   disconnect = ID => {
     clearInterval(this.int);
     let plantId = ID;
-    console.log(plantId);
 
     let userID = JSON.parse(sessionStorage.getItem("userID"));
     this.props.user.disconnectPlantFromSensor(userID, plantId);
+
   };
 
   render() {
     const loading = this.state.loading;
     const userPlants = this.props.user.userPlants;
+    const active = this.state.active;
 
     return (
       <div>
@@ -84,15 +83,22 @@ class PersonalDash extends Component {
           <Loading />
         ) : (
           <div className="user-dashboard">
-            <CurrentPlantData currentStats={this.state.currentStats} />
+            {active ? (
+              <CurrentPlantData
+                currentStats={this.state.currentStats}
+                plantName={this.state.plantName}
+              />
+            ) : (
+              <div>Connect your plant to a sensor</div>
+            )}
             <div className="user-plants-container">
               {userPlants.map(p => (
                 <UserPlant
                   key={p._id}
+                  id={p._id}
                   name={p.name}
                   connect={this.connect}
                   disconnect={this.disconnect}
-                  id={p._id}
                 />
               ))}
             </div>

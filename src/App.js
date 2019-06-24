@@ -15,10 +15,9 @@ import HistoricalChart from "./components/HistoricalChart";
 @inject("itemStore", "plantsStore", "user")
 @observer
 class App extends Component {
-  
-  componentDidMount = async () =>{
-    await this.props.plantsStore.getDataFromDB()
- }
+  componentDidMount = async () => {
+    await this.props.plantsStore.getDataFromDB();
+  };
 
   render() {
     return (
@@ -40,10 +39,10 @@ class App extends Component {
         <Route exact path="/signUp" component={SignUp} />  
              </Router>)
     }
+
       </div>
     );
   }
 }
 
 export default App;
-

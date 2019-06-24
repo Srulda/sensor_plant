@@ -16,10 +16,7 @@ class Home extends Component {
 
   componentDidMount =  async() => {
     let userID = JSON.parse(sessionStorage.getItem("userID"));
-    this.props.user.getUserPlants(userID);
-    await this.props.plantsStore.getDataFromDB()
-    
-
+    this.props.user.getUserPlants(userID);   
   };
 
   render() {
