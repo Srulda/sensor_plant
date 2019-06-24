@@ -39,6 +39,8 @@ router.get("/plants", function(req, res) {
 
 router.post("/sensorData", async function(req, res) {
   let sensorData = req.body;
+  console.log(sensorData);
+  
   sensorData.timestamp = moment().format();
   let user = await Users.findOne({ sensors: `${req.body.id}` }).populate(
     "plants"

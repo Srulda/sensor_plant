@@ -19,43 +19,43 @@ export class PlantsStore {
     }
   };
 
-  @action getPlantMinTemp = plant => {
-    if (!plant) {
+  @action getPlantMinTemp = plantName => {
+    if (!plantName) {
       return;
     } else {
-      let plantObj = this.plants.find(p => p.name === plant);
+      let plantObj = this.plants.find(p => p.name === plantName);
       return plantObj.temperature_min;
     }
   };
-  @action getPlantMaxHumid = plant => {
-    if (!plant) {
+  @action getPlantMaxHumid = plantName => {
+    if (!plantName) {
       return;
     } else {
-      let plantObj = this.plants.find(p => p.name === plant);
+      let plantObj = this.plants.find(p => p.name === plantName);
       return plantObj.humid_max;
     }
   };
-  @action getPlantMinHumid = plant => {
-    if (!plant) {
+  @action getPlantMinHumid = plantName => {
+    if (!plantName) {
       return;
     } else {
-      let plantObj = this.plants.find(p => p.name === plant);
+      let plantObj = this.plants.find(p => p.name === plantName);
       return plantObj.humid_min;
     }
   };
-  @action getPlantMaxMoist = plant => {
-    if (!plant) {
+  @action getPlantMaxMoist = plantName => {
+    if (!plantName) {
       return;
     } else {
-      let plantObj = this.plants.find(p => p.name === plant);
+      let plantObj = this.plants.find(p => p.name === plantName);
       return plantObj.moist_max;
     }
   };
-  @action getPlantMinMoist = plant => {
-    if (!plant) {
+  @action getPlantMinMoist = plantName => {
+    if (!plantName) {
       return;
     } else {
-      let plantObj = this.plants.find(p => p.name === plant);
+      let plantObj = this.plants.find(p => p.name === plantName);
       return plantObj.moist_min;
     }
   };
