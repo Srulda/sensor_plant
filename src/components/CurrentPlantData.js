@@ -23,9 +23,7 @@ class CurrentPlantData extends Component {
     let { plantName } = this.props;
     let current = this.plantCurrentCondition();
     if (current.c < plantsStore.getPlantMinTemp(plantName)) {
-      console.log("cold");
     } else if (current.c > plantsStore.getPlantMaxTemp(plantName)) {
-      console.log("hot");
       return "hot";
     } else {
       return "is-fine";
@@ -50,9 +48,9 @@ class CurrentPlantData extends Component {
     let { plantName } = this.props;
     let current = this.plantCurrentCondition();
     if (current.m < plantsStore.getPlantMinMoist(plantName)) {
-      return "cold";
-    } else if (current.m > plantsStore.getPlantMaxMoist(plantName)) {
       return "hot";
+    } else if (current.m > plantsStore.getPlantMaxMoist(plantName)) {
+      return "cold";
     } else {
       return "is-fine";
     }
