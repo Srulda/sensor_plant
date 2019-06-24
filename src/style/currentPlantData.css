@@ -29,7 +29,9 @@
 #temp{
   display: grid;
   grid-template-columns: 1fr 1fr;
+
 }
+
 
 #moist{
   display: grid;
@@ -41,6 +43,7 @@
 #humid{
   display: grid;
   grid-template-columns: 1fr 1fr;
-
 }
+
+
 

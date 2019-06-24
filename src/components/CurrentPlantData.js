@@ -18,42 +18,45 @@ class CurrentPlantData extends Component {
     return currentObj;
   };
 
+  calculateDifference = (curr, min, max) => {
+    let setClass = "";
+    if (curr < min) {
+      setClass = "cold";
+    } else if (curr > max) {
+      setClass = "cold";
+    } else {
+      setClass = "is-fine";
+    }
+    return setClass;
+  };
+
   classTemp = () => {
-    let {plantsStore} = this.props
+    let { plantsStore } = this.props;
     let { plantName } = this.props;
     let current = this.plantCurrentCondition();
-    if (current.c < plantsStore.getPlantMinTemp(plantName)) {
-    } else if (current.c > plantsStore.getPlantMaxTemp(plantName)) {
-      return "hot";
-    } else {
-      return "is-fine";
-    }
+    let min = plantsStore.getPlantMinTemp(plantName);
+    let max = plantsStore.getPlantMaxTemp(plantName);
+    return this.calculateDifference(current.c, min, max);
+
   };
 
   classHumidity = () => {
-    let {plantsStore} = this.props
+    let { plantsStore } = this.props;
     let { plantName } = this.props;
     let current = this.plantCurrentCondition();
-    if (current.h < plantsStore.getPlantMinHumid(plantName)) {
-      return "cold";
-    } else if (current.h > plantsStore.getPlantMaxHumid(plantName)) {
-      return "hot";
-    } else {
-      return "is-fine";
-    }
+    let min = plantsStore.getPlantMinHumid(plantName);
+    let max = plantsStore.getPlantMaxHumid(plantName);
+    return this.calculateDifference(current.h, min, max);
   };
 
   classMoisture = () => {
-    let {plantsStore} = this.props
+    let { plantsStore } = this.props;
     let { plantName } = this.props;
     let current = this.plantCurrentCondition();
-    if (current.m < plantsStore.getPlantMinMoist(plantName)) {
-      return "hot";
-    } else if (current.m > plantsStore.getPlantMaxMoist(plantName)) {
-      return "cold";
-    } else {
-      return "is-fine";
-    }
+    let min = plantsStore.getPlantMinMoist(plantName);
+    let max = plantsStore.getPlantMaxMoist(plantName);
+    return this.calculateDifference(current.m, max, min);
+
   };
 
   render() {
